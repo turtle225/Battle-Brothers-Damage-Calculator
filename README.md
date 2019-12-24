@@ -29,7 +29,7 @@ Step 4 - Use the calculator:
   
   If not using VSCode, open your .py file in any form of text editor to edit in your weapon/defender data and apply any switches you wish to use. Save the file and then open a terminal or command prompt and navigate to the directory where your .py file exists. Run the file in the same way as described above. 
   
-  Either way, running the calculator is as simple as editing the file to fit your needs, saving it, and then running the script in a terminal. Editing the file is easy is as easy as putting in your weapon/defender stats, and flipping any options from 0 to 1. 
+  Either way, running the calculator is as simple as editing the file to fit your needs, saving it, and then running the script in a terminal. Editing the file is easy is as easy as putting in your weapon/defender stats, and flipping any options you wish to use from 0 to 1. Once you get comfortable it shouldn't take more than a few seconds to edit and re-run when doing subsequent tests. 
   
 If these instructions are in any way unclear then let me know how I can improve them.
 
