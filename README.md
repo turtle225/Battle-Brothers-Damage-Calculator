@@ -6,6 +6,7 @@ Includes over 70 different switches from unique weapon cases, perks, attachments
 Includes a lot of comments to help make the code easy and intuitive to understand. 
 
 User guide:
+
 Step 1 - Install Python 3.x:
   The script is written in Python 3.7. Earlier versions of Python 3 should work but Python 2 will not.
   If you need help getting Python installed, refer to here: https://realpython.com/installing-python/
