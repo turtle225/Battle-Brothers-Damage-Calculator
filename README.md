@@ -33,6 +33,7 @@ Thank you.
 Author: turtle225
 
 Special Thanks:
+
 -- Abel (aka) Villain Joueur: For grabbing the damage formula out of the game code, writing the damage page on the wiki, and for 
 helping me with many questions along the way.
 
