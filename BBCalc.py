@@ -46,8 +46,8 @@ DestroyArmorMastery = 0 #Hammer Mastery. Will use Destroy Armor instead of regul
 Axe1H = 0               #Applies bonus damage to Headshots. Gets negated by Steelbrow.
 SplitMan = 0            #Applies to single target 2HAxe except for Longaxe.
 AoE2HAxe = 0            #Applies to Round Swing and Split in Two (Bardiche), reduces Ignore by 10%.
-CleaverBleed = 0        #5 bleed damage per bleed tick, don't enable against Undead.
-CleaverMastery = 0      #10 bleed damage per bleed tick, don't enable against Undead. Used by Honor Guards, Conqueror, Necrosavants, 
+CleaverBleed = 0        #5 bleed damage per bleed tick.
+CleaverMastery = 0      #10 bleed damage per bleed tick. 
 Decapitate = 0          #Cleaver Decapitate. Will use Decapitate for all attacks.
 SmartDecap50 = 0        #Switches from normal Cleaver attacks to Decapitate once opposing hp is <= 50%.
 SmartDecap33 = 0        #Switches from normal Cleaver attacks to Decapitate once opposing hp is <= 33.33%.
