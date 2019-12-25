@@ -592,6 +592,7 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 
 #CREDITS:
 #Author: turtle225
+#Copyright 2019, turtle225. All rights reserved.
 #Special Thanks:
 #-- Abel (aka) Villain Joueur: For grabbing the damage formula out of the game code, writing the damage page on the wiki, and for helping me with many questions along the way.
 #-- Wall (aka) Wlira: For helping me with some questions along the way and having an existing calculator for me to test against.
