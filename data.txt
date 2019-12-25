@@ -1,0 +1,227 @@
+Unit Data:
+The following are hp/armor statistics for all enemy types. Also included are calculator relevant Perks, both offensive or defensive.
+
+Ancient Dead:
+Auxiliary: 45hp, 95 helmet, 25 armor. Forge, Steelbrow, Fearsome.
+Legion: 55hp, 130 helmet, 100-135 armor. Forge, Steelbrow, Fearsome.
+Honor Guard: 65hp, 180 helmet, 180-210 armor. Forge, Steelbrow, Fearsome, Cleaver Mastery.
+Conqueror: 350hp, 50 helmet, 380 armor. Forge, Steelbrow, Fearsome, Cleaver Mastery, Resilient, Executioner, Crippling.
+Necrosavant: 56-225hp, 20 armor. NineLives, HeadHunter, Crippling, Cleaver Mastery.
+
+Undead:
+Wiederganger: 100hp, 30-50 helmet, 5-30 armor. Forge. 
+Armored Ganger: 130hp, 40-140 helmet, 55-115 armor. Forge.
+Fallen Hero: 180hp, 230-255 helmet, 170-260 armor. Forge, Fearsome.
+Fallen Betrayer: 200hp, 230-255 helmet, 170-260 armor. Forge, Fearsome.
+
+Orcs:
+Young: 125hp, 0 or 35-120 helmet, 0 or 35-120 armor. Cleaver Mastery.
+Berserker: 250hp, 0 or 120 helmet, 0 or 50-110 armor. Cleaver Mastery, Resilient.
+Warrior: 200hp, 240-360 helmet, 280-400 armor. Cleaver Mastery. Resilient.
+Warlord: 300hp, 500 helmet, 500 armor. Cleaver Mastery. Fearsome.
+
+Goblins:
+Skirmisher: 40hp, 40-90 helmet, 45-90 armor. Throwing Mastery.
+Ambusher: 40hp, 25 helmet, 35 armor.
+Wolfrider: 60hp, 40-90 helmet, 55-90 armor.
+Shaman: 70hp, 35 helmet, 45 armor.
+Overseer: 70hp, 120 helmet, 180 armor. Xbow Mastery. 
+
+Barbarians:
+Thrall: 70hp, 0 or 30-50 helmet, 0 or 30-45 armor. Resilient.
+Reaver: 80hp, 0 or 30-145 helmet, 65-95 armor. Resilient, Cleaver Mastery, Hammer Master.
+Chosen: 130hp, 145-190 helmet, 140-230 armor. Resilient, Forge, Crippling, Executioner, Cleaver Mastery.
+King: 150hp, 250 helmet, 270 armor. Resilient, Forge, Crippling, Executioner, Cleaver Mastery, (Frenzy).
+Madman: 160hp, 300 helmet, 300 armor. Resilient, Forge, Crippling, Executioner, Cleaver Mastery.
+Drummer: 90hp, 30-50 helmet, 30-65 armor. Resilient, Cleaver Mastery.
+Beastmaster: 70hp, 130 helmet, 95 armor. Resilient.
+Warhound: 70hp, 0 helmet, 0 or 55 armor. Steelbrow.
+
+Nobles:
+Footman: 70hp, 80-215 helmet, 65-150 armor. Forge, Hammer Mastery.
+Billman: 70hp, 0 or 80-215 helmet, 50-130 armor. Forge.
+Arbalester: 60hp, 20-80 helmet, 50-65 armor. Xbow Mastery.
+Bannerman: 80hp, 0 or 115-215 helmet, 115-150 armor. Steelbrow.
+Knight: 125hp, 300 helmet, 210-320 armor. Forge, Crippling, Executioner.
+Sergeant: 100hp, 0 helmet, 150-210 armor. Nimble, Steelbrow, Duelist, Cleaver Mastery, Hammer Mastery.
+Zweihander: 90hp, 70 or 160 helmet, 150-240 armor. Forge, Steelbrow.
+Wardog: 50hp, 0 helmet, 55 armor. Steelbrow.
+
+Brigands:
+Thug: 55hp, 0-45 helmet, 5-70 armor. 
+Poacher: 55hp, 0-20 helmet, 20 armor.
+Raider: 75hp, 0-140 helmet, 55-115 armor. Executioner, All Wpn Mastery.
+Marksman: 60hp, 0-45 helmet, 20-70 armor. Xbow Mastery.
+Leader: 100hp, 90-250 helmet, 110-230 armor. NineLives, Executioner, All Wpn Mastery.
+
+Sellswords:
+Mercenary: 90hp, 0-230 helmet, 80-260 armor. Forge, All Wpn Mastery.
+Mercenary Marksman: 65hp, 0-115 helmet, 35-130 armor. Nimble, Crippling, Executioner, Xbow Mastery.
+Hedge Knight: 150hp, 280-300 helmet, 210-320 armor. Forge, Resilient, Crippling, Executioner, Fearsome, (Frenzy), All Wpn Mastery.
+Swordmaster: 70hp, 0-200 helmet, 115-190 armor. Nimble, Steelbrow, Crippling, Executioner, Duelist.
+Master Archer: 80hp, 0-30 helmet, 35-115 armor. Nimble, Steelbrow, Crippling, Executioner, HeadHunter.
+Bounty Hunter: 80hp, 0-215 helmet, 55-150 armor. Nimble, All Wpn Mastery.
+Bounty Hunter Marksman: 60hp, 0-50 helmet, 35-115 armor. Xbow Mastery.
+Cultist: 60hp, 30-60 helmet, 20-88 armor. Nimble, Crippling, Executioner.
+
+Beasts:
+Direwolf: 130hp, 30 helmet, 30 armor. Executioner.
+Frenzied Direwolf: 150hp, 30 helmet, 30 armor. Executioner, Resilient.
+Nach1: 80hp.
+Nach2: 200hp.
+Nach3: 380hp.
+Lindwurm: 1100hp, 200 helmet, 400 armor. Resilient, Fearsome.
+Unhold: 500hp. Steelbrow, Resilient, Crippling.
+Unhold Frost: 600hp, 90 helmet, 90 armor. Steelbrow, Resilient, Crippling, (Frenzy).
+Armored Unhold: 500hp, 35 helmet, 35 armor. Steelbrow, Resilient, Crippling.
+Armored Frost: 600hp, 400 helmet, 400 armor. Steelbrow, Resilient, Crippling, (Frenzy).
+Schrat: 600hp. Steelbrow, Resilient, Crippling.
+Webknecht: 60hp, 20 helmet, 20 armor. 
+Hexe: 80hp, 20 helmet, 0 armor.
+Alp: 90hp.
+Kraken: 4400hp, 1600 armor (does not have a body). Resilient, Steelbrow.
+Tentacle: 300hp. Steelbrow, Resilient, Fearsome.
+Ijirok: 2000hp, 130 helmet, 130 armor. Steelbrow, Resilient, Crippling.
+
+---------------------------------------------------------------------------------------------
+Weapon Data:
+Headchance is 25% unless otherwise stated.
+
+Daggers:
+Knife: 15-25, 20% Ignore, 50% Armor.
+Dagger: 15-35, 20% Ignore, 60% Armor.
+Rondel: 20-40, 20% Ignore, 70% Armor.
+
+Swords:
+Shortsword: 30-40, 20% Ignore, 75% Armor.
+Scimitar: 35-45, 20% Ignore, 65% Armor.
+Flachion: 35-45, 20% Ignore, 70% Armor.
+Arming Sword: 40-45, 20% Ignore, 80% Armor.
+Shamshir: 45-50, 20% Ignore, 75% Armor.
+Noble Sword: 45-50, 20% Ignore, 85% Armor.
+Fencing Sword: 35-50, 20% Ignore, 75% Armor.
+Ancient Sword: 38-43, 20% Ignore, 80% Armor.
+
+Warbrand: 50-75, 20% Ignore, 75% Armor, 30% Head.
+Longsword: 65-85, 35% Ignore, 100% Armor, 30% Head.
+Greatsword: 85-100, 25% Ignore, 100% Armor, 30% Head.
+Rhomphaia: 45-65, 20% Ignore, 104% Amor, 30% Head.
+
+Maces:
+Wooden Stick: 15-25, 40% Ignore, 50% Armor.
+Bludgeon: 20-35, 40% Ignore, 75% Armor.
+Morning Star: 30-45, 40% Ignore, 100% Armor.
+Winged Mace: 35-55, 40% Ignore, 110% Armor.
+CLaw Club: 20-30, 50% Ignore, 100% Armor.
+Cudgel: 30-50, 40% Ignore, 90% Armor.
+
+2H Mace: 50-75, 50% Ignore, 115% Armor.
+2H Flanged Mace: 75-95, 50% Ignore, 125% Armor.
+2H Spiked Mace: 50-70, 60% Ignore, 115% Armor.
+
+Spears:
+Militia Spear: 25-30, 25% Ignore, 90% Armor.
+Boar Spear: 30-35, 25% Ignore, 95% Armor.
+Fighting Spear: 35-40, 25% Ignore, 100% Armor.
+Goblin Skewer: 25-35, 20% Ignore, 70% Armor.
+Ancient Spear: 20-35, 25% Ignore, 100% Armor.
+
+Goedendag: 45-75, 25% Ignore, 110% Armor.
+Warfork: 40-60, 25% Ignore, 100% Armor, 30% Head.
+Spetum: 55-75, 25% Ignore, 100% Armor, 30% Head.
+
+Axes:
+Hatchet: 25-40, 30% Ignore, 110% Armor.
+Handaxe: 30-45, 30% Ignore, 120% Armor.
+Fighting Axe: 35-55, 30% Ignore, 130% Armor.
+Head Splitter: 35-65, 30% Ignore, 130% Armor.
+Crude Axe: 30-40, 40% Ignore, 120% Armor.
+
+Woodcutter Axe: 35-70, 40% Ignore, 125% Armor.
+Heavy Rusty Axe: 75-90, 50% Ignore, 150% Armor.
+Bardiche: 75-95, 40% Ignore, 130% Armor.
+Greataxe: 80-100, 40% Ignore, 150% Armor.
+Mansplitter: 90-120, 40% Ignore, 160% Armor.
+Longaxe: 70-95, 30% Ignore, 110% Armor, 30% Head.
+
+Flails:
+Wood Flail: 10-25, 30% Ignore, 50% Armor, 35% Head.
+Reinforced Wood Flail: 20-45, 30% Ignore, 80% Armor, 35% Head.
+Flail: 25-55, 30% Ignore, 100% Armor, 35% Head.
+3Head Flail: 21-66, 30% Ignore, 100% Armor, 35% Head.
+
+2H Wood Flail: 25-60, 30% Ignore, 80% Armor, 40% Head.
+2H Flail: 40-80, 30% Ignore, 110% Armor, 40% Head.
+Berserk Chain: 40-100, 30% Ignore, 125% Armor, 40% Head.
+
+Cleavers:
+Butcher Cleaver: 20-35, 25% Ignore, 75% Armor.
+Scramasax: 30-45, 25% Ignore, 80% Armor.
+Military Cleaver: 40-60, 25% Ignore, 90% Armor.
+Head Chopper: 40-70, 25% Ignore, 110% Armor.
+Falx: 25-35, 25% Ignore, 80% Armor.
+Khopesh: 35-55, 25% Ignore, 120% Armor.
+Antlers: 20-30, 35% Ignore, 75% Armor.
+Blunt Cleaver: 30-40, 35% Ignore, 80% Armor.
+
+Crypt Cleaver: 65-85, 25% Ignore, 115% Armor.
+Rusty Warblade: 60-80, 35% Ignore, 110% Armor.
+
+Hammers:
+Pickaxe: 15-30, 50% Ignore, 150% Armor.
+Military Pick: 20-35, 50% Ignore, 200% Armor.
+Warhammer: 30-40, 50% Ignore, 225% Armor.
+Axehammer: 20-30, 60% Ignore, 200% Armor.
+
+2H Mallet: 40-70, 50% Ignore, 150% Armor.
+2H Hammer: 60-90, 50% Ignore, 200% Armor.
+2H Skull Hammer: 45-65, 60% Ignore, 180% Armor.
+Polehammer: 50-75, 50% Ignore, 175% Armor, 30% Head.
+
+Polearms:
+Pitchfork: 30-50, 30% Ignore, 75% Armor, 30% Head.
+Hooked Blade: 40-70, 30% Ignore, 110% Armor, 30% Head.
+Pike: 60-80, 30% Ignore, 100% Armor, 30% Head.
+Billhook, 60-90, 30% Ignore, 150% Armor, 30% Head.
+Banner: 50-70, 30% Ignore, 100% Armor.
+Jagged Pike: 50-70, 25% Ignore, 90% Armor, 30% Head.
+Broken Bladed Pike: 35-55, 30% Ignore, 80% Armor, 30% Head.
+Ancient Bladed Pike: 55-80, 30% Ignore, 125% Armor, 30% Head.
+Warscythe: 55-80, 35% Ignore, 104% Armor. (Note: Wiki states actual Ignore is 30% on single target and 25% on AoE)
+
+Throwing:
+Javelins: 30-45, 45% Ignore, 75% Armor.
+Heavy Javelins: 40-55, 45% Ignore, 80% Armor.
+Throwing Axes: 25-40, 25% Ignore, 110% Armor, 30% Head.
+Heavy Axes: 35-55, 25% Ignore, 115% Armor, 30% Head.
+Crude Javelins: 30-40, 45% Ignore, 70% Armor.
+Bolas: 20-35, 35% Ignore, 70% Armor.
+Throwing Spear: 45-70, 45% Ignore, 110% Armor.
+Sling: 25-40, 35% Ignore, 50% Armor.
+
+Bows:
+Short Bow: 30-50, 35% Ignore, 50% Armor.
+Hunting Bow: 40-60, 35% Ignore, 55% Armor.
+War Bow: 50-70, 35% Ignore, 60% Armor.
+Masterwork Bow: 50-75, 35% Ignore, 65% Armor.
+Reinforced Boondock: 25-40, 35% Ignore, 60% Armor.
+
+Xbows:
+Light Xbow: 30-50, 50% Ignore, 60% Armor.
+Xbow: 40-60, 50% Ignore, 70% Armor.
+Heavy Xbow: 50-70, 50% Ignore, 75% Armor.
+Spike Impaler: 50-70, 50% Ignore, 75% Armor.
+
+Beasts:
+Direwolf: 30-50, 20% Ignore, 70% Armor.
+Nach1: 25-40, 10% Ignore, 75% Armor.
+Nach2: 40-60, 10% Ignore, 75% Armor.
+Nach3: 55-80, 10% Ignore, 75% Armor.
+Lindwurm Head: 80-140, 40% Ignore, 150% Armor.
+Lindwurm Tail: 60-120, 50% Ignore, 150% Armor.
+Unhold: 40-80, 40% Ignore, 80% Armor.
+Schrat: 70-100, 50% Ignore, 85% Armor.
+Sapling: 40-60, 40% Ignore, 85% Armor.
+Webknecht: 20-40, 30% Ignore, 70% Armor.
+Tentacle: 70-110, 50% Ignore, 100% Armor.
+Ijirok: 100-130, 40% Ignore, 75% Armor.
