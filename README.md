@@ -33,6 +33,8 @@ Step 4 - Use the calculator:
   
 If these instructions are in any way unclear then let me know how I can improve them.
 
+Also included is a file called data.txt which includes information on hp/armor statistics and calculator relevant perks for all enemies as well as weapon data for most weapons and Beasts. 
+
 Thank you.
 
 Author: turtle225
