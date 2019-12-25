@@ -49,7 +49,7 @@ Step 4 - Use the calculator:
   
   Either way, running the calculator is as simple as editing the file to fit your needs, saving it, and then running the script in a terminal. Editing the file is as easy as putting in your weapon/defender stats, and flipping any options you wish to use from 0 to 1. Once you get comfortable, it shouldn't take more than a few seconds to edit and re-run when doing subsequent tests. 
   
-If these instructions are in any way unclear then let me know how I can improve them.
+If these instructions are in any way unclear then let me know how I can improve them. If you need help, send me an email.
 
 Also included is a file called data.txt which includes information on hp/armor statistics and calculator relevant perks for all enemies as well as weapon data for most weapons and Beasts. 
 
