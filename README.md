@@ -5,7 +5,7 @@ Includes over 70 different switches from unique weapon cases, perks, attachments
 
 Includes a lot of comments to help make the code easy and intuitive to understand. 
 
-Sample Output for an Ancient Bladed Pike test:
+Sample Output for an Ancient Bladed Pike with Fearsome (Ancient Dead) test:
 
 HP = 100, Helmet = 120, Armor = 95
 
