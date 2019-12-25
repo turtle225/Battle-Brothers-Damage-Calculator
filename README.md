@@ -8,19 +8,12 @@ Includes a lot of comments to help make the code easy and intuitive to understan
 Sample Output for an Ancient Bladed Pike test:
 
 HP = 100, Helmet = 120, Armor = 95
-
 Nimble% = .4
-
 Death in 6.08715 hits on average.
-
 St. Dev: 0.66829585
-
 % hits to die (4, 0.579), (5, 16.556), (6, 56.496), (7, 26.309), (8, 0.06)
-
 First injury in 3.9028 hits on average.
-
 First morale check in 1 hits on average.
-
 2.85109 Fearsome procs on average.
 
 User guide:
