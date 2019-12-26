@@ -2,7 +2,7 @@
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
-#If you wish to cancel and ongoing calculation, use ctrl + c.
+#If you wish to cancel an ongoing calculation, use ctrl + c.
 
 #Attacker Stats: #Example is Ancient Bladed Pike, follow that formatting.
 Mind = 55        #Mind = 55
