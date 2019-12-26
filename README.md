@@ -5,7 +5,9 @@ Includes over 70 different switches from unique weapon cases, perks, attachments
 
 Includes a lot of comments to help make the code easy and intuitive to understand. 
 
-Sample Output for an Ancient Bladed Pike with Fearsome (Ancient Dead) test:
+BBCalc.py is the main calculator for general use. BBNimbleBattery.py will run 12 common Nimble sets given your scenario. BBRaisingHp.py will run a given scenario at various hp counts. These two allow you to run multiple tests at once for more efficiency and convenience. If you have ideas for more automated builds then let me know and I will consider making them.
+
+Here is a sample output for an Ancient Bladed Pike with Fearsome (Ancient Dead) test on BBCalc.py:
 
 HP = 100, Helmet = 120, Armor = 95
 
@@ -29,9 +31,9 @@ Step 1 - Install Python 3.x:
   
   The script is written in Python 3.7. Earlier versions of Python 3 should work but Python 2 will not.
   If you need help getting Python installed, refer to here: https://realpython.com/installing-python/
-  Note: You may need to set up a path variable (likely in Windows). If you need help setting up your path variable, here is how to     do so in Windows: https://geek-university.com/python/add-python-to-the-windows-path/
+  Note: You may need to set up a path variable (likely in Windows). If you need help setting up your path variable, here is how to do so in Windows: https://geek-university.com/python/add-python-to-the-windows-path/
   
-Step 2 - Download or copy the BBCalc.py file from the Github repository:
+Step 2 - Download or copy the BBCalc.py file (and the other .py files if you wish) from the Github repository:
   
   You can either download the file or create a new file on your computer with a .py extension and then copy/paste the raw code of the BBCalc.py file over to your file. 
   
@@ -45,9 +47,9 @@ Step 4 - Use the calculator:
   
   If using VSCode, load your .py file into VSCode. Edit in your weapon and defender data at the top and apply any switches you wish to use to create the scenario that you wish to test. Then save the file (shortcut is ctrl-s). Then on the terminal in the bottom half of VSCode (or in a seperate terminal/command prompt), navigate to the directory where your .py file exists and run the script by writing "python BBCalc.py" without the quotes and hit enter. If you named your file differently then use whatever name you used. Once you've run python BBCalc.py once you can recall it again quickly by hitting the up arrow while in your terminal and hitting enter again.
   
-  If not using VSCode, open your .py file in any form of text editor to edit in your weapon/defender data and apply any switches you wish to use. Save the file and then open a terminal or command prompt and navigate to the directory where your .py file exists. Run the file in the same way as described above. 
+  If not using VSCode, open your .py file in any form of text editor to edit in your attacker/defender data and apply any switches you wish to use. Save the file and then open a terminal or command prompt and navigate to the directory where your .py file exists. Run the file in the same way as described above. 
   
-  Either way, running the calculator is as simple as editing the file to fit your needs, saving it, and then running the script in a terminal. Editing the file is as easy as putting in your weapon/defender stats, and flipping any options you wish to use from 0 to 1. Once you get comfortable, it shouldn't take more than a few seconds to edit and re-run when doing subsequent tests. 
+  Either way, running the calculator is as simple as editing the file to fit your needs, saving it, and then running the script in a terminal. Editing the file is as easy as putting in your attacker/defender stats, and flipping any options you wish to use from 0 to 1. Once you get comfortable, it shouldn't take more than a few seconds to edit and re-run when doing subsequent tests. 
   
 If these instructions are in any way unclear then let me know how I can improve them. If you need help, send me an email.
 
