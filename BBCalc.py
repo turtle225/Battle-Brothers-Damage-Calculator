@@ -142,7 +142,7 @@ DPreChosenLight = 0     # 130hp, 145/140, Forge, Resilient.
 DPreChosenHeavy = 0     # 130hp, 190/230, Forge, Resilient.
 DPreBarbKing = 0        # 150hp, 250/270, Forge, Resilient.
 DPreBeastmaster = 0     # 70hp, 130/95, Resilient.
-DPreFootmanHeavy = 0    # 70hp, 150/215, Forge.
+DPreFootmanHeavy = 0    # 70hp, 215/150, Forge.
 DPreBillman = 0         # 70hp, 80/130, Forge.
 DPreArbalester = 0      # 60hp, 80/65.
 DPreBannerHeavy = 0     # 80hp, 215/150, SteelBrow.
@@ -215,7 +215,7 @@ if DPreBarbKing == 1:
 if DPreBeastmaster == 1:
     Def_HP, Def_Helmet, Def_Armor, Resilient = 70, 130, 95, 1
 if DPreFootmanHeavy == 1:
-    Def_HP, Def_Helmet, Def_Armor, Forge = 70, 150, 215, 1
+    Def_HP, Def_Helmet, Def_Armor, Forge = 70, 215, 150, 1
 if DPreBillman == 1:
     Def_HP, Def_Helmet, Def_Armor, Forge = 70, 80, 130, 1
 if DPreArbalester == 1:
@@ -756,3 +756,4 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Added defender presets.
 #Version 1.1.1 (12/27/2019)
 #-- Fixed an inconsistency where sometimes SteelBrow was called Steelbrow which caused it to not work properly.
+#-- Fixed a typo on the Footman preset.
