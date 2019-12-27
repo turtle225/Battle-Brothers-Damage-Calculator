@@ -901,3 +901,4 @@ calc()
 #-- First released on Github.
 #Version 1.0.1 (12/27/2019)
 #-- Fixed an inconsistency where sometimes SteelBrow was called Steelbrow which caused it to not work properly.
+#-- Fixed a typo on the Footman preset.
