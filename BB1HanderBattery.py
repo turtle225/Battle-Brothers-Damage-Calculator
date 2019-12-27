@@ -877,14 +877,14 @@ Ignore = 45
 ArmorMod = .8
 DoubleGrip = 0
 R2Throw = 1
-print("Heavy Javelins:")
+print("Heavy Javelins - 2 Range:")
 calc()
 
 Mind = 35
 Ignore = 25
 ArmorMod = 1.15
 Headchance = 30
-print("Heavy Axes:")
+print("Heavy Axes - 2 Range:")
 calc()
 
 #CREDITS:
