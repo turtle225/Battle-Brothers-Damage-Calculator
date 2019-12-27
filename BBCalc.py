@@ -4,6 +4,8 @@
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
 #If you wish to cancel an ongoing calculation, use ctrl + c.
 
+Trials = 100000 #Number of trials to run through. More trials leads to more accurate results but longer compute times.
+
 #Attacker Stats: #Example is Ancient Bladed Pike, follow that formatting.
 Mind = 55        #Mind = 55
 Maxd = 80        #Maxd = 80
@@ -11,15 +13,13 @@ Headchance = 30  #Headchance = 30
 Ignore = 30      #Ignore = 30
 ArmorMod = 125   #ArmorMod = 125
 
-#Defender Stats:
+#Defender Stats: #Note: If you wish to use a defender Preset, skip the defender sections and check the Preset section instead.
 Def_HP = 100
 Def_Helmet = 120
 Def_Armor = 95   
 Fatigue = -15    #Fatigue value only effects Nimble.
 
-Trials = 100000 #Number of trials to run through. More trials leads to more accurate results but longer compute times.
-
-#DEFENDER FLAGS: Set these values to 1 if they apply and 0 otherwise.
+#DEFENDER FLAGS: Set these values to 1 if they apply and 0 otherwise. If you select a Preset then leave these on 0.
 #Perks:
 NineLives = 0
 Resilient = 0           #Reduces Bleeding duration.
@@ -39,7 +39,7 @@ UnholdFurCloak = 0      #Only select against range attacks.
 DoubleGrip = 0          #Only 1Handers are valid for DoubleGrip. Dagger Puncture tests should not be given DoubleGrip.
 TwoHander20 = 0         #Damage +20. Applies to the single target 2Hander attacks Cudgel (Mace), Pound (Flail), Smite (Hammer), Overhead Strike (Long/GreatSword).
 FlailLash = 0           #Gaurantees headshot. Also apply to 3Head Hail special.
-Flail3Head = 0          #3Head Flail.
+Flail3Head = 0          #3Head Flail. Returns number of swings rather than number of hits.
 Hammer10 = 0            #Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.
 DestroyArmor = 0        #Will use Destroy Armor instead of regular attack if opponent's body armor is greater than 150% of expected max armor damage.
 DestroyArmorMastery = 0 #Hammer Mastery. Will use Destroy Armor instead of regular attack if opponent's body armor is greater than 150% of expected max armor damage.
@@ -108,7 +108,7 @@ FrenziedDirewolf = 0    #Damage +20%.
 UnholdDay90 = 0         #Damage +10%.
 LindwurmDay170 = 0      #Damage +10%.
 
-#RACE FLAGS (DEFENDER): Set these values to 1 if they apply and 0 otherwise. (I put this down here out of the way since it is niche).
+#RACE FLAGS (DEFENDER): Set these values to 1 if they apply and 0 otherwise.
 Undead = 0              #Immunity to Injury, Bleeding, and Morale.
 Savant = 0              #Immunity to Injury and Morale.
 SkeletonVsPierce = 0    #50% health damage reduction for Ancient Dead and Alps vs. Daggers, Spears, and Pikes.
@@ -116,6 +116,47 @@ SkeletonVsJavelin = 0   #75% health damage reduction for Ancient Dead and Alps v
 SkeletonVsArrow = 0     #90% health damage reduction for Anciend Dead and Alps vs. Arrows.
 PossessedUndead = 0     #25% damage reduction. Necromancer buff.
 FallenBetrayerD = 0     #25% armor damage reduction for Watermill Betrayers.
+
+#Defender Preset: Set these values to 1 if you wish to use a defender preset, and 0 otherwise.
+#A preset will automatically set defender stats and defender perks.
+#Does not disable perks that shouldn't be active. For example, Don't activate Nimble and then check the Orc Warrior Preset.
+DPreNimbleBro = 0       # 120hp, 120/95, Nimble (A generic Nimble line with just Nimble).
+DPreNimbleBroBP = 0     # 120hp, 120/95 Nimble, Bone Plates.
+DPreForgeBro = 0        # 80hp, 300/300, Forge (A generic Forge line with just Forge).
+DPreForgeBroAFP = 0     # 80hp, 300/300, Forge, Additional Fur Padding.
+DPreAncientLegion = 0   # 55hp, 130/135, Forge, Steelbrow, Undead. (Manually apply Skeleton flag if necessary).
+DPreHonorGuard = 0      # 65hp, 180/210, Forge, Steelbrow, Undead. (Manually apply Skeleton flag if necessary).
+DPreArmGangerHeavy = 0  # 130hp, 140/115, Forge, Undead.
+DPreFHeroHeavy = 0      # 180hp, 255/260, Forge, Undead.
+DPreYoungHeavy = 0      # 125hp, 120/120.
+DPreBerserkerHeavy = 0  # 250hp, 120/110, Resilient.
+DPreWarriorLight = 0    # 200hp, 240/280, Resilient.
+DPreWarriorHeavy = 0    # 200hp, 360/400, Resilient.
+DPreWarlord = 0         # 300hp, 500/500.
+DPreSkirmisherHeavy = 0 # 40hp, 90/90.
+DPreAmbusher = 0        # 40hp, 25/35.
+DPreShaman = 0          # 70hp, 35/45.
+DPreOverseer = 0        # 70hp, 120/180.
+DPreReaverHeavy = 0     # 80hp, 145/95, Resilient.
+DPreChosenLight = 0     # 130hp, 145/140, Forge, Resilient.
+DPreChosenHeavy = 0     # 130hp, 190/230, Forge, Resilient.
+DPreBarbKing = 0        # 150hp, 250/270, Forge, Resilient.
+DPreBeastmaster = 0     # 70hp, 130/95, Resilient.
+DPreFootmanHeavy = 0    # 70hp, 150/215, Forge.
+DPreBillman = 0         # 70hp, 80/130, Forge.
+DPreArbalester = 0      # 60hp, 80/65.
+DPreBannerHeavy = 0     # 80hp, 215/150, Steelbrow.
+DPreKnight = 0          # 125hp, 300/300, Forge. 
+DPreSergeant = 0        # 100hp, 0/150, Nimble, Steelbrow. (-18 Fat)
+DPreZweiHeavy = 0       # 90hp, 160/240, Forge, Steelbrow. 
+DPreRaiderHeavy = 0     # 70hp, 140/115.
+DPreMarkman = 0         # 60hp, 45/70.
+DPreLeaderHeavy = 0     # 100hp, 250/230, NineLives.
+DPreMercenaryHeavy = 0  # 90hp, 230/260, Forge.
+DPreMercRange = 0       # 65hp, 115/115, Nimble. (-18 Fat)
+DPreHedgeKnight = 0     # 150hp, 300/300, Forge, Resilient.
+DPreSwordmaster = 0     # 70hp, 70/115, Nimble, Steelbrow. (-15 Fat)
+DPreMasterArcher = 0    # 80hp, 30/115, Nimble, Steelbrow. (-12 Fat)
 
 # ------------------------------------------------------------------------
 #IMPORTANT --- ALL BELOW FIELDS SHOULD NOT BE MODIFIED. --- IMPORTANT
@@ -127,6 +168,82 @@ import statistics
 import collections
 import math
 import sys
+
+#Defender presets:
+if DPreNimbleBro == 1:
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 120, 120, 95, -15, 1
+if DPreNimbleBroBP == 1:
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, Boneplate = 120, 120, 95, -15, 1, 1
+if DPreForgeBro == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge = 80, 300, 300, 1
+if DPreForgeBroAFP == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge, AdFurPad = 80, 300, 300, 1, 1
+if DPreAncientLegion == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge, Steelbrow, Undead = 55, 130, 135, 1, 1, 1
+if DPreHonorGuard == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge, Steelbrow, Undead = 65, 180, 210, 1, 1, 1
+if DPreArmGangerHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge, Undead = 130, 140, 115, 1, 1
+if DPreFHeroHeavy ==  1:
+    Def_HP, Def_Helmet, Def_Armor, Forge, Undead = 180, 255, 260, 1, 1
+if DPreYoungHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor = 125, 120, 120
+if DPreBerserkerHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor, Resilient = 250, 120, 110, 1
+if DPreWarriorLight == 1:
+    Def_HP, Def_Helmet, Def_Armor, Resilient = 200, 240, 280, 1
+if DPreWarriorHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor, Resilient = 200, 360, 400, 1
+if DPreWarlord == 1:
+    Def_HP, Def_Helmet, Def_Armor = 300, 500, 500
+if DPreSkirmisherHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor = 40, 90, 90
+if DPreAmbusher == 1:
+    Def_HP, Def_Helmet, Def_Armor = 40, 25, 35
+if DPreShaman == 1:
+    Def_HP, Def_Helmet, Def_Armor = 70, 35, 45
+if DPreOverseer == 1:
+    Def_HP, Def_Helmet, Def_Armor = 70, 120, 180
+if DPreReaverHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor, Resilient = 80, 145, 95, 1
+if DPreChosenLight == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge, Resilient = 130, 145, 140, 1, 1
+if DPreChosenHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge, Resilient = 130, 190, 230, 1, 1
+if DPreBarbKing == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge, Resilient = 150, 250, 270, 1, 1
+if DPreBeastmaster == 1:
+    Def_HP, Def_Helmet, Def_Armor, Resilient = 70, 130, 95, 1
+if DPreFootmanHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge = 70, 150, 215, 1
+if DPreBillman == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge = 70, 80, 130, 1
+if DPreArbalester == 1:
+    Def_HP, Def_Helmet, Def_Armor = 60, 80, 65
+if DPreBannerHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor, Steelbrow = 80, 215, 150, 1
+if DPreKnight == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge = 125, 300, 300, 1
+if DPreSergeant == 1:
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, Steelbrow = 100, 0, 150, -18, 1, 1
+if DPreZweiHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge, Steelbrow = 90, 160, 240, 1, 1
+if DPreRaiderHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor = 70, 140, 115
+if DPreMarkman == 1:
+    Def_HP, Def_Helmet, Def_Armor = 60, 45, 70
+if DPreLeaderHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor, NineLives = 100, 250, 230, 1
+if DPreMercenaryHeavy == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge = 90, 230, 260, 1
+if DPreMercRange == 1:
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 65, 115, 115, -18, 1
+if DPreHedgeKnight == 1:
+    Def_HP, Def_Helmet, Def_Armor, Forge, Resilient = 150, 300, 300, 1, 1
+if DPreSwordmaster == 1:
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, Steelbrow = 70, 70, 115, -15, 1, 1
+if DPreMasterArcher == 1:   
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, Steelbrow = 80, 30, 115, -12, 1, 1
 
 #Error Handling
 if (Mind == 0 and Maxd == 0) or Mind < 0 or Maxd < 0:
@@ -506,31 +623,52 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
             if CripplingStrikes == 1 and Shamshir == 1:
                 if math.floor(hp_roll + .4999) >= Def_HP / 9:
                     Injury = 1
-                    hits_until_1st_injury.append(count)
+                    if Flail3Head == 1:
+                        hits_until_1st_injury.append(count/3)
+                    else:
+                        hits_until_1st_injury.append(count)
             elif CripplingStrikes ==1 or Shamshir == 1:
                 if math.floor(hp_roll + .4999) >= Def_HP / 6:
                     Injury = 1
-                    hits_until_1st_injury.append(count)
+                    if Flail3Head == 1:
+                        hits_until_1st_injury.append(count/3)
+                    else:
+                        hits_until_1st_injury.append(count)
             else: 
                 if math.floor(hp_roll + .4999) >= Def_HP / 4:
                     Injury = 1
-                    hits_until_1st_injury.append(count)
+                    if Flail3Head == 1:
+                        hits_until_1st_injury.append(count/3)
+                    else:
+                        hits_until_1st_injury.append(count)
         
         #Morale check:
         if MoraleCheck == 0:
             if Fearsome == 1:
                 if math.floor(hp_roll + .4999) > 0:
                     MoraleCheck = 1
-                    hits_until_1st_morale.append(count)
+                    if Flail3Head == 1:
+                        hits_until_1st_morale.append(count/3)
+                    else:
+                        hits_until_1st_morale.append(count)
             else:
                 if math.floor(hp_roll + .4999) >= 15:
                     MoraleCheck = 1
-                    hits_until_1st_morale.append(count)
+                    if Flail3Head == 1:
+                        hits_until_1st_morale.append(count/3)
+                    else:
+                        hits_until_1st_morale.append(count)
 
         #Fearsome:    
         if Fearsome == 1:
-            if math.floor(hp_roll + .4999) > 0 and math.floor(hp_roll + .4999) < 15:
-                FearsomeProcs += 1
+            if Flail3Head != 1:
+                if math.floor(hp_roll + .4999) > 0 and math.floor(hp_roll + .4999) < 15:
+                    FearsomeProcs += 1
+            else:
+                if Flail3Head == 1 and count % 3 == 1:
+                    if math.floor(hp_roll + .4999) > 0 and math.floor(hp_roll + .4999) < 15:
+                        FearsomeProcs += 1
+                
 
         #Bleeding check:
         if (CleaverBleed == 1 or CleaverMastery == 1) and Undead != 1:
@@ -559,10 +697,16 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                 hp = 1
                 NineLivesMod = 0
             elif Fearsome == 1:
-                hits_until_death.append(count)
+                if Flail3Head == 1:
+                    hits_until_death.append(count/3)
+                else:
+                    hits_until_death.append(count)
                 NumberFearsomeProcs.append(FearsomeProcs)
             else:
-                hits_until_death.append(count)
+                if Flail3Head == 1:
+                    hits_until_death.append(count/3)
+                else:
+                    hits_until_death.append(count)
 
 #Analysis on data collection:
 HitsToDeath = statistics.mean(hits_until_death)
@@ -606,3 +750,7 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Added Barbarian King, Brigand Leader, and Hedge Knight.
 #Version 1.0.2 (12/25/2019)
 #-- Added error handling.
+#Version 1.0.3 (12/26/2019)
+#-- Added 3HeadFlail unique Fearsome logic, and made 3Head results divided by 3 to show number of swings rather than hits.
+#Version 1.1.3 (12/26/2019)
+#-- Added defender presets.
