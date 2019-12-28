@@ -5,7 +5,7 @@ Includes over 70 different switches from unique weapon cases, perks, attachments
 
 Includes a lot of comments to help make the code easy and intuitive to understand. 
 
-BBCalc.py is the main calculator for general use. BBNimbleBattery.py will run 12 common Nimble sets given your scenario. BBRaisingHp.py will run a given scenario at various hp counts. BB1HanderBattery.py will run all of the top end 1Handers against a given target. BB2HanderBattery.py will run all of the top end 2Handers against a given target.
+BBCalc.py is the main calculator for general use. BBNimbleBattery.py will run 12 common Nimble sets given your scenario. BBRaisingHp.py will run a given scenario at various hp counts. BB1HanderBattery.py will run all of the top end 1Handers against a given target. BB2HanderBattery.py will run all of the top end 2Handers against a given target. BBVsEnemies.py will run a given attacker against 26 enemies from the game.
 
 Here is a sample output for an Ancient Bladed Pike with Fearsome (Ancient Dead) test on BBCalc.py:
 
