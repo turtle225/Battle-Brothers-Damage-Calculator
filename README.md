@@ -1,29 +1,13 @@
 # Battle-Brothers-Damage-Calculator
 A script that simulates the damage formula used in Battle Brothers, returning expected hits until death, injury, and morale check given whatever scenario you provide. Also returns % chance of death by hit. 
 
-Includes over 70 different switches from unique weapon cases, perks, attachments, race, etc. to create almost any scenario you can imagine from in game. There are 37 defender presets provided for convenience.
+Includes over 70 different switches from unique weapon cases, perks, attachments, race, etc. to create almost any scenario you can imagine from in game. There are 31 attacker presets and 37 defender presets provided for convenience.
 
 Includes a lot of comments to help make the code easy and intuitive to understand. 
 
-BBCalc.py is the main calculator for general use. BBNimbleBattery.py will run 12 common Nimble sets given your scenario. BBRaisingHp.py will run a given scenario at various hp counts. BB1HanderBattery.py will run all of the top end 1Handers against a given target. BB2HanderBattery.py will run all of the top end 2Handers against a given target. BBVsEnemies.py will run a given attacker against 26 enemies from the game.
+BBCalc.py is the main calculator for general use. BBNimbleBattery.py will run 12 common Nimble sets given your scenario. BBRaisingHp.py will run a given scenario at various hp counts. BB1HanderBattery.py will run all of the top end 1Handers against a given target. BB2HanderBattery.py will run all of the top end 2Handers against a given target. BBAttackerVsEnemies.py will run a given attacker against 26 enemies from the game. BBEnemiesVsDefender.py will run 31 enemies against a given defender. 
 
-Here is a sample output for an Ancient Bladed Pike with Fearsome (Ancient Dead) test on BBCalc.py:
-
-HP = 100, Helmet = 120, Armor = 95
-
-Nimble% = .4
-
-Death in 6.08715 hits on average.
-
-St. Dev: 0.66829585
-
-% hits to die (4, 0.579), (5, 16.556), (6, 56.496), (7, 26.309), (8, 0.06)
-
-First injury in 3.9028 hits on average.
-
-First morale check in 1 hits on average.
-
-2.85109 Fearsome procs on average.
+Also included is a file called data.txt which includes information on hp/armor statistics and calculator relevant perks for all enemies as well as weapon data for most weapons and Beasts. 
 
 User guide:
 
@@ -52,8 +36,6 @@ Step 4 - Use the calculator:
   Either way, running the calculator is as simple as editing the file to fit your needs, saving it, and then running the script in a terminal. Editing the file is as easy as putting in your attacker/defender stats, and flipping any options you wish to use from 0 to 1. Once you get comfortable, it shouldn't take more than a few seconds to edit and re-run when doing subsequent tests. Get used to the rhythm of: Edit .py file -> ctrl + s -> click in terminal -> up arrow -> enter.
   
 If these instructions are in any way unclear then let me know how I can improve them. If you need help, send me an email.
-
-Also included is a file called data.txt which includes information on hp/armor statistics and calculator relevant perks for all enemies as well as weapon data for most weapons and Beasts. 
 
 Limitations:
 
