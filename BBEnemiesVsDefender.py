@@ -19,7 +19,7 @@ Fatigue = -15    #Fatigue value only effects Nimble.
 NineLives = 0
 Resilient = 0           #Reduces Bleeding duration.
 SteelBrow = 0
-Nimble = 1 
+Nimble = 0 
 Forge = 0
 Indomitable = 0
 #Attachments: Note: Only 1 attachment should be selected.
