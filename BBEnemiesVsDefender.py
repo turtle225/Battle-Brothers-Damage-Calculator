@@ -540,7 +540,6 @@ def calc():
     NumberFearsomeProcs = [] #This list will hold number of Fearsome procs for each iteration (only displays if Fearsome is checked).
 
     print("HP = " + str(Def_HP) + ", Helmet = " + str(Def_Helmet) + ", Armor = " + str(Def_Armor))
-    print(Mind,Maxd,Headchance,Ignore,ArmorMod)
     NimbleCalc()
     if Nimble == 1:
         print ("Nimble%: " + str(NimbleMod))
