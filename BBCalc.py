@@ -8,7 +8,7 @@
 #If you wish to use an attacker preset, skip the sections related to attacker settings and go to the attacker preset section.
 #If you wish to use a defender preset, skip the sections related to defender settings and go to the defender preset section.
 
-Trials = 10000 #Number of trials to run through. More trials leads to more accurate results but longer compute times.
+Trials = 100000 #Number of trials to run through. More trials leads to more accurate results but longer compute times.
 
 #Attacker Stats: #Example is Ancient Bladed Pike, follow that formatting. If you wish to use a attacker Preset, then skip this section.
 Mind = 55        #Mind = 55
