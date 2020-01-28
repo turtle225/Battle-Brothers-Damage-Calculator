@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Rudimentary Hit Chance Version 1.0.0:
+#Battle Brothers Damage Calculator -- Rudimentary Hit Chance Version 1.0.1:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator is a very basic addition of Hit Chance to the regular calculator.
@@ -67,6 +67,7 @@ XbowMastery = 0         #Ignore +20%.
 R2Throw = 0             #Throwing Mastery for 1 or 2 Range.
 R3Throw = 0             #Throwing Mastery for 3 Range.
 #Perks:
+FastAdaptation = 0
 CripplingStrikes = 0
 Executioner = 0
 HeadHunter = 0          #Will start each trial with base Headshot chance.
@@ -434,6 +435,9 @@ else:
     if Axe1H == 1:
         HeadMod += .5
 
+#Fast Adaptation:
+FastAdMod = 0
+
 #Damage modifiers:
 DamageMod = 1
 if DoubleGrip == 1:
@@ -618,8 +622,9 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
         else:
             MushroomMod = 1
 
-        HitChanceCheck = random.randint(1,100)
-        if HitChanceCheck <= HitChance:
+        HitChanceCheck = random.randint(1,100) #Random roll to determine hit chance check.
+        if HitChanceCheck <= (min(95,HitChance + FastAdMod)): #If hit chance roll is lower or equal to hit chance, hit is successful.
+            FastAdMod = 0 #Reset FastAd because of successful hit.
             #Begin damage rolls:
             hp_roll = random.randint(Mind,Maxd) #Random roll to determine unmodified hp damage.
             head_roll = random.randint(1,100) #Random roll to determine if hit is a headshot.
@@ -729,8 +734,11 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                             OverflowDamage = max(0,(SMhp_roll * (1 - Ignore) * NimbleMod * IndomMod - SMarmor_roll))
                             SMhp_roll = SMhp_roll * Ignore * NimbleMod * IndomMod + OverflowDamage
                             hp = math.ceil(hp - SMhp_roll)
-        else:
+        else: #This block is run if attack misses.
             hp_roll = 0
+            if FastAdaptation == 1: #If Fast Adaptation is selected, gain a stack.
+                FastAdMod += 8
+                
         count += 1 #Add +1 to the number of hits taken. 
 
         #Injury check:
@@ -861,3 +869,5 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #History:
 #Version 1.0.0 (1/21/2020)
 #-- First released on Github.
+#Version 1.0.1 (1/27/2020)
+#-- Added Fast Adaptation.
