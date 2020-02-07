@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.0.2:
+#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.1.0:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run a given attacker against 26 different enemies.
@@ -7,6 +7,18 @@
 
 #Note: Since this calculator runs multiple times per launch, default trials has been lowered. Adjust this to your preferences.
 Trials = 10000 #Number of trials to run through. More trials leads to more accurate results but longer compute times.
+
+#Data Returns: Set these values to 1 if you want more data returned, and 0 if you want less data returned.
+#Note: If injuries/morale do not occur because defender is Undead then they will not display even if checked here. 
+DeathMean = 1          #Returns the average number of hits until death.
+DeathStDev = 1         #Returns standard deviation of hits until death.
+DeathPercent = 1       #Returns % chance of death by each hit.
+InjuryMean = 1         #Returns average number of hits until first injury.
+InjuryPercent = 0      #Returns % chance of first injury by each hit.
+HeavyInjuryMean = 1    #Returns average number of hits until chance of first heavy injury (heavy injuries are not guaranteed even when threshold is met).
+HeavyInjuryPercent = 0 #Returns % chance of first heavy injury chance by each hit.
+MoraleMean = 1         #Returns average number of hits until first morale check.
+MoralePercent = 0      #Returns % chance of first morale check by each hit.
 
 #Attacker Stats: #Example is Ancient Bladed Pike, follow that formatting.
 Mind = 55        #Mind = 55
@@ -445,6 +457,7 @@ def calc():
     #Lists for later analysis:
     hits_until_death = [] #This list will hold how many hits until death for each iteration.
     hits_until_1st_injury = [] #This list will hold how many hits until first injury for each iteration.
+    hits_until_1st_heavy_injury_chance = [] #This list will hold how many hits until a chance of heavy injury for each iteration.
     hits_until_1st_morale = [] #This list will hold how many hits until first morale check for each iteration.
     NumberFearsomeProcs = [] #This list will hold number of Fearsome procs for each iteration (only displays if Fearsome is checked).
 
@@ -472,6 +485,9 @@ def calc():
         else:
             NineLivesMod = 0
         Injury = 0
+        HeavyInjuryChance = 0
+        UseHeadShotInjuryFormula = 0
+        UseHeadShotInjuryFormulaHeavy = 0
         MoraleCheck = 0
         FearsomeProcs = 0
         Bleedstack1T = 0
@@ -527,6 +543,9 @@ def calc():
             hp_roll = random.randint(Mind,Maxd) #Random roll to determine unmodified hp damage.
             head_roll = random.randint(1,100) #Random roll to determine if hit is a headshot.
             if head_roll <= Headshotchance: #If headshot, do the following code blocks.
+                #Headshot Injury Flag -- Headshot injuries use a different formula. This flag will signal later when Injury is checked.
+                UseHeadShotInjuryFormula = 1
+                UseHeadShotInjuryFormulaHeavy = 1
                 #HeadHunter check -- Lose current HH stacks since this is a headshot.
                 if HeadHunter == 1 or HHCarryOver == 1:
                     Headshotchance = Headchance
@@ -636,28 +655,108 @@ def calc():
             count += 1 #Add +1 to the number of hits taken. 
 
             #Injury check:
-            if Injury == 0 and Undead != 1 and Savant != 1:
-                if CripplingStrikes == 1 and Shamshir == 1:
-                    if math.floor(hp_roll) >= Def_HP / 9:
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:    
-                            hits_until_1st_injury.append(count)
-                elif CripplingStrikes ==1 or Shamshir == 1:
-                    if math.floor(hp_roll) >= Def_HP / 6:
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
-                else: 
-                    if math.floor(hp_roll) >= Def_HP / 4:
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:    
-                            hits_until_1st_injury.append(count)
+            if UseHeadShotInjuryFormula == 1:
+                if Injury == 0 and Undead != 1 and Savant != 1:
+                    if CripplingStrikes == 1 and Shamshir == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/36):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                        UseHeadShotInjuryFormula = 0
+                    elif CripplingStrikes == 1 or Shamshir == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/24):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                        UseHeadShotInjuryFormula = 0
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP * (5/16):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                        UseHeadShotInjuryFormula = 0
+
+            else: #Use body injury formula.
+                if Injury == 0 and Undead != 1 and Savant != 1:
+                    if CripplingStrikes == 1 and Shamshir == 1:
+                        if math.floor(hp_roll) >= Def_HP / 9:
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    elif CripplingStrikes == 1 or Shamshir == 1:
+                        if math.floor(hp_roll) >= Def_HP / 6:
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP / 4:
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+
+            #Heavy injury check: Heavy injuries are not guaranteed even when conditions are met, so this is only checking for chance of heavy injury.
+            if UseHeadShotInjuryFormulaHeavy == 1:
+                if HeavyInjuryChance == 0 and Undead != 1 and Savant != 1:
+                    if CripplingStrikes == 1 and Shamshir == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/18):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                        UseHeadShotInjuryFormulaHeavy = 0
+                    elif CripplingStrikes == 1 or Shamshir == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/12):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                        UseHeadShotInjuryFormulaHeavy = 0
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP * (5/8):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                        UseHeadShotInjuryFormulaHeavy = 0
+
+            else: #Use body injury formula.
+                if HeavyInjuryChance == 0 and Undead != 1 and Savant != 1:
+                    if CripplingStrikes == 1 and Shamshir == 1:
+                        if math.floor(hp_roll) >= Def_HP * (2/9):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    elif CripplingStrikes == 1 or Shamshir == 1:
+                        if math.floor(hp_roll) >= Def_HP / 3:
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP / 2:
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)                    
             
             #Morale check:
             if MoraleCheck == 0:
@@ -727,25 +826,57 @@ def calc():
     #Analysis on data collection:
     HitsToDeath = statistics.mean(hits_until_death)
     StDev = statistics.stdev(hits_until_death)
-    counter = collections.Counter(hits_until_death)
-    percent = [(i,counter[i]/len(hits_until_death)*100) for i in counter]
+    hits_until_death.sort()
+    HitsToDeathCounter = collections.Counter(hits_until_death)
+    HitsToDeathPercent = [(i,HitsToDeathCounter[i]/len(hits_until_death)*100) for i in HitsToDeathCounter]
     if Undead != 1 and Savant != 1:
         if len(hits_until_1st_injury) != 0:
             hits_to_injure = statistics.mean(hits_until_1st_injury)
+            hits_until_1st_injury.sort()
+            HitsToInjureCounter = collections.Counter(hits_until_1st_injury)
+            HitsToInjurePercent = [(i,HitsToInjureCounter[i]/len(hits_until_death)*100) for i in HitsToInjureCounter]
+        if len(hits_until_1st_heavy_injury_chance) != 0:
+            hits_to_1st_heavy_injury_chance = statistics.mean(hits_until_1st_heavy_injury_chance)
+            hits_until_1st_heavy_injury_chance.sort()
+            HitsToHeavyInjuryChanceCounter = collections.Counter(hits_until_1st_heavy_injury_chance)
+            HitsToHeavyInjuryChancePercent = [(i,HitsToHeavyInjuryChanceCounter[i]/len(hits_until_death)*100) for i in HitsToHeavyInjuryChanceCounter]
         if len(hits_until_1st_morale) != 0:
             hits_to_morale = statistics.mean(hits_until_1st_morale)
+            hits_until_1st_morale.sort()
+            HitsToMoraleCounter = collections.Counter(hits_until_1st_morale)
+            HitsToMoralePercent = [(i,HitsToMoraleCounter[i]/len(hits_until_death)*100) for i in HitsToMoraleCounter]
         if Fearsome == 1:
             AvgFearsomeProcs = statistics.mean(NumberFearsomeProcs)
 
     #Results:
-    print("Death in " + str(HitsToDeath) + " hits on average.")
-    print("StDev: " + str(StDev))
-    print("% hits to die " + str(percent))
+    if DeathMean == 1:
+        print("Death in " + str(HitsToDeath) + " hits on average.")
+    if DeathStDev == 1:
+        print("StDev: " + str(StDev))
+    if DeathPercent == 1:
+        print("% Hits to die: " + str(HitsToDeathPercent))
     if Undead != 1 and Savant != 1:
-        if len(hits_until_1st_injury) != 0:
-            print("First injury in " + str(hits_to_injure) + " hits on average.")
+        if len(hits_until_1st_injury) == 0:
+            if InjuryMean == 1 or InjuryPercent == 1:
+                print("No chance of injury.")
+        else:        
+            if InjuryMean == 1:
+                print("First injury in " + str(hits_to_injure) + " hits on average.")
+            if InjuryPercent == 1:
+                print("% First injury in: " + str(HitsToInjurePercent))
+        if len(hits_until_1st_heavy_injury_chance) == 0:
+            if HeavyInjuryMean == 1 or HeavyInjuryPercent == 1:
+                print("No chance of heavy injury.")
+        else:
+            if HeavyInjuryMean == 1:
+                print("Chance of first heavy injury in " + str(hits_to_1st_heavy_injury_chance) + " hits on average.")
+            if HeavyInjuryPercent == 1:
+                print("% First heavy injury chance in: " + str(HitsToHeavyInjuryChancePercent))
         if len(hits_until_1st_morale) != 0:
-            print("First morale check in " + str(hits_to_morale) + " hits on average.")
+            if MoraleMean == 1:
+                print("First morale check in " + str(hits_to_morale) + " hits on average.")
+            if MoralePercent == 1:
+                print("% First morale in: " + str(HitsToMoralePercent))
         if Fearsome == 1:
             print (str(AvgFearsomeProcs) + " Fearsome procs on average.")
     print("-----") #Added for readability. If this annoys you then remove this line.
@@ -946,3 +1077,9 @@ DPreMasterArcher = 0
 #-- Changed file name from BBVsEnemies to BBAttackerVsEnemies to make it more clear.
 #Version 1.0.2 (1/21/2020)
 #-- Changed rounding logic to always round damage down after in game evidence suggested this was the case.
+#Version 1.1.0 (2/6/2020)
+#-- Added in headshot injury formula logic which is different than body injury logic.
+#-- Added sorting to the return of %chance of death by hit so that it ascends from low to high instead of coming out randomly.
+#-- Added in ability to return %chance of injury and morale by hit. 
+#-- Added a tracker that checks for the first chance of receiving a heavy injury. 
+#-- Added options to adjust the verbosity of the data returned to allow the user to easily choose what gets output.
