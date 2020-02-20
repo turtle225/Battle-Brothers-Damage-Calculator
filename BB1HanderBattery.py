@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- 1Hander Battery Version 1.1.0:
+#Battle Brothers Damage Calculator -- 1Hander Battery Version 1.1.1:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run all top line 1Hander options in the provided scenario.
@@ -171,8 +171,9 @@ TwoHander20 = 0         #Damage +20. Applies to the single target 2Hander attack
 FlailLash = 0           #Gaurantees headshot. Also apply to 3Head Hail special.
 Flail3Head = 0          #3Head Flail. Returns number of swings rather than number of hits.
 Hammer10 = 0            #Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.
-DestroyArmor = 0        #Will use Destroy Armor instead of regular attack if opponent's body armor is greater than 150% of expected max armor damage.
-DestroyArmorMastery = 0 #Hammer Mastery. Will use Destroy Armor instead of regular attack if opponent's body armor is greater than 150% of expected max armor damage.
+DestroyArmor = 0        #Will use Destroy Armor once and then switch to normal attacks.
+DestroyArmorMastery = 0 #Hammer Mastery. Will use Destroy Armor once and then switch to normal attacks.
+DestroyArmorTwice = 0   #Uses Destroy Armor two times instead of 1. Does nothing unless DestroyArmor or DestroyArmorMastery are set.
 Axe1H = 0               #Applies bonus damage to Headshots. Gets negated by SteelBrow.
 SplitMan = 0            #Applies to single target 2HAxe except for Longaxe.
 AoE2HAxe = 0            #Applies to Round Swing and Split in Two (Bardiche), reduces Ignore by 10%.
@@ -503,9 +504,13 @@ def calc():
             else:
                 DecapMod = 1
             #Destory Armor:
-            if DestroyArmor == 1 and body > Maxd * ArmorMod * DamageMod * 1.5:
+            if DestroyArmor == 1 and count == 0:
                 DArmorMod = 1.5
-            elif DestroyArmorMastery == 1 and body > Maxd * ArmorMod * DamageMod * 1.5:
+            elif DestroyArmor == 1 and count == 1 and DestroyArmorTwice == 1:
+                DArmorMod = 1.5
+            elif DestroyArmorMastery == 1 and count == 0:    
+                DArmorMod = 2
+            elif DestroyArmorMastery == 1 and count == 1 and DestroyArmorTwice == 1:
                 DArmorMod = 2
             else:
                 DArmorMod = 1
@@ -917,11 +922,17 @@ Hammer10 = 1
 print("Warhammer:")
 calc()
 
+Ignore = 50
+DestroyArmorMastery = 1
+print("Warhammer - Destroy Armor Once:")
+calc()
+
 Mind = 35
 Maxd = 55
 Ignore = 30
 ArmorMod = 1.3
 Hammer10 = 0
+DestroyArmorMastery = 0
 Axe1H = 1
 print("Fighting Axe:")
 calc()
@@ -1038,3 +1049,7 @@ calc()
 #-- Fixed an issue where Nimble above 40% would drop to 40% after the first iteration.
 #Version 1.1.0 (1/21/2020)
 #-- Changed rounding logic to always round damage down after in game evidence suggested this was the case.
+#Version 1.1.1 (2/19/2020)
+#-- Reworked Destroy Armor logic to make the results it provides more useful to the user.
+#-- Destroy Armor will now be used once or twice and then switch to normal attacks, rather then checking armor levels like it used to.
+#-- Added a Hammer test with Destroy Armor to the test batch.

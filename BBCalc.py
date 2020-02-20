@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator Version 1.3.0:
+#Battle Brothers Damage Calculator Version 1.3.1:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
@@ -20,7 +20,7 @@ InjuryPercent = 0      #Returns % chance of first injury by each hit.
 HeavyInjuryMean = 1    #Returns average number of hits until chance of first heavy injury (heavy injuries are not guaranteed even when threshold is met).
 HeavyInjuryPercent = 0 #Returns % chance of first heavy injury chance by each hit.
 MoraleMean = 1         #Returns average number of hits until first morale check.
-MoralePercent = 1      #Returns % chance of first morale check by each hit.
+MoralePercent = 0      #Returns % chance of first morale check by each hit.
 
 #Attacker Stats: #Example is Ancient Bladed Pike, follow that formatting. If you wish to use a attacker Preset, then skip this section.
 Mind = 55        #Mind = 55
@@ -57,8 +57,9 @@ TwoHander20 = 0         #Damage +20. Applies to the single target 2Hander attack
 FlailLash = 0           #Gaurantees headshot. Also apply to 3Head Hail special.
 Flail3Head = 0          #3Head Flail. Returns number of swings rather than number of hits.
 Hammer10 = 0            #Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.
-DestroyArmor = 0        #Will use Destroy Armor instead of regular attack if opponent's body armor is greater than 150% of expected max armor damage.
-DestroyArmorMastery = 0 #Hammer Mastery. Will use Destroy Armor instead of regular attack if opponent's body armor is greater than 150% of expected max armor damage.
+DestroyArmor = 0        #Will use Destroy Armor once and then switch to normal attacks.
+DestroyArmorMastery = 0 #Hammer Mastery. Will use Destroy Armor once and then switch to normal attacks.
+DestroyArmorTwice = 0   #Uses Destroy Armor two times instead of 1. Does nothing unless DestroyArmor or DestroyArmorMastery are set.
 Axe1H = 0               #Applies bonus damage to Headshots. Gets negated by SteelBrow.
 SplitMan = 0            #Applies to single target 2HAxe except for Longaxe.
 AoE2HAxe = 0            #Applies to Round Swing and Split in Two (Bardiche), reduces Ignore by 10%.
@@ -594,9 +595,13 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
         else:
             DecapMod = 1
         #Destory Armor:
-        if DestroyArmor == 1 and body > Maxd * ArmorMod * DamageMod * 1.5:
+        if DestroyArmor == 1 and count == 0:
             DArmorMod = 1.5
-        elif DestroyArmorMastery == 1 and body > Maxd * ArmorMod * DamageMod * 1.5:
+        elif DestroyArmor == 1 and count == 1 and DestroyArmorTwice == 1:
+            DArmorMod = 1.5
+        elif DestroyArmorMastery == 1 and count == 0:    
+            DArmorMod = 2
+        elif DestroyArmorMastery == 1 and count == 1 and DestroyArmorTwice == 1:
             DArmorMod = 2
         else:
             DArmorMod = 1
@@ -1002,3 +1007,6 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Added in ability to return %chance of injury and morale by hit. 
 #-- Added a tracker that checks for the first chance of receiving a heavy injury. 
 #-- Added options to adjust the verbosity of the data returned to allow the user to easily choose what gets output.
+#Version 1.3.1 (2/19/2020)
+#-- Reworked Destroy Armor logic to make the results it provides more useful to the user.
+#-- Destroy Armor will now be used once or twice and then switch to normal attacks, rather then checking armor levels like it used to.
