@@ -486,13 +486,13 @@ def calc():
             #Check various modifiers that change over the course of one's life. These will be re-checked after each attack.
             #Decapitate:
             if Decapitate == 1:
-                DecapMod = 1 - hp / Def_HP
+                DecapMod = 2 - hp / Def_HP
             elif SmartDecap50 == 1 and hp <= Def_HP / 2:
-                DecapMod = 1 - hp / Def_HP
+                DecapMod = 2 - hp / Def_HP
             elif SmartDecap33 == 1 and hp <= Def_HP / 3:
-                DecapMod = 1 - hp / Def_HP
+                DecapMod = 2 - hp / Def_HP
             else:
-                DecapMod = 0
+                DecapMod = 1
             #Destory Armor:
             if DestroyArmor == 1 and count == 0:
                 DArmorMod = 1.5
@@ -548,7 +548,7 @@ def calc():
                     helmet = math.ceil(helmet - armor_roll) #Rounding armor damage.
                 #If not DestoryArmor, and no armor is present, apply damage directly to hp.
                 elif helmet == 0:
-                    hp_roll = hp_roll * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) + DecapMod) * HeadMod
+                    hp_roll = hp_roll * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) * HeadMod
                     if Hammer10 == 1: #If 1H Hammer, deal 10 damage minimum.
                         hp_roll = max(hp_roll,10)
                     hp = math.ceil(hp - hp_roll) #Rounding hp damage.
@@ -558,15 +558,15 @@ def calc():
                     helmet -= armor_roll #Armor damage applied to helmet.
                     #If the helmet does not get destroyed by the attack, do the following.
                     if helmet > 0:
-                        hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) + DecapMod) - (helmet * 0.1)) * HeadMod)
+                        hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) - (helmet * 0.1)) * HeadMod)
                         if Hammer10 == 1:
                             hp_roll = max(hp_roll,10) 
                         helmet = math.ceil(helmet)
                         hp = math.ceil(hp - hp_roll)
                     #If the helmet did get destoryed by the attack, do the following.
                     else:
-                        OverflowDamage = max(0,(hp_roll * (1 - Ignore) * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) + DecapMod) - armor_roll))
-                        hp_roll = (hp_roll * Ignore * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) + DecapMod) + OverflowDamage) * HeadMod
+                        OverflowDamage = max(0,(hp_roll * (1 - Ignore) * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) - armor_roll))
+                        hp_roll = (hp_roll * Ignore * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) + OverflowDamage) * HeadMod
                         if Hammer10 == 1:
                             hp_roll = max(hp_roll,10)
                         hp = math.ceil(hp - hp_roll)
@@ -606,7 +606,7 @@ def calc():
                         armor_roll = min(body,(random.randint(Mind,Maxd) * ArmorMod * DArmorMod * ForgeMod * IndomMod * DamageMod * MushroomMod * ExecMod))
                         body = math.ceil(body - armor_roll)
                     elif body == 0 or Puncture == 1:
-                        hp_roll = hp_roll * NimbleMod * SkeletonMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) + DecapMod)
+                        hp_roll = hp_roll * NimbleMod * SkeletonMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod)
                         if Hammer10 == 1:
                             hp_roll = max(hp_roll,10)
                         hp = math.ceil(hp - hp_roll)
@@ -614,14 +614,14 @@ def calc():
                         armor_roll = min(body,(random.randint(Mind,Maxd) * ArmorMod * ForgeMod * IndomMod * DamageMod * MushroomMod * ExecMod * AttachMod))
                         body -= armor_roll
                         if body > 0:
-                            hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) + DecapMod) - (body * 0.1)))
+                            hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) - (body * 0.1)))
                             if Hammer10 == 1:
                                 hp_roll = max(hp_roll,10)
                             body = math.ceil(body)
                             hp = math.ceil(hp - hp_roll)
                         else:
-                            OverflowDamage = max(0,(hp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * SkeletonMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) + DecapMod) - armor_roll))
-                            hp_roll = hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) + DecapMod) + OverflowDamage
+                            OverflowDamage = max(0,(hp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * SkeletonMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) - armor_roll))
+                            hp_roll = hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) + OverflowDamage
                             if Hammer10 == 1:
                                 hp_roll = max(hp_roll,10)
                             hp = math.ceil(hp - hp_roll)
@@ -777,7 +777,7 @@ def calc():
                     hp = 1
                     NineLivesMod = 0
                 #If damage taken >= 6 and Decapitate isn't in play, then apply a 2 turn bleed stack.
-                if math.floor(hp_roll) >= 6 and DecapMod == 0 and Decapitate != 1:
+                if math.floor(hp_roll) >= 6 and DecapMod == 1 and Decapitate != 1:
                     Bleedstack2T += 1
                 #Every two attacks (1 turn for Cleavers), apply bleed damage based on current bleed stacks.
                 #If Resilient, 2 turn bleed stacks apply damage and then are removed. Otherwise 2 turn bleed stacks apply damage and convert into 1 turn bleed stacks.
@@ -954,7 +954,6 @@ calc()
 #Version 1.2.2 (3/16/2020)
 #-- Fixed an error in order of calculations for Goblin Overseer which incorrectly had his Ignore% at 75% instead of the correct 77% (Thanks Abel).
 #-- Fixed an error with AimedShot where it provided bonus damage against hp and armor when it should only boost against hp (Thanks Abel).
-#-- Fixed an error in the Decapitate logic that caused it to be slightly overvalued (thanks Abel).
 #-- Added logic for Indomitable halving Bleed damage whereas before it wasn't doing so.
 #-- Added option for Puncture tests.
 #-- Added option for ranged shots that scatter into unintended targets.
