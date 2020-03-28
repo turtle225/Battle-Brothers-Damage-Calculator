@@ -10,6 +10,7 @@ BBCalc.py is the main calculator for general use. BBNimbleBattery.py will run 12
 Also included is a file called data.txt which includes information on hp/armor statistics and calculator relevant perks for all enemies as well as weapon data for most weapons and Beasts. 
 
 IMPORTANT:
+
 For instruction on setting up the calculator and how to use it once it is ready, please refer to the Installation and User Guide documents provided in the repository. I walk through step by step how to setup the calculator and use it with pictures and examples. Although I do not have a gui, the calculator is easy to use once you know how. The guide will help you get it running.
 
 Limitations:
