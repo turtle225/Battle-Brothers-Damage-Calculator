@@ -13,6 +13,22 @@ IMPORTANT:
 
 For instruction on setting up the calculator and how to use it once it is ready, please refer to the Installation and User Guide documents provided in the repository. I walk through step by step how to setup the calculator and use it with pictures and examples. Although I do not have a gui, the calculator is easy to use once you know how. The guide will help you get it running.
 
+An alternative method to use the calculator is to load it into Repl.it.
+
+https://repl.it/
+
+You don't have to sign up, choose "new repl" in the top right. Choose "Import from GitHub" and put my link url
+
+https://github.com/turtle225/Battle-Brothers-Damage-Calculator
+
+Once it loads in, on the top right you can configure the "run" button if you wish to use it. Select Python from the drop down and in the box type "python BBCalc.py" without the quotes. This will make it so that the green run button runs the main calculator, but this won't work for the other calculators.
+
+Alternatively, don't worry about the run button, you can run any of the calculator versions by typing "python calcname.py" without the quotes where calcname is the name of the calculator you wish to use.
+
+Using Replit skips the first half of the installation and user guide. Refer to part 2 to understand how to edit and use the calculator (note that it is unlikely that the user guide will load in Replit, open it elsewhere on your computer). Make sure any edits you make are done saving before you run the calculator. You can see a greyed out "saved" status next to the open file tab.
+
+The advantage to using Replit is that it is faster and easier to setup than getting your own VSCode going. The downside is that it makes the code scrunched and hideous to look at, which makes it hard to read the helpful comments I tried to put in. It may also take longer to compute (lower trials variable if it is taking too long).
+
 Limitations:
 
 Most of the scripts do not factor in hit chance and I do not plan on adding it in. If there is a demand for it then I may consider expanding on the current BBHitChance.py version. Bleeding damage is going to be an approximation due to the sandbox nature of the calculator. Since the calculator cannot know for sure when "turns" pass and therefore when to apply Bleeding damage, it is forced to make an educated guess. The way I did it was to apply Bleeding damage every two attacks, (which is 1 turn for Cleavers), based on the current number of Bleeding stacks. The calculator depends on the user to create scenarios that make sense. You can give Split Man to a Pike and the calculator will run, but of course that data is meaningless because Pikes do not have Split Man. I included a file with enemy and weapon data for reference, as well as wrote many comments in the code to make it as user friendly as possible.
