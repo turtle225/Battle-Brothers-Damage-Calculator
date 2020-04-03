@@ -23,7 +23,7 @@ https://github.com/turtle225/Battle-Brothers-Damage-Calculator
 
 Once it loads in, on the top right you can configure the "run" button if you wish to use it. Select Python from the drop down and in the box type "python BBCalc.py" without the quotes. This will make it so that the green run button runs the main calculator, but this won't work for the other calculators.
 
-Alternatively, don't worry about the run button, you can run any of the calculator versions by typing "python calcname.py" without the quotes where calcname is the name of the calculator you wish to use. Remember to press your Tab button to autocomplete the command for convencience.
+Alternatively, don't worry about the run button, you can run any of the calculator versions by typing "python calcname.py" without the quotes into the command line on the right, where calcname is the name of the calculator you wish to use. Remember to press your Tab button to autocomplete the command for convenience.
 
 Using Replit skips the first half of the installation and user guide. Refer to part 2 to understand how to edit and use the calculator (note that it is unlikely that the user guide will load in Replit, open it elsewhere on your computer). Make sure any edits you make are done saving before you run the calculator. You can see a greyed out "saved" status next to the open file tab.
 
