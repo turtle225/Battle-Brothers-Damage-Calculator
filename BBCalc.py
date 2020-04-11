@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator Version 1.3.2:
+#Battle Brothers Damage Calculator Version 1.3.3:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
@@ -40,8 +40,8 @@ Fatigue = -15    #Fatigue value only effects Nimble.
 NineLives = 0
 Resilient = 0           #Reduces Bleeding duration.
 SteelBrow = 0
-Nimble = 0 
-Forge = 0
+Nimble = 0              #Will return Nimble% in the output.
+Forge = 0               #Will return expected bonus armor derived from Forge in the output.
 Indomitable = 0
 #Attachments: Note: Only 1 attachment should be selected.
 AdFurPad = 0            #Additional Fur Padding.
@@ -559,6 +559,8 @@ hits_until_1st_injury = [] #This list will hold how many hits until first injury
 hits_until_1st_heavy_injury_chance = [] #This list will hold how many hits until a chance of heavy injury for each iteration.
 hits_until_1st_morale = [] #This list will hold how many hits until first morale check for each iteration.
 NumberFearsomeProcs = [] #This list will hold number of Fearsome procs for each iteration (only displays if Fearsome is checked).
+Forge_bonus_armor = [] #This list will hold the amount of extra armor provided by Forge for each iteration (only displays if Forge is checked).
+hits_until_1st_poison = [] #This list will hold how many hits until first poisoning against Ambushers (only displays if Ambusher is checked)
 
 print("-----") #Added for readability. If this annoys you then remove this line.
 print("HP = " + str(Def_HP) + ", Helmet = " + str(Def_Helmet) + ", Armor = " + str(Def_Armor))
@@ -583,15 +585,17 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
         NineLivesMod = 1
     else:
         NineLivesMod = 0
-    Injury = 0
-    HeavyInjuryChance = 0
-    UseHeadShotInjuryFormula = 0
-    UseHeadShotInjuryFormulaHeavy = 0
-    MoraleCheck = 0
-    FearsomeProcs = 0
-    Bleedstack1T = 0
-    Bleedstack2T = 0
-    
+    Injury = 0                          #Tracker for when first injury occurs.
+    HeavyInjuryChance = 0               #Tracker for when when first chance of heavy injury occurs.
+    UseHeadShotInjuryFormula = 0        #Tracker to use headshot injury formula on headshots.
+    UseHeadShotInjuryFormulaHeavy = 0   #Tracker to use headshot injury formula on headshots.
+    MoraleCheck = 0                     #Tracker for when first morale check occurs.
+    FearsomeProcs = 0                   #Tracker to hold the number of Fearsome procs each iteration.
+    Bleedstack1T = 0                    #Tracker for bleed stacks with one turn remaining.
+    Bleedstack2T = 0                    #Tracker for bleed stacks with two turns remaining.
+    ForgeSaved = 0                      #Tracker to add the amount of armor gained from Forge for each iteration.
+    Poison = 0                          #Tracker for when first poisoning occurs against Ambushers.
+
     count = 0 #Number of hits until death. Starts at 0 and goes up after each attack.
 
     while hp > 0: #Continue looping until death.
@@ -656,7 +660,9 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
             if DArmorMod != 1:
                 hp_roll = 10 #DestroyArmor forces hp damage to = 10.
                 hp -= hp_roll 
-                armor_roll = min(helmet,(random.randint(Mind,Maxd) * ArmorMod * DArmorMod * ForgeMod * IndomMod * DamageMod * MushroomMod * ExecMod))
+                armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod
+                ForgeSaved += armor_roll - armor_roll * ForgeMod
+                armor_roll = min(helmet,(armor_roll * ForgeMod))
                 helmet = math.ceil(helmet - armor_roll) #Rounding armor damage.
             #If not DestoryArmor, and no armor is present, apply damage directly to hp.
             elif helmet == 0:
@@ -666,7 +672,9 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                 hp = math.ceil(hp - hp_roll) #Rounding hp damage.
             #Otherwise, do the following.
             else:
-                armor_roll = min(helmet,(random.randint(Mind,Maxd) * ArmorMod * ForgeMod * IndomMod * DamageMod * MushroomMod * ExecMod))
+                armor_roll = random.randint(Mind,Maxd) * ArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod
+                ForgeSaved += armor_roll - armor_roll * ForgeMod #Calculate how much armor is saved by Forge.
+                armor_roll = min(helmet,(armor_roll * ForgeMod)) #Applying Forge, and armor damage cannot exceed current armor.
                 helmet -= armor_roll #Armor damage applied to helmet.
                 #If the helmet does not get destroyed by the attack, do the following.
                 if helmet > 0:
@@ -692,7 +700,9 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                         SMhp_roll = SMhp_roll * NimbleMod * IndomMod * AttachMod
                         hp = math.ceil(hp - SMhp_roll)
                     else:
-                        SMarmor_roll = min(body,(random.randint(Mind,Maxd) * .5 * ArmorMod * ForgeMod * IndomMod * AttachMod))
+                        SMarmor_roll = min(body,(random.randint(Mind,Maxd) * .5 * ArmorMod * IndomMod * AttachMod))
+                        ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
+                        SMarmor_roll = min(body,(SMarmor_roll * ForgeMod))
                         body -= SMarmor_roll
                         if body > 0:
                             SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * AdFurPadMod * IndomMod * AttachMod - (body * 0.1)))
@@ -715,7 +725,9 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                 if DArmorMod != 1:
                     hp_roll = 10
                     hp -= hp_roll
-                    armor_roll = min(body,(random.randint(Mind,Maxd) * ArmorMod * DArmorMod * ForgeMod * IndomMod * DamageMod * MushroomMod * ExecMod))
+                    armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod
+                    ForgeSaved += armor_roll - armor_roll * ForgeMod
+                    armor_roll = min(body,(armor_roll * ForgeMod))
                     body = math.ceil(body - armor_roll)
                 elif body == 0 or Puncture == 1:
                     hp_roll = hp_roll * NimbleMod * SkeletonMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod)
@@ -723,7 +735,9 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                         hp_roll = max(hp_roll,10)
                     hp = math.ceil(hp - hp_roll)
                 else:
-                    armor_roll = min(body,(random.randint(Mind,Maxd) * ArmorMod * ForgeMod * IndomMod * DamageMod * MushroomMod * ExecMod * AttachMod))
+                    armor_roll = random.randint(Mind,Maxd) * ArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod * AttachMod
+                    ForgeSaved += armor_roll - armor_roll * ForgeMod
+                    armor_roll = min(body,(armor_roll * ForgeMod))
                     body -= armor_roll
                     if body > 0:
                         hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) - (body * 0.1)))
@@ -744,7 +758,9 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                     SMhp_roll = SMhp_roll * NimbleMod * IndomMod
                     hp = math.ceil(hp - SMhp_roll)
                 else:
-                    SMarmor_roll = min(helmet,(random.randint(Mind,Maxd) * .5 * ArmorMod * ForgeMod * IndomMod))
+                    SMarmor_roll = min(helmet,(random.randint(Mind,Maxd) * .5 * ArmorMod * IndomMod))
+                    ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
+                    SMarmor_roll = min(helmet,(SMarmor_roll * ForgeMod))
                     helmet -= SMarmor_roll
                     if helmet > 0:
                         SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * IndomMod - (helmet * 0.1)))
@@ -910,18 +926,29 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                     hp -= BleedDamage * Bleedstack2T
                     Bleedstack2T = 0
 
+        #Poison check:
+        if Ambusher == 1 or AmbusherDay200 == 1:
+            if Poison == 0:
+                if math.floor(hp_roll) >= 6:
+                    Poison = 1
+                    hits_until_1st_poison.append(count)
+
         #If death occurs, check for NineLives and otherwise add the hitcount to the list for later analysis and start the next trial.
         if hp <= 0: 
             if NineLivesMod == 1:
                 hp = 1
                 NineLivesMod = 0
             elif Fearsome == 1:
+                if Forge == 1:
+                    Forge_bonus_armor.append(ForgeSaved)
                 if Flail3Head == 1:
                     hits_until_death.append(count/3)
                 else:
                     hits_until_death.append(count)
                 NumberFearsomeProcs.append(FearsomeProcs)
             else:
+                if Forge == 1:
+                    Forge_bonus_armor.append(ForgeSaved)
                 if Flail3Head == 1:
                     hits_until_death.append(count/3)
                 else:
@@ -951,6 +978,12 @@ if Undead != 1 and Savant != 1:
         HitsToMoralePercent = [(i,HitsToMoraleCounter[i]/len(hits_until_death)*100) for i in HitsToMoraleCounter]
     if Fearsome == 1:
         AvgFearsomeProcs = statistics.mean(NumberFearsomeProcs)
+if Forge == 1:
+    if len(Forge_bonus_armor) != 0:
+        AvgForgeArmor = statistics.mean(Forge_bonus_armor)
+if Ambusher == 1 or AmbusherDay200 == 1:
+    if len(hits_until_1st_poison) != 0:
+        hits_to_posion = statistics.mean(hits_until_1st_poison)
 
 #Results:
 if DeathMean == 1:
@@ -983,6 +1016,10 @@ if Undead != 1 and Savant != 1:
             print("% First morale in: " + str(HitsToMoralePercent))
     if Fearsome == 1:
         print (str(AvgFearsomeProcs) + " Fearsome procs on average.")
+if Forge == 1:
+    print(str(AvgForgeArmor) + " bonus armor from Forge on average.")
+if Ambusher == 1 or AmbusherDay200 == 1:
+    print("First poison in " + str(hits_to_posion) + " hits on average.")
 print("-----") #Added for readability. If this annoys you then remove this line.
 
 #CREDITS:
@@ -1027,3 +1064,6 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Added logic for Indomitable halving Bleed damage whereas before it wasn't doing so.
 #-- Added option for Puncture tests.
 #-- Added option for ranged shots that scatter into unintended targets.
+#Version 1.3.3 (4/11/2020)
+#-- Added logic to return the average amount of armor gained when using Forge.
+#-- Added logic to return time of first poisoning against Ambushers.
