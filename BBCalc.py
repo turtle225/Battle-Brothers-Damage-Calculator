@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator Version 1.3.3:
+#Battle Brothers Damage Calculator Version 1.3.4:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
@@ -56,6 +56,7 @@ DoubleGrip = 0          #Only 1Handers are valid for DoubleGrip. Dagger Puncture
 TwoHander20 = 0         #Damage +20. Applies to the single target 2Hander attacks Cudgel (Mace), Pound (Flail), Smite (Hammer), Overhead Strike (Long/GreatSword).
 FlailLash = 0           #Gaurantees headshot. Also apply to 3Head Hail special.
 Flail3Head = 0          #3Head Flail. Returns number of swings rather than number of hits.
+Flail2HIgnore = 0       #Ingore +10%. Applies to 2H Flail Pound attack. Apply the +20 damage from Pound using the TwoHander20 switch.
 Hammer10 = 0            #Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.
 DestroyArmor = 0        #Will use Destroy Armor once and then switch to normal attacks.
 DestroyArmorMastery = 0 #Hammer Mastery. Will use Destroy Armor once and then switch to normal attacks.
@@ -69,6 +70,7 @@ Decapitate = 0          #Cleaver Decapitate. Will use Decapitate for all attacks
 SmartDecap50 = 0        #Switches from normal Cleaver attacks to Decapitate once opposing hp is <= 50%.
 SmartDecap33 = 0        #Switches from normal Cleaver attacks to Decapitate once opposing hp is <= 33.33%.
 Shamshir = 0            #Shamshir special, acts like Crippling Strikes.
+Sword2HSplit = 0        #Ignore +5%. Applies to Greatsword Split attack. Does not apply to Overhead or Swing.
 Puncture = 0            #Dagger Puncture. Do not apply Double Grip
 Spearwall = 0           #Warning: May take a long time to compute against durable targets, considering lowering number of trials. 
 AimedShot = 0           #Damage +10% for Bows.
@@ -146,7 +148,7 @@ APreWarscytheAoE = 0    #Ancient Dead: 55-80, 25% Ignore, 104% Armor, Fearsome.
 APreCryptCleaver = 0    #Ancient Dead: 65-85, 25% Ignore, 110% Armor, Fearsome, Cleaver Mastery.
 APreKhopesh = 0         #Necrosavant: 35-55, 25% Ignore, 120% Armor, HeadHunter, Crippling, Double Grip, CleaverBleed.
 APreWingedMace = 0      #Fallen Hero: 35-55, 40% Ignore, 110% Armor, Fearsome.
-APreBerserkChain = 0    #Orc Berserker: 40-100, 30% Ignore, 125% Armor, 40% Head, TwoHander20, Berserker.
+APreBerserkChain = 0    #Orc Berserker: 40-100, 30% Ignore, 125% Armor, 40% Head, TwoHander20, Flail2HIgnore, Berserker.
 APreHeadSplitter = 0    #Orc Young/Warrior: 35-65, 30% Ignore, 130% Armor, 1HAxe, Warrior.
 APreHeadChopper = 0     #Orc Young/Warrior: 40-70, 25% Ignore, 110% Armor, Cleaver Mastery, Warrior.
 APreMansplitter = 0     #Orc Warlord: 90-120, 40% Ignore, 160% Armor, Split Man, Fearsome, Warlord.
@@ -238,7 +240,7 @@ if APreKhopesh == 1:
 if APreWingedMace == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome = 35, 55, 25, 40, 110, 1
 if APreBerserkChain == 1:
-    Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20, Berserker = 40, 100, 40, 30, 125, 1, 1
+    Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20, Flail2HIgnore, Berserker = 40, 100, 40, 30, 125, 1, 1, 1
 if APreHeadSplitter == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, Axe1H, Warrior = 35, 65, 25, 30, 130, 1, 1
 if APreHeadChopper == 1:
@@ -398,6 +400,10 @@ Headshotchance = Headchance
 
 #Ignore modifiers:
 Ignore = Ignore/100
+if Flail2HIgnore == 1:
+    Ignore += .1
+if Sword2HSplit == 1:
+    Ignore += .05
 if XbowMastery == 1:
     Ignore += .2
 if Ambusher == 1:
@@ -1067,3 +1073,7 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #Version 1.3.3 (4/11/2020)
 #-- Added logic to return the average amount of armor gained when using Forge.
 #-- Added logic to return time of first poisoning against Ambushers.
+#Version 1.3.4 (4/13/2020)
+#-- Added option to give 2HFlails their +10% Ignore on single target attacks (thank you Andre27 for pointing this out).
+#-- Added option to give 2HSwords their +5% Ignore on their Split attack (thank you Andre27 for pointing this out).
+#-- Added Flail2HIgnore to the Orc Berserker preset.
