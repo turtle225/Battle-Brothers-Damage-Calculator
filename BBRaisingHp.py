@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- HP Changing Version 1.2.2:
+#Battle Brothers Damage Calculator -- HP Changing Version 1.2.4:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 
@@ -56,6 +56,7 @@ DoubleGrip = 0          #Only 1Handers are valid for DoubleGrip. Dagger Puncture
 TwoHander20 = 0         #Damage +20. Applies to the single target 2Hander attacks Cudgel (Mace), Pound (Flail), Smite (Hammer), Overhead Strike (Long/GreatSword).
 FlailLash = 0           #Gaurantees headshot. Also apply to 3Head Hail special.
 Flail3Head = 0          #3Head Flail. Returns number of swings rather than number of hits.
+Flail2HIgnore = 0       #Ignore +10%. Applies to 2H Flail Pound attack. Apply the +20 damage from Pound using the TwoHander20 switch.
 Hammer10 = 0            #Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.
 DestroyArmor = 0        #Will use Destroy Armor once and then switch to normal attacks.
 DestroyArmorMastery = 0 #Hammer Mastery. Will use Destroy Armor once and then switch to normal attacks.
@@ -69,6 +70,7 @@ Decapitate = 0          #Cleaver Decapitate. Will use Decapitate for all attacks
 SmartDecap50 = 0        #Switches from normal Cleaver attacks to Decapitate once opposing hp is <= 50%.
 SmartDecap33 = 0        #Switches from normal Cleaver attacks to Decapitate once opposing hp is <= 33.33%.
 Shamshir = 0            #Shamshir special, acts like Crippling Strikes.
+Sword2HSplit = 0        #Ignore +5%. Applies to Greatsword Split attack. Does not apply to Overhead or Swing.
 Puncture = 0            #Dagger Puncture. Do not apply Double Grip
 Spearwall = 0           #Warning: May take a long time to compute against durable targets, considering lowering number of trials. 
 AimedShot = 0           #Damage +10% for Bows.
@@ -146,7 +148,7 @@ APreWarscytheAoE = 0    #Ancient Dead: 55-80, 25% Ignore, 104% Armor, Fearsome.
 APreCryptCleaver = 0    #Ancient Dead: 65-85, 25% Ignore, 110% Armor, Fearsome, Cleaver Mastery.
 APreKhopesh = 0         #Necrosavant: 35-55, 25% Ignore, 120% Armor, HeadHunter, Crippling, Double Grip, CleaverBleed.
 APreWingedMace = 0      #Fallen Hero: 35-55, 40% Ignore, 110% Armor, Fearsome.
-APreBerserkChain = 0    #Orc Berserker: 40-100, 30% Ignore, 125% Armor, 40% Head, TwoHander20, Berserker.
+APreBerserkChain = 0    #Orc Berserker: 40-100, 30% Ignore, 125% Armor, 40% Head, TwoHander20, Flail2HIgnore, Berserker.
 APreHeadSplitter = 0    #Orc Young/Warrior: 35-65, 30% Ignore, 130% Armor, 1HAxe, Warrior.
 APreHeadChopper = 0     #Orc Young/Warrior: 40-70, 25% Ignore, 110% Armor, Cleaver Mastery, Warrior.
 APreMansplitter = 0     #Orc Warlord: 90-120, 40% Ignore, 160% Armor, Split Man, Fearsome, Warlord.
@@ -197,7 +199,7 @@ if APreKhopesh == 1:
 if APreWingedMace == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome = 35, 55, 25, 40, 110, 1
 if APreBerserkChain == 1:
-    Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20, Berserker = 40, 100, 40, 30, 125, 1, 1
+    Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20, Flail2HIgnore, Berserker = 40, 100, 40, 30, 125, 1, 1, 1
 if APreHeadSplitter == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, Axe1H, Warrior = 35, 65, 25, 30, 130, 1, 1
 if APreHeadChopper == 1:
@@ -281,6 +283,10 @@ Headshotchance = Headchance
 
 #Ignore modifiers:
 Ignore = Ignore/100
+if Flail2HIgnore == 1:
+    Ignore += .1
+if Sword2HSplit == 1:
+    Ignore += .05
 if XbowMastery == 1:
     Ignore += .2
 if Ambusher == 1:
@@ -450,6 +456,8 @@ def calc():
     hits_until_1st_heavy_injury_chance = [] #This list will hold how many hits until a chance of heavy injury for each iteration.
     hits_until_1st_morale = [] #This list will hold how many hits until first morale check for each iteration.
     NumberFearsomeProcs = [] #This list will hold number of Fearsome procs for each iteration (only displays if Fearsome is checked).
+    Forge_bonus_armor = [] #This list will hold the amount of extra armor provided by Forge for each iteration (only displays if Forge is checked).
+    hits_until_1st_poison = [] #This list will hold how many hits until first poisoning against Ambushers (only displays if Ambusher is checked)
 
     print("HP = " + str(Def_HP) + ", Helmet = " + str(Def_Helmet) + ", Armor = " + str(Def_Armor))
     NimbleCalc()
@@ -482,6 +490,8 @@ def calc():
         FearsomeProcs = 0
         Bleedstack1T = 0
         Bleedstack2T = 0
+        ForgeSaved = 0                      #Tracker to add the amount of armor gained from Forge for each iteration.
+        Poison = 0                          #Tracker for when first poisoning occurs against Ambushers.
         
         count = 0 #Number of hits until death. Starts at 0 and goes up after each attack.
 
@@ -547,7 +557,9 @@ def calc():
                 if DArmorMod != 1:
                     hp_roll = 10 #DestroyArmor forces hp damage to = 10.
                     hp -= hp_roll 
-                    armor_roll = min(helmet,(random.randint(Mind,Maxd) * ArmorMod * DArmorMod * ForgeMod * IndomMod * DamageMod * MushroomMod * ExecMod))
+                    armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod
+                    ForgeSaved += armor_roll - armor_roll * ForgeMod
+                    armor_roll = min(helmet,(armor_roll * ForgeMod))
                     helmet = math.ceil(helmet - armor_roll) #Rounding armor damage.
                 #If not DestoryArmor, and no armor is present, apply damage directly to hp.
                 elif helmet == 0:
@@ -557,7 +569,9 @@ def calc():
                     hp = math.ceil(hp - hp_roll) #Rounding hp damage.
                 #Otherwise, do the following.
                 else:
-                    armor_roll = min(helmet,(random.randint(Mind,Maxd) * ArmorMod * ForgeMod * IndomMod * DamageMod * MushroomMod * ExecMod))
+                    armor_roll = random.randint(Mind,Maxd) * ArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod
+                    ForgeSaved += armor_roll - armor_roll * ForgeMod #Calculate how much armor is saved by Forge.
+                    armor_roll = min(helmet,(armor_roll * ForgeMod)) #Applying Forge, and armor damage cannot exceed current armor.
                     helmet -= armor_roll #Armor damage applied to helmet.
                     #If the helmet does not get destroyed by the attack, do the following.
                     if helmet > 0:
@@ -583,7 +597,9 @@ def calc():
                             SMhp_roll = SMhp_roll * NimbleMod * IndomMod * AttachMod
                             hp = math.ceil(hp - SMhp_roll)
                         else:
-                            SMarmor_roll = min(body,(random.randint(Mind,Maxd) * .5 * ArmorMod * ForgeMod * IndomMod * AttachMod))
+                            SMarmor_roll = min(body,(random.randint(Mind,Maxd) * .5 * ArmorMod * IndomMod * AttachMod))
+                            ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
+                            SMarmor_roll = min(body,(SMarmor_roll * ForgeMod))
                             body -= SMarmor_roll
                             if body > 0:
                                 SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * AdFurPadMod * IndomMod * AttachMod - (body * 0.1)))
@@ -606,7 +622,9 @@ def calc():
                     if DArmorMod != 1:
                         hp_roll = 10
                         hp -= hp_roll
-                        armor_roll = min(body,(random.randint(Mind,Maxd) * ArmorMod * DArmorMod * ForgeMod * IndomMod * DamageMod * MushroomMod * ExecMod))
+                        armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod
+                        ForgeSaved += armor_roll - armor_roll * ForgeMod
+                        armor_roll = min(body,(armor_roll * ForgeMod))
                         body = math.ceil(body - armor_roll)
                     elif body == 0 or Puncture == 1:
                         hp_roll = hp_roll * NimbleMod * SkeletonMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod)
@@ -614,7 +632,9 @@ def calc():
                             hp_roll = max(hp_roll,10)
                         hp = math.ceil(hp - hp_roll)
                     else:
-                        armor_roll = min(body,(random.randint(Mind,Maxd) * ArmorMod * ForgeMod * IndomMod * DamageMod * MushroomMod * ExecMod * AttachMod))
+                        armor_roll = random.randint(Mind,Maxd) * ArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod * AttachMod
+                        ForgeSaved += armor_roll - armor_roll * ForgeMod
+                        armor_roll = min(body,(armor_roll * ForgeMod))
                         body -= armor_roll
                         if body > 0:
                             hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) - (body * 0.1)))
@@ -635,7 +655,9 @@ def calc():
                         SMhp_roll = SMhp_roll * NimbleMod * IndomMod
                         hp = math.ceil(hp - SMhp_roll)
                     else:
-                        SMarmor_roll = min(helmet,(random.randint(Mind,Maxd) * .5 * ArmorMod * ForgeMod * IndomMod))
+                        SMarmor_roll = min(helmet,(random.randint(Mind,Maxd) * .5 * ArmorMod * IndomMod))
+                        ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
+                        SMarmor_roll = min(helmet,(SMarmor_roll * ForgeMod))
                         helmet -= SMarmor_roll
                         if helmet > 0:
                             SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * IndomMod - (helmet * 0.1)))
@@ -794,15 +816,26 @@ def calc():
                         hp -= BleedDamage * Bleedstack2T
                         Bleedstack2T = 0
 
+            #Poison check:
+            if Ambusher == 1 or AmbusherDay200 == 1:
+                if Poison == 0:
+                    if math.floor(hp_roll) >= 6:
+                        Poison = 1
+                        hits_until_1st_poison.append(count)
+
             #If death occurs, check for NineLives and otherwise add the hitcount to the list for later analysis and start the next trial.
             if hp <= 0: 
                 if NineLivesMod == 1:
                     hp = 1
                     NineLivesMod = 0
                 elif Fearsome == 1:
+                    if Forge == 1:
+                        Forge_bonus_armor.append(ForgeSaved)
                     hits_until_death.append(count)
                     NumberFearsomeProcs.append(FearsomeProcs)
                 else:
+                    if Forge == 1:
+                        Forge_bonus_armor.append(ForgeSaved)
                     hits_until_death.append(count)
 
     #Analysis on data collection:
@@ -829,6 +862,12 @@ def calc():
             HitsToMoralePercent = [(i,HitsToMoraleCounter[i]/len(hits_until_death)*100) for i in HitsToMoraleCounter]
         if Fearsome == 1:
             AvgFearsomeProcs = statistics.mean(NumberFearsomeProcs)
+    if Forge == 1:
+        if len(Forge_bonus_armor) != 0:
+            AvgForgeArmor = statistics.mean(Forge_bonus_armor)
+    if Ambusher == 1 or AmbusherDay200 == 1:
+        if len(hits_until_1st_poison) != 0:
+            hits_to_posion = statistics.mean(hits_until_1st_poison)
 
     #Results:
     if DeathMean == 1:
@@ -861,6 +900,10 @@ def calc():
                 print("% First morale in: " + str(HitsToMoralePercent))
         if Fearsome == 1:
             print (str(AvgFearsomeProcs) + " Fearsome procs on average.")
+    if Forge == 1:
+        print(str(AvgForgeArmor) + " bonus armor from Forge on average.")
+    if Ambusher == 1 or AmbusherDay200 == 1:
+        print("First poison in " + str(hits_to_posion) + " hits on average.")
     print("-----") #Added for readability. If this annoys you then remove this line.
 
 #The following will repeatedly run the scenario with different HP counts.
@@ -929,3 +972,9 @@ calc()
 #-- Added logic for Indomitable halving Bleed damage whereas before it wasn't doing so.
 #-- Added option for Puncture tests.
 #-- Added option for ranged shots that scatter into unintended targets.
+#Version 1.2.4 (4/15/2020)
+#-- Added logic to return the average amount of armor gained when using Forge.
+#-- Added logic to return time of first poisoning against Ambushers.
+#-- Added option to give 2HFlails their +10% Ignore on single target attacks (thank you Andre27 for pointing this out).
+#-- Added option to give 2HSwords their +5% Ignore on their Split attack (thank you Andre27 for pointing this out).
+#-- Added Flail2HIgnore to the Orc Berserker preset.
