@@ -1,7 +1,7 @@
-#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.1.4:
+#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.5.0:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
-#This version of the calculator will run a given attacker against 26 different enemies.
+#This version of the calculator will run a given attacker against 30 different enemies.
 #Defender specific stats and perks are automatically applied.
 #If you wish to more easily compare two test cases, run the script once in two separate terminals.
 
@@ -24,8 +24,8 @@ MoralePercent = 0      #Returns % chance of first morale check by each hit.
 #number of highly armored characters, which skews the test against weaker weapons or something like Head Hunter,
 #which would normally avoid attacking highly armored characters.
 #Also be aware that weapons that attack twice per turn will of course score "worse". We are counting hits here technically, not turns.
-TotalMean = 0          #Returns the total of mean hits to kill for each test added together at the very end.
-AverageMeanPerTest = 0 #Returns average hits to kill against the whole test group.
+TotalMean = 1          #Returns the total of mean hits to kill for each test added together at the very end.
+AverageMeanPerTest = 1 #Returns average hits to kill against the whole test group.
 
 #Attacker Stats: #Example is Ancient Bladed Pike, follow that formatting.
 Mind = 55        #Mind = 55
@@ -59,8 +59,10 @@ Decapitate = 0          #Cleaver Decapitate. Will use Decapitate for all attacks
 SmartDecap50 = 0        #Switches from normal Cleaver attacks to Decapitate once opposing hp is <= 50%.
 SmartDecap33 = 0        #Switches from normal Cleaver attacks to Decapitate once opposing hp is <= 33.33%.
 Shamshir = 0            #Shamshir special, acts like Crippling Strikes.
+ShamshirMastery = 0     #Sword Mastery with Gash, 50% reduction to injury threshold instead of 33%.
 Sword2HSplit = 0        #Ignore +5%. Applies to Greatsword Split attack. Does not apply to Overhead or Swing.
 Puncture = 0            #Dagger Puncture. Do not apply Double Grip
+Deathblow = 0           #Qatal special. Ignore +20%. Damage x1.33. Assumes target is always setup for Deathblow value in calculation.
 Spearwall = 0           #Warning: May take a long time to compute against durable targets, considering lowering number of trials. 
 AimedShot = 0           #Damage +10% for Bows.
 XbowMastery = 0         #Ignore +20%.
@@ -70,8 +72,7 @@ Scatter = 0             #Ranged attacks that hit an unintended target deal 75% d
 #Perks:
 CripplingStrikes = 0
 Executioner = 0
-HeadHunter = 0          #Will start each trial with base Headshot chance.
-HHCarryOver = 0         #Uncheck regular HH if you use this. Causes HeadHunter stacks to carry over to subsequent trials rather than resetting to better approximate how HH really works.
+HeadHunter = 0          #Will carry over HH stacks between kills as happens in game.
 Duelist = 0             #All Duelists should also be given DoubleGrip except for Throwing weapons.
 KillingFrenzy = 0
 Fearsome = 0            #Will also return # of Fearsome procs, which are all attacks that deal 1-14 damage.
@@ -89,9 +90,9 @@ SplitShoulder = 0       #Damage -50%. Heavy cutting/body.
 CutArmSinew = 0         #Damage -40%. Light cutting/body.
 InjuredShoulder = 0     #Damage -25%. Light piercing/body.
 #Other:
-Dazed = 0               #Damage -35%. Set this if you want to simulate the attacker always being Dazed.
-Mushrooms1x = 0         #Applies a 30% buff on the first attack, 20% on the second, 10% on the third, and then 0% after. Only apply for Melee.
-Mushrooms2x = 0         #Applies to two attacks per turn instead of 1 for weapons that can attack twice per turn.
+Dazed = 0               #Damage -25%. Set this if you want to simulate the attacker always being Dazed.
+Distracted = 0          #Damage -35%. Set this if you want to simulate the attacker always being Distracted (applied by Nomads).
+Mushrooms = 0           #Damage +25%. Set this to simulate a Mushroom enhanced brother.
 
 # ------------------------------------------------------------------------
 #IMPORTANT --- ALL BELOW FIELDS SHOULD NOT BE MODIFIED. --- IMPORTANT
@@ -118,6 +119,7 @@ SteelBrow = 0
 Nimble = 0 
 Forge = 0
 Indomitable = 0
+GloriousEndurance = 0   #The Bear's unique perk. Reduces damage by 5% each time you are hit, up to a 25% max reduction.
 #Attachments: Note: Only 1 attachment should be selected.
 AdFurPad = 0            #Additional Fur Padding.
 Boneplate = 0           
@@ -174,6 +176,10 @@ DPreMercRange = 0       # 65hp, 115/115, Nimble. (-18 Fat)
 DPreHedgeKnight = 0     # 150hp, 300/300, Forge, Resilient.
 DPreSwordmaster = 0     # 70hp, 70/115, Nimble, SteelBrow. (-15 Fat)
 DPreMasterArcher = 0    # 80hp, 30/115, Nimble, SteelBrow. (-12 Fat)
+DPreOutlawHeavy = 0     # 75hp, 125/105.
+DPreConscript = 0       # 60hp, 105/110, Nimble. (-16 Fat)
+DPreOfficer = 0         # 100hp, 290/290, Forge.
+DPreAssassinHeavy = 0   # 80hp, 140/120, Nimble. (-15 Fat)
 
 #RACE FLAGS (ATTACKER):
 #Note: This version of the calculator assumes your bro is attacking, so these tags don't logically apply.
@@ -191,8 +197,7 @@ ArmoredZombieDay100 = 0 #Damage +10%.
 BarbKing = 0            #Damage +20%.
 HedgeKnight = 0         #Damage +20%.
 BrigandLeader = 0       #Armor Damage + 20%.
-Ambusher = 0            #Ignore * 1.4
-AmbusherDay200 = 0      #Ignore * 1.5
+Ambusher = 0            #Ignore * 1.25
 Skirmisher = 0          #Ignore * 1.25
 Overseer = 0            #Ignore * 1.1
 Wolfrider = 0           #Ignore * 1.25
@@ -278,6 +283,14 @@ def PresetCalc():
         Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, SteelBrow = 70, 70, 115, -15, 1, 1
     if DPreMasterArcher == 1:   
         Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, SteelBrow = 80, 30, 115, -12, 1, 1
+    if DPreOutlawHeavy == 1:
+        Def_HP, Def_Helmet, Def_Armor = 75, 125, 105
+    if DPreConscript == 1:
+        Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 60, 105, 110, -16, 1
+    if DPreOfficer == 1:
+        Def_HP, Def_Helmet, Def_Armor, Forge = 100, 290, 290, 1
+    if DPreAssassinHeavy == 1:
+        Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 80, 140, 120, -15, 1
 
 #Error Handling
 if (Mind == 0 and Maxd == 0) or Mind < 0 or Maxd < 0:
@@ -322,12 +335,12 @@ if Flail2HIgnore == 1:
     Ignore += .1
 if Sword2HSplit == 1:
     Ignore += .05
+if Deathblow == 1:
+    Ignore += .2
 if XbowMastery == 1:
     Ignore += .2
 if Ambusher == 1:
-    Ignore *= 1.4
-if AmbusherDay200 ==1:
-    Ignore *= 1.5
+    Ignore *= 1.25
 if Skirmisher == 1:
     Ignore *= 1.25
 if Overseer == 1:
@@ -355,12 +368,17 @@ def NimbleCalc():
     else:
         NimbleMod = 1
 
+#HeadHunter
+HHStack = 0
+
 #Damage modifiers:
 DamageMod = 1
 if DoubleGrip == 1:
     DamageMod *= 1.25
 if Flail3Head == 1:
     DamageMod *= .33
+if Deathblow == 1:
+    DamageMod *= 1.33
 if Spearwall == 1:
     DamageMod *= .5
 if R2Throw == 1:
@@ -386,7 +404,11 @@ if CutArmSinew == 1:
 if InjuredShoulder == 1:
     DamageMod *= .75
 if Dazed == 1:
+    DamageMod *= .75
+if Distracted == 1:
     DamageMod *= .65
+if Mushrooms == 1:
+    DamageMod *= 1.25
 if Young == 1:
     DamageMod *= 1.15
 if Berserker == 1:
@@ -469,7 +491,7 @@ total = 0 #This is used when adding means for when you have that data output che
 print("-----") #Added for readability. If this annoys you then remove this line.
 
 def calc():
-    global Headshotchance,total
+    global Headshotchance,total,HHStack
 
     #Headshot damage modifiers:
     HeadMod = 1.5
@@ -555,24 +577,27 @@ def calc():
                     ForgeMod *= .75
             else:
                 ForgeMod = 1
+            #Gladiator - The Bear - Glorious Endurance:
+            if GloriousEndurance == 1:
+                if SplitMan == 1:
+                    GladMod = 1 - (.05 * (count * 2))
+                else:
+                    GladMod = 1 - (.05 * count)
+                if GladMod < .75:
+                    GladMod = .75
+            else:
+                GladMod = 1
             #Executioner:
             if Injury == 1 and Executioner == 1:
                 ExecMod = 1.2
             else:
                 ExecMod = 1
-            #Mushrooms:
-            if Mushrooms1x == 1:
-                MushroomMod = max(1,(1.3 - (0.1 * count)))
-            elif Mushrooms2x == 1:
-                MushroomMod = 1.3
-                if count >= 2:
-                    MushroomMod = 1.2
-                if count >= 4:
-                    MushroomMod = 1.1
-                if count >= 6:
-                    MushroomMod = 1
-            else:
-                MushroomMod = 1
+            #HeadHunter:
+            if HeadHunter == 1:
+                if HHStack == 1:
+                    Headshotchance = 100
+                else:
+                    Headshotchance = Headchance
 
             #Begin damage rolls:
             hp_roll = random.randint(Mind,Maxd) #Random roll to determine unmodified hp damage.
@@ -581,40 +606,43 @@ def calc():
                 #Headshot Injury Flag -- Headshot injuries use a different formula. This flag will signal later when Injury is checked.
                 UseHeadShotInjuryFormula = 1
                 UseHeadShotInjuryFormulaHeavy = 1
-                #HeadHunter check -- Lose current HH stacks since this is a headshot.
-                if HeadHunter == 1 or HHCarryOver == 1:
-                    Headshotchance = Headchance
+                #HeadHunter check -- Lose current stack if you had one. Gain stack if you didn't.
+                if HeadHunter == 1:
+                    if HHStack == 0:
+                        HHStack = 1
+                    elif HHStack == 1:
+                        HHStack = 0
                 #Destroy armor check -- if Destroy Armor special is active do this code block and skip the rest.
                 if DArmorMod != 1:
                     hp_roll = 10 #DestroyArmor forces hp damage to = 10.
                     hp -= hp_roll 
-                    armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod
+                    armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * GladMod * IndomMod * DamageMod *  ExecMod
                     ForgeSaved += armor_roll - armor_roll * ForgeMod
                     armor_roll = min(helmet,(armor_roll * ForgeMod))
                     helmet = math.ceil(helmet - armor_roll) #Rounding armor damage.
                 #If not DestoryArmor, and no armor is present, apply damage directly to hp.
                 elif helmet == 0:
-                    hp_roll = hp_roll * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) * HeadMod
+                    hp_roll = hp_roll * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) * HeadMod
                     if Hammer10 == 1: #If 1H Hammer, deal 10 damage minimum.
                         hp_roll = max(hp_roll,10)
                     hp = math.ceil(hp - hp_roll) #Rounding hp damage.
                 #Otherwise, do the following.
                 else:
-                    armor_roll = random.randint(Mind,Maxd) * ArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod
+                    armor_roll = random.randint(Mind,Maxd) * ArmorMod * GladMod * IndomMod * DamageMod *  ExecMod
                     ForgeSaved += armor_roll - armor_roll * ForgeMod #Calculate how much armor is saved by Forge.
                     armor_roll = min(helmet,(armor_roll * ForgeMod)) #Applying Forge, and armor damage cannot exceed current armor.
                     helmet -= armor_roll #Armor damage applied to helmet.
                     #If the helmet does not get destroyed by the attack, do the following.
                     if helmet > 0:
-                        hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) - (helmet * 0.1)) * HeadMod)
+                        hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) - (helmet * 0.1)) * HeadMod)
                         if Hammer10 == 1:
                             hp_roll = max(hp_roll,10) 
                         helmet = math.ceil(helmet)
                         hp = math.ceil(hp - hp_roll)
                     #If the helmet did get destoryed by the attack, do the following.
                     else:
-                        OverflowDamage = max(0,(hp_roll * (1 - Ignore) * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) - armor_roll))
-                        hp_roll = (hp_roll * Ignore * NimbleMod * SkeletonMod * IndomMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) + OverflowDamage) * HeadMod
+                        OverflowDamage = max(0,(hp_roll * (1 - Ignore) * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) - armor_roll))
+                        hp_roll = (hp_roll * Ignore * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) + OverflowDamage) * HeadMod
                         if Hammer10 == 1:
                             hp_roll = max(hp_roll,10)
                         hp = math.ceil(hp - hp_roll)
@@ -625,26 +653,23 @@ def calc():
                     else:
                         SMhp_roll = random.randint(Mind,Maxd) * .5
                         if body == 0:
-                            SMhp_roll = SMhp_roll * NimbleMod * IndomMod * AttachMod
+                            SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod * AttachMod
                             hp = math.ceil(hp - SMhp_roll)
                         else:
-                            SMarmor_roll = min(body,(random.randint(Mind,Maxd) * .5 * ArmorMod * IndomMod * AttachMod))
+                            SMarmor_roll = min(body,(random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod * AttachMod))
                             ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
                             SMarmor_roll = min(body,(SMarmor_roll * ForgeMod))
                             body -= SMarmor_roll
                             if body > 0:
-                                SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * AdFurPadMod * IndomMod * AttachMod - (body * 0.1)))
+                                SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * AdFurPadMod * GladMod * IndomMod * AttachMod - (body * 0.1)))
                                 body = math.ceil(body)
                                 hp = math.ceil(hp - SMhp_roll)
                             else:
-                                OverflowDamage = max(0,(SMhp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * IndomMod * AttachMod - SMarmor_roll))
-                                SMhp_roll = SMhp_roll * Ignore * NimbleMod * AdFurPadMod * IndomMod * AttachMod + OverflowDamage
+                                OverflowDamage = max(0,(SMhp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * GladMod * IndomMod * AttachMod - SMarmor_roll))
+                                SMhp_roll = SMhp_roll * Ignore * NimbleMod * AdFurPadMod * GladMod * IndomMod * AttachMod + OverflowDamage
                                 hp = math.ceil(hp - SMhp_roll)
                         
             else: #If not a headshot, do the following. 
-                #HeadHunter check -- Gain a HH stack since this is a body hit.
-                if HeadHunter == 1 or HHCarryOver == 1:
-                    Headshotchance += 15
                 #Bone Plates check -- Attack is negated if Boneplates are online, then turns off Boneplates until next trial.
                 if BoneplateMod == 1:
                     BoneplateMod = 0
@@ -653,29 +678,29 @@ def calc():
                     if DArmorMod != 1:
                         hp_roll = 10
                         hp -= hp_roll
-                        armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod
+                        armor_roll = random.randint(Mind,Maxd) * ArmorMod * DArmorMod * GladMod * IndomMod * DamageMod *  ExecMod
                         ForgeSaved += armor_roll - armor_roll * ForgeMod
                         armor_roll = min(body,(armor_roll * ForgeMod))
                         body = math.ceil(body - armor_roll)
                     elif body == 0 or Puncture == 1:
-                        hp_roll = hp_roll * NimbleMod * SkeletonMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod)
+                        hp_roll = hp_roll * NimbleMod * SkeletonMod * GladMod * IndomMod * AttachMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod)
                         if Hammer10 == 1:
                             hp_roll = max(hp_roll,10)
                         hp = math.ceil(hp - hp_roll)
                     else:
-                        armor_roll = random.randint(Mind,Maxd) * ArmorMod * IndomMod * DamageMod * MushroomMod * ExecMod * AttachMod
+                        armor_roll = random.randint(Mind,Maxd) * ArmorMod * GladMod * IndomMod * DamageMod *  ExecMod * AttachMod
                         ForgeSaved += armor_roll - armor_roll * ForgeMod
                         armor_roll = min(body,(armor_roll * ForgeMod))
                         body -= armor_roll
                         if body > 0:
-                            hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) - (body * 0.1)))
+                            hp_roll = max(0,(hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * GladMod * IndomMod * AttachMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) - (body * 0.1)))
                             if Hammer10 == 1:
                                 hp_roll = max(hp_roll,10)
                             body = math.ceil(body)
                             hp = math.ceil(hp - hp_roll)
                         else:
-                            OverflowDamage = max(0,(hp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * SkeletonMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) - armor_roll))
-                            hp_roll = hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * IndomMod * AttachMod * ((DamageMod * MushroomMod * ExecMod * AimedShotMod) * DecapMod) + OverflowDamage
+                            OverflowDamage = max(0,(hp_roll * (1 - Ignore * AdFurPadMod) * NimbleMod * SkeletonMod * GladMod * IndomMod * AttachMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) - armor_roll))
+                            hp_roll = hp_roll * Ignore * NimbleMod * SkeletonMod * AdFurPadMod * GladMod * IndomMod * AttachMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) + OverflowDamage
                             if Hammer10 == 1:
                                 hp_roll = max(hp_roll,10)
                             hp = math.ceil(hp - hp_roll)
@@ -683,20 +708,20 @@ def calc():
                 if SplitMan == 1:
                     SMhp_roll = random.randint(Mind,Maxd) * .5
                     if helmet == 0:
-                        SMhp_roll = SMhp_roll * NimbleMod * IndomMod
+                        SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod
                         hp = math.ceil(hp - SMhp_roll)
                     else:
-                        SMarmor_roll = min(helmet,(random.randint(Mind,Maxd) * .5 * ArmorMod * IndomMod))
+                        SMarmor_roll = min(helmet,(random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod))
                         ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
                         SMarmor_roll = min(helmet,(SMarmor_roll * ForgeMod))
                         helmet -= SMarmor_roll
                         if helmet > 0:
-                            SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * IndomMod - (helmet * 0.1)))
+                            SMhp_roll = max(0,(SMhp_roll * Ignore * NimbleMod * GladMod * IndomMod - (helmet * 0.1)))
                             helmet = math.ceil(helmet)
                             hp = math.ceil(hp - SMhp_roll)
                         else:
-                            OverflowDamage = max(0,(SMhp_roll * (1 - Ignore) * NimbleMod * IndomMod - SMarmor_roll))
-                            SMhp_roll = SMhp_roll * Ignore * NimbleMod * IndomMod + OverflowDamage
+                            OverflowDamage = max(0,(SMhp_roll * (1 - Ignore) * NimbleMod * GladMod * IndomMod - SMarmor_roll))
+                            SMhp_roll = SMhp_roll * Ignore * NimbleMod * GladMod * IndomMod + OverflowDamage
                             hp = math.ceil(hp - SMhp_roll)
 
             count += 1 #Add +1 to the number of hits taken. 
@@ -704,7 +729,23 @@ def calc():
             #Injury check:
             if UseHeadShotInjuryFormula == 1:
                 if Injury == 0 and Undead != 1 and Savant != 1:
-                    if CripplingStrikes == 1 and Shamshir == 1:
+                    if CripplingStrikes == 1 and ShamshirMastery == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/48):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                        UseHeadShotInjuryFormula = 0
+                    elif CripplingStrikes == 0 and ShamshirMastery == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/32):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                        UseHeadShotInjuryFormula = 0
+                    elif CripplingStrikes == 1 and Shamshir == 1:
                         if math.floor(hp_roll) >= Def_HP * (5/36):
                             Injury = 1
                             if Flail3Head == 1:
@@ -731,7 +772,21 @@ def calc():
 
             else: #Use body injury formula.
                 if Injury == 0 and Undead != 1 and Savant != 1:
-                    if CripplingStrikes == 1 and Shamshir == 1:
+                    if CripplingStrikes == 1 and ShamshirMastery == 1:
+                        if math.floor(hp_roll) >= Def_HP / 12:
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    elif CripplingStrikes == 0 and ShamshirMastery == 1:
+                        if math.floor(hp_roll) >= Def_HP / 8:
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    elif CripplingStrikes == 1 and Shamshir == 1:
                         if math.floor(hp_roll) >= Def_HP / 9:
                             Injury = 1
                             if Flail3Head == 1:
@@ -756,7 +811,23 @@ def calc():
             #Heavy injury check: Heavy injuries are not guaranteed even when conditions are met, so this is only checking for chance of heavy injury.
             if UseHeadShotInjuryFormulaHeavy == 1:
                 if HeavyInjuryChance == 0 and Undead != 1 and Savant != 1:
-                    if CripplingStrikes == 1 and Shamshir == 1:
+                    if CripplingStrikes == 1 and ShamshirMastery == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/24):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                        UseHeadShotInjuryFormulaHeavy = 0
+                    elif CripplingStrikes == 0 and ShamshirMastery == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/16):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                        UseHeadShotInjuryFormulaHeavy = 0
+                    elif CripplingStrikes == 1 and Shamshir == 1:
                         if math.floor(hp_roll) >= Def_HP * (5/18):
                             HeavyInjuryChance = 1
                             if Flail3Head == 1:
@@ -783,7 +854,21 @@ def calc():
 
             else: #Use body injury formula.
                 if HeavyInjuryChance == 0 and Undead != 1 and Savant != 1:
-                    if CripplingStrikes == 1 and Shamshir == 1:
+                    if CripplingStrikes == 1 and ShamshirMastery == 1:
+                        if math.floor(hp_roll) >= Def_HP / 6:
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    elif CripplingStrikes == 0 and ShamshirMastery == 1:
+                        if math.floor(hp_roll) >= Def_HP / 4:
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    elif CripplingStrikes == 1 and Shamshir == 1:
                         if math.floor(hp_roll) >= Def_HP * (2/9):
                             HeavyInjuryChance = 1
                             if Flail3Head == 1:
@@ -834,10 +919,6 @@ def calc():
 
             #Bleeding check:
             if (CleaverBleed == 1 or CleaverMastery == 1) and Undead != 1:
-                #NineLives check -- If the attack proc'd NineLives then any bleeding damage will kill you.
-                if hp <= 0 and NineLivesMod == 1:
-                    hp = 1
-                    NineLivesMod = 0
                 #If damage taken >= 6 and Decapitate isn't in play, then apply a 2 turn bleed stack.
                 if math.floor(hp_roll) >= 6 and DecapMod == 1 and Decapitate != 1:
                     Bleedstack2T += 1
@@ -854,7 +935,7 @@ def calc():
                         Bleedstack2T = 0
 
             #Poison check:
-            if Ambusher == 1 or AmbusherDay200 == 1:
+            if Ambusher == 1:
                 if Poison == 0:
                     if math.floor(hp_roll) >= 6:
                         Poison = 1
@@ -863,8 +944,10 @@ def calc():
             #If death occurs, check for NineLives and otherwise add the hitcount to the list for later analysis and start the next trial.
             if hp <= 0: 
                 if NineLivesMod == 1:
-                    hp = 1
+                    hp = random.randint(5,10)
                     NineLivesMod = 0
+                    Bleedstack1T = 0
+                    Bleedstack2T = 0
                 elif Fearsome == 1:
                     if Forge == 1:
                         Forge_bonus_armor.append(ForgeSaved)
@@ -909,7 +992,7 @@ def calc():
     if Forge == 1:
         if len(Forge_bonus_armor) != 0:
             AvgForgeArmor = statistics.mean(Forge_bonus_armor)
-    if Ambusher == 1 or AmbusherDay200 == 1:
+    if Ambusher == 1:
         if len(hits_until_1st_poison) != 0:
             hits_to_posion = statistics.mean(hits_until_1st_poison)
 
@@ -946,7 +1029,7 @@ def calc():
             print (str(AvgFearsomeProcs) + " Fearsome procs on average.")
     if Forge == 1:
         print(str(AvgForgeArmor) + " bonus armor from Forge on average.")
-    if Ambusher == 1 or AmbusherDay200 == 1:
+    if Ambusher == 1:
         print("First poison in " + str(hits_to_posion) + " hits on average.")
     print("-----") #Added for readability. If this annoys you then remove this line.
 
@@ -1130,6 +1213,34 @@ print("Master Archer:")
 calc()
 DPreMasterArcher = 0
 
+Nimble = 0
+SteelBrow = 0
+DPreOutlawHeavy = 1
+PresetCalc()
+print("Nomad Outlaw:")
+calc()
+DPreOutlawHeavy = 0
+
+DPreConscript = 1
+PresetCalc()
+print("Conscript:")
+calc()
+DPreConscript = 0
+
+Nimble = 0
+DPreOfficer = 1
+PresetCalc()
+print("Officer:")
+calc()
+DPreOfficer = 0
+
+Forge = 0
+DPreAssassinHeavy = 1
+PresetCalc()
+print("Assassin - Heavy:")
+calc()
+DPreAssassinHeavy = 0
+
 if TotalMean == 1:
     TotalMean = total
     print(str(TotalMean) + " hits to kill total against this test group.")
@@ -1145,6 +1256,7 @@ if AverageMeanPerTest == 1:
 #-- Abel (aka) Villain Joueur: For grabbing the damage formula out of the game code, writing the damage page on the wiki, and for helping me with many questions along the way.
 #-- Wall (aka) Wlira: For helping me with some questions along the way and having an existing calculator for me to test against.
 #-- You: If you are using the calculator, thank you! If you find any bugs or have feedback/questions/suggestions, you can usually find me on the Steam forums or send me an email.
+#-- Overhype: For making an amazing game for us to play.
 
 #History:
 #Version 1.0.0 (12/27/2019)
@@ -1176,3 +1288,23 @@ if AverageMeanPerTest == 1:
 #-- Added Flail2HIgnore to the Orc Berserker preset.
 #-- Added data output option to show output of the total hits to kill the entire enemy group.
 #-- Added data output option to show output of the average hits to kill the entire enemy group.
+#Version 1.5.0 (8/13/2020)
+#-- Updated calculator with Blazing Deserts changes, see below for details.
+#-- Reworked HeadHunter for Blazing Deserts change.
+#-- Also removed HH option to not count stacks between kills as it doesn't make sense to calculate that way.
+#-- Adjusted Nine Lives to clear existing Bleed stacks when it procs.
+#-- Added ShamshirMastery to account for new logic with Sword Mastery.
+#-- Adjusted injury logic to account for new Shamshir Mastery.
+#-- Added The Bear's unique perk - Glorious Endurance.
+#-- Changed Dazed to -25% damage instead of -35% damage.
+#-- Changed Mushrooms to +25% damage global instead of its previous effect.
+#-- Added Distracted effect that is applied by Nomads.
+#-- Changed Ambusher ignore modifier to 1.25 (down from 1.4).
+#-- Changed Ambusher presets to use a 30-50 Boondock Bow (up from 25-40).
+#-- Removed AmbusherDay200 entry.
+#-- Added Qatal special - Deathblow.
+#-- Changed Fallen Hero preset to use a Greataxe instead of Winged Mace to demonstrate their most threatening loadout.
+#-- Changed Sergeant preset to use a Winged Mace instead of Warhammer to make him more neutral to his loadout options.
+#-- Added 4 new attacker presets and 4 new defender presets.
+#-- Changed Billhook preset as per Billhook nerf.
+#-- Added 4 enemies to the test group.
