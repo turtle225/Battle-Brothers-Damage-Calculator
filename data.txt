@@ -77,7 +77,7 @@ Armored Unhold: 500hp, 35 helmet, 35 armor. SteelBrow, Resilient, Crippling.
 Armored Frost: 600hp, 400 helmet, 400 armor. SteelBrow, Resilient, Crippling, (Frenzy).
 Schrat: 600hp. SteelBrow, Resilient, Crippling.
 Webknecht: 60hp, 20 helmet, 20 armor. 
-Hexe: 80hp, 20 helmet, 0 armor.
+Hexe: 80hp, 0 helmet, 25 armor.
 Alp: 90hp.
 Kraken: 4400hp, 1600 armor (does not have a body). Resilient, SteelBrow.
 Tentacle: 300hp. SteelBrow, Resilient, Fearsome.
@@ -91,10 +91,11 @@ Daggers:
 Knife: 15-25, 20% Ignore, 50% Armor.
 Dagger: 15-35, 20% Ignore, 60% Armor.
 Rondel: 20-40, 20% Ignore, 70% Armor.
+Qatal: 30-45, 20% Ignore, 70% Armor.
 
 Swords:
 Shortsword: 30-40, 20% Ignore, 75% Armor.
-Scimitar: 35-45, 20% Ignore, 65% Armor.
+Scimitar: 40-45, 20% Ignore, 70% Armor.
 Flachion: 35-45, 20% Ignore, 70% Armor.
 Arming Sword: 40-45, 20% Ignore, 80% Armor.
 Shamshir: 45-50, 20% Ignore, 75% Armor.
@@ -114,14 +115,17 @@ Morning Star: 30-45, 40% Ignore, 100% Armor.
 Winged Mace: 35-55, 40% Ignore, 110% Armor.
 CLaw Club: 20-30, 50% Ignore, 100% Armor.
 Cudgel: 30-50, 40% Ignore, 90% Armor.
+Heavy Southern Mace: 35-50, 40% Ignore, 120% Armor.
 
 2H Mace: 50-75, 50% Ignore, 115% Armor.
 2H Flanged Mace: 75-95, 50% Ignore, 125% Armor.
 2H Spiked Mace: 50-70, 60% Ignore, 115% Armor.
+Polemace: 60-75, 40% Ignore, 120% Armor, 30% Head.
 
 Spears:
 Militia Spear: 25-30, 25% Ignore, 90% Armor.
 Boar Spear: 30-35, 25% Ignore, 95% Armor.
+FireLance (Thrust): 30-35, 25% Ignore, 110% Armor.
 Fighting Spear: 35-40, 25% Ignore, 100% Armor.
 Goblin Skewer: 25-35, 20% Ignore, 70% Armor.
 Ancient Spear: 20-35, 25% Ignore, 100% Armor.
@@ -148,7 +152,7 @@ Flails:
 Wood Flail: 10-25, 30% Ignore, 50% Armor, 35% Head.
 Reinforced Wood Flail: 20-45, 30% Ignore, 80% Armor, 35% Head.
 Flail: 25-55, 30% Ignore, 100% Armor, 35% Head.
-3Head Flail: 21-66, 30% Ignore, 100% Armor, 35% Head.
+3Head Flail: 30-75, 30% Ignore, 100% Armor, 35% Head.
 
 2H Wood Flail: 25-60, 30% Ignore, 80% Armor, 40% Head.
 2H Flail: 40-80, 30% Ignore, 110% Armor, 40% Head.
@@ -164,6 +168,8 @@ Khopesh: 35-55, 25% Ignore, 120% Armor.
 Antlers: 20-30, 35% Ignore, 75% Armor.
 Blunt Cleaver: 30-40, 35% Ignore, 80% Armor.
 
+Two-Handed Saif: 50-70, 25% Ignore, 90% Armor.
+Two-Handed Scimitar: 65-85, 25% Ignore, 110% Armor.
 Crypt Cleaver: 65-85, 25% Ignore, 115% Armor.
 Rusty Warblade: 60-80, 35% Ignore, 110% Armor.
 
@@ -176,24 +182,25 @@ Axehammer: 20-30, 60% Ignore, 200% Armor.
 2H Mallet: 40-70, 50% Ignore, 150% Armor.
 2H Hammer: 60-90, 50% Ignore, 200% Armor.
 2H Skull Hammer: 45-65, 60% Ignore, 180% Armor.
-Polehammer: 50-75, 50% Ignore, 175% Armor, 30% Head.
+Polehammer: 50-75, 50% Ignore, 185% Armor, 30% Head.
 
 Polearms:
 Pitchfork: 30-50, 30% Ignore, 75% Armor, 30% Head.
 Hooked Blade: 40-70, 30% Ignore, 110% Armor, 30% Head.
 Pike: 60-80, 30% Ignore, 100% Armor, 30% Head.
-Billhook, 60-90, 30% Ignore, 150% Armor, 30% Head.
+Billhook, 55-85, 30% Ignore, 140% Armor, 30% Head.
 Banner: 50-70, 30% Ignore, 100% Armor.
 Jagged Pike: 50-70, 25% Ignore, 90% Armor, 30% Head.
 Broken Bladed Pike: 35-55, 30% Ignore, 80% Armor, 30% Head.
 Ancient Bladed Pike: 55-80, 30% Ignore, 125% Armor, 30% Head.
 Warscythe: 55-80, 35% Ignore, 104% Armor. (Note: actual Ignore is 30% on single target and 25% on AoE).
+Swordlance: 60-80, 30% Ignore, 90% Armor. (Note: actual Ignore is 25% on AoE).
 
 Throwing:
 Javelins: 30-45, 45% Ignore, 75% Armor.
-Heavy Javelins: 40-55, 45% Ignore, 80% Armor.
+Heavy Javelins: 35-50, 45% Ignore, 80% Armor.
 Throwing Axes: 25-40, 25% Ignore, 110% Armor, 30% Head.
-Heavy Axes: 35-55, 25% Ignore, 115% Armor, 30% Head.
+Heavy Axes: 30-50, 25% Ignore, 115% Armor, 30% Head.
 Crude Javelins: 30-40, 45% Ignore, 70% Armor.
 Bolas: 20-35, 35% Ignore, 70% Armor.
 Throwing Spear: 45-70, 45% Ignore, 110% Armor.
@@ -203,14 +210,19 @@ Bows:
 Short Bow: 30-50, 35% Ignore, 50% Armor.
 Hunting Bow: 40-60, 35% Ignore, 55% Armor.
 War Bow: 50-70, 35% Ignore, 60% Armor.
+Composite Bow: 40-55, 35% Ignore, 70% Armor.
 Masterwork Bow: 50-75, 35% Ignore, 65% Armor.
-Reinforced Boondock: 25-40, 35% Ignore, 60% Armor.
+Reinforced Boondock: 30-50, 35% Ignore, 60% Armor.
 
 Xbows:
 Light Xbow: 30-50, 50% Ignore, 60% Armor.
 Xbow: 40-60, 50% Ignore, 70% Armor.
 Heavy Xbow: 50-70, 50% Ignore, 75% Armor.
 Spike Impaler: 50-70, 50% Ignore, 75% Armor.
+
+Firearms:
+FireLance (Ignite): 40-60, 15% Ignore, 90% Armor.
+Handgonne: 35-75, 25% Ignore, 100% Armor.
 
 Beasts:
 Direwolf: 30-50, 20% Ignore, 70% Armor.
