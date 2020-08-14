@@ -1,13 +1,13 @@
 # Battle-Brothers-Damage-Calculator
+Updated for Blazing Deserts
+
 A script that simulates the damage formula used in Battle Brothers, returning expected hits until death, injury, heavy injury, and morale check given whatever scenario you provide. Also returns % chance of death by hit, and can also return % chance of first injuries or morale by hit. 
 
-Includes over 70 different switches from unique weapon cases, perks, attachments, race, etc. to create almost any scenario you can imagine from in game. There are 31 attacker presets and 37 defender presets provided for convenience.
-
-IMPORTANT NOTE: 4/3/2020: Split Man is currently overvalued in the calculator. This is because I allow it to deal armor ignoring damage on the secondary hit as you would expect that it should be able to do based on the info card and description. The actual game code doesn't have any armor ignoring logic, meaning the secondary hit cannot deal hp damage through armor. This makes Split Man signficantly worse. It is unclear whether or not this is intended behavior or a bug, so I'm not making changes until we see some confirmation one way or the other. Sorry and thank you.
+Includes over 80 different switches from unique weapon cases, perks, attachments, race, etc. to create almost any scenario you can imagine from in game. There are 35 attacker presets and 41 defender presets provided for convenience.
 
 Includes a lot of comments to help make the code easy and intuitive to understand. 
 
-BBCalc.py is the main calculator for general use. BBNimbleBattery.py will run 12 common Nimble sets given your scenario. BBRaisingHp.py will run a given scenario at various hp counts. BB1HanderBattery.py will run all of the top end 1Handers against a given target. BB2HanderBattery.py will run all of the top end 2Handers against a given target. BBAttackerVsEnemies.py will run a given attacker against 26 enemies from the game. BBEnemiesVsDefender.py will run 31 enemies against a given defender. BBHitChance.py is a rehash of the main calculator with a very basic addition of a hit chance variable.
+BBCalc.py is the main calculator for general use. BBNimbleBattery.py will run 15 common Nimble sets given your scenario. BBRaisingHp.py will run a given scenario at various hp counts. BB1HanderBattery.py will run all of the top end 1Handers against a given target. BB2HanderBattery.py will run all of the top end 2Handers against a given target. BBAttackerVsEnemies.py will run a given attacker against 30 enemies from the game. BBEnemiesVsDefender.py will run 35 enemies against a given defender. BBHitChance.py is a rehash of the main calculator with a very basic addition of a hit chance variable.
 
 Also included is a file called data.txt which includes information on hp/armor statistics and calculator relevant perks for all enemies as well as weapon data for most weapons and Beasts. 
 
@@ -51,3 +51,5 @@ helping me with many questions along the way.
 -- Wall (aka) Wlira: For helping me with some questions along the way and having an existing calculator for me to test against. Also for pointing out Replit as an option for using the calculator.
 
 -- You: If you are using the calculator, thank you! If you find any bugs or have feedback/questions/suggestions, you can usually find me on the Steam forums or send me an email.
+
+-- Overhype: For making an amazing game for us to play.
