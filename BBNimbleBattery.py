@@ -1009,11 +1009,6 @@ Def_Armor = 65
 Fatigue = -15
 calc()
 
-Def_Helmet = 225
-Def_Armor = 60
-Fatigue = -15
-calc()
-
 Def_Helmet = 140
 Def_Armor = 120
 Fatigue = -15
@@ -1034,6 +1029,11 @@ Def_Armor = 95
 Fatigue = -17
 calc()
 
+Def_Helmet = 225
+Def_Armor = 60
+Fatigue = -17
+calc()
+
 Def_Helmet = 160
 Def_Armor = 115
 Fatigue = -19
@@ -1044,11 +1044,6 @@ Def_Armor = 160
 Fatigue = -20
 calc()
 
-Def_Helmet = 225
-Def_Armor = 120
-Fatigue = -20
-calc()
-
 Def_Helmet = 190
 Def_Armor = 115
 Fatigue = -21
@@ -1056,6 +1051,11 @@ calc()
 
 Def_Helmet = 160
 Def_Armor = 160
+Fatigue = -22
+calc()
+
+Def_Helmet = 225
+Def_Armor = 120
 Fatigue = -22
 calc()
 
@@ -1124,3 +1124,5 @@ calc()
 #-- Added 4 new attacker presets and 4 new defender presets.
 #-- Changed Billhook preset as per Billhook nerf.
 #-- Added 3 new Nimble lines into the simulation to represent new Assassin and Gladiator gear.
+#Version 1.5.1 (8/15/2020)
+#-- Adjusted Gladiator Helmet lines as per the nerf to -13 Fatigue.
