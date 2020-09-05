@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Hit Chance Version 1.5.0:
+#Battle Brothers Damage Calculator -- Hit Chance Version 1.5.1:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator is a very basic addition of Hit Chance to the regular calculator.
@@ -226,7 +226,7 @@ DPreHedgeKnight = 0     # 150hp, 300/300, Forge, Resilient.
 DPreSwordmaster = 0     # 70hp, 70/115, Nimble, SteelBrow. (-15 Fat)
 DPreMasterArcher = 0    # 80hp, 30/115, Nimble, SteelBrow. (-12 Fat)
 DPreOutlawHeavy = 0     # 75hp, 125/105.
-DPreConscript = 0       # 60hp, 105/110, Nimble. (-16 Fat)
+DPreConscript = 0       # 55hp, 105/110, Nimble. (-16 Fat)
 DPreOfficer = 0         # 100hp, 290/290, Forge.
 DPreAssassinHeavy = 0   # 80hp, 140/120, Nimble. (-15 Fat)
 
@@ -391,7 +391,7 @@ if DPreMasterArcher == 1:
 if DPreOutlawHeavy == 1:
     Def_HP, Def_Helmet, Def_Armor = 75, 125, 105
 if DPreConscript == 1:
-    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 60, 105, 110, -16, 1
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 55, 105, 110, -16, 1
 if DPreOfficer == 1:
     Def_HP, Def_Helmet, Def_Armor, Forge = 100, 290, 290, 1
 if DPreAssassinHeavy == 1:
@@ -1202,3 +1202,5 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Added 4 new attacker presets and 4 new defender presets.
 #-- Changed Billhook preset as per Billhook nerf.
 #-- Fast Ad. changed to +10 per stack.
+#Version 1.5.1 (9/4/2020)
+#-- Updated Conscript preset as per nerf to 55 HP.

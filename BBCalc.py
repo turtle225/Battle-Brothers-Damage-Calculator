@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator Version 1.5.0:
+#Battle Brothers Damage Calculator Version 1.5.1:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
@@ -220,7 +220,7 @@ DPreHedgeKnight = 0     # 150hp, 300/300, Forge, Resilient.
 DPreSwordmaster = 0     # 70hp, 70/115, Nimble, SteelBrow. (-15 Fat)
 DPreMasterArcher = 0    # 80hp, 30/115, Nimble, SteelBrow. (-12 Fat)
 DPreOutlawHeavy = 0     # 75hp, 125/105.
-DPreConscript = 0       # 60hp, 105/110, Nimble. (-16 Fat)
+DPreConscript = 0       # 55hp, 105/110, Nimble. (-16 Fat)
 DPreOfficer = 0         # 100hp, 290/290, Forge.
 DPreAssassinHeavy = 0   # 80hp, 140/120, Nimble. (-15 Fat)
 
@@ -385,7 +385,7 @@ if DPreMasterArcher == 1:
 if DPreOutlawHeavy == 1:
     Def_HP, Def_Helmet, Def_Armor = 75, 125, 105
 if DPreConscript == 1:
-    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 60, 105, 110, -16, 1
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 55, 105, 110, -16, 1
 if DPreOfficer == 1:
     Def_HP, Def_Helmet, Def_Armor, Forge = 100, 290, 290, 1
 if DPreAssassinHeavy == 1:
@@ -1195,3 +1195,5 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Changed Sergeant preset to use a Winged Mace instead of Warhammer to make him more neutral to his loadout options.
 #-- Added 4 new attacker presets and 4 new defender presets.
 #-- Changed Billhook preset as per Billhook nerf.
+#Version 1.5.1 (9/4/2020)
+#-- Updated Conscript preset as per nerf to 55 HP.
