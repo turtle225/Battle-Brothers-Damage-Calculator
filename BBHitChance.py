@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Hit Chance Version 1.5.1:
+#Battle Brothers Damage Calculator -- Hit Chance Version 1.5.2:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator is a very basic addition of Hit Chance to the regular calculator.
@@ -48,13 +48,15 @@ SteelBrow = 0
 Nimble = 0 
 Forge = 0
 Indomitable = 0
-GloriousEndurance = 0   #The Bear's unique perk. Reduces damage by 5% each time you are hit, up to a 25% max reduction.
 #Attachments: Note: Only 1 attachment should be selected.
 AdFurPad = 0            #Additional Fur Padding.
 Boneplate = 0           
 HornPlate = 0           #Only select against melee attacks.
 UnholdFurCloak = 0      #Only select against range attacks.
 #Light Padding Replacement -- Modify the Fatigue value directly if you wish to apply this. Has no effect except for Nimble.
+#Traits:
+Ironjaw = 0             #Reduces injury susceptibility.
+GloriousEndurance = 0   #The Bear's unique trait. Reduces damage by 5% each time you are hit, up to a 25% max reduction.
 
 #ATTACKER FLAGS: Set these values to 1 if they apply and 0 otherwise. If you select a Preset then leave these on 0.
 #Weapons:
@@ -843,165 +845,325 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
         if UseHeadShotInjuryFormula == 1:
             if Injury == 0 and Undead != 1 and Savant != 1:
                 if CripplingStrikes == 1 and ShamshirMastery == 1:
-                    if math.floor(hp_roll) >= Def_HP * (5/48):
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (25/192):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP * (5/48):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
                     UseHeadShotInjuryFormula = 0
                 elif CripplingStrikes == 0 and ShamshirMastery == 1:
-                    if math.floor(hp_roll) >= Def_HP * (5/32):
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (25/128):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP * (5/32):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
                     UseHeadShotInjuryFormula = 0
                 elif CripplingStrikes == 1 and Shamshir == 1:
-                    if math.floor(hp_roll) >= Def_HP * (5/36):
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (25/144):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP * (5/36):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
                     UseHeadShotInjuryFormula = 0
                 elif CripplingStrikes == 1 or Shamshir == 1:
-                    if math.floor(hp_roll) >= Def_HP * (5/24):
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (25/96):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP * (5/24):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
                     UseHeadShotInjuryFormula = 0
                 else: 
-                    if math.floor(hp_roll) >= Def_HP * (5/16):
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (25/64):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP * (5/16):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
                     UseHeadShotInjuryFormula = 0
 
         else: #Use body injury formula.
             if Injury == 0 and Undead != 1 and Savant != 1:
                 if CripplingStrikes == 1 and ShamshirMastery == 1:
-                    if math.floor(hp_roll) >= Def_HP / 12:
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/48):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP / 12:
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
                 elif CripplingStrikes == 0 and ShamshirMastery == 1:
-                    if math.floor(hp_roll) >= Def_HP / 8:
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/32):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP / 8:
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
                 elif CripplingStrikes == 1 and Shamshir == 1:
-                    if math.floor(hp_roll) >= Def_HP / 9:
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/36):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP / 9:
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
                 elif CripplingStrikes == 1 or Shamshir == 1:
-                    if math.floor(hp_roll) >= Def_HP / 6:
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/24):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP / 6:
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
                 else: 
-                    if math.floor(hp_roll) >= Def_HP / 4:
-                        Injury = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_injury.append(count/3)
-                        else:
-                            hits_until_1st_injury.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/16):
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
+                    else: 
+                        if math.floor(hp_roll) >= Def_HP / 4:
+                            Injury = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_injury.append(count/3)
+                            else:
+                                hits_until_1st_injury.append(count)
 
         #Heavy injury check: Heavy injuries are not guaranteed even when conditions are met, so this is only checking for chance of heavy injury.
         if UseHeadShotInjuryFormulaHeavy == 1:
             if HeavyInjuryChance == 0 and Undead != 1 and Savant != 1:
                 if CripplingStrikes == 1 and ShamshirMastery == 1:
-                    if math.floor(hp_roll) >= Def_HP * (5/24):
-                        HeavyInjuryChance = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (25/96):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else:
+                        if math.floor(hp_roll) >= Def_HP * (5/24):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
                     UseHeadShotInjuryFormulaHeavy = 0
                 elif CripplingStrikes == 0 and ShamshirMastery == 1:
-                    if math.floor(hp_roll) >= Def_HP * (5/16):
-                        HeavyInjuryChance = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (25/64):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else:
+                        if math.floor(hp_roll) >= Def_HP * (5/16):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
                     UseHeadShotInjuryFormulaHeavy = 0
                 elif CripplingStrikes == 1 and Shamshir == 1:
-                    if math.floor(hp_roll) >= Def_HP * (5/18):
-                        HeavyInjuryChance = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (25/72):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else:
+                        if math.floor(hp_roll) >= Def_HP * (5/18):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
                     UseHeadShotInjuryFormulaHeavy = 0
                 elif CripplingStrikes == 1 or Shamshir == 1:
-                    if math.floor(hp_roll) >= Def_HP * (5/12):
-                        HeavyInjuryChance = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (25/48):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else:
+                        if math.floor(hp_roll) >= Def_HP * (5/12):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
                     UseHeadShotInjuryFormulaHeavy = 0
                 else: 
-                    if math.floor(hp_roll) >= Def_HP * (5/8):
-                        HeavyInjuryChance = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (25/32):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else:
+                        if math.floor(hp_roll) >= Def_HP * (5/8):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
                     UseHeadShotInjuryFormulaHeavy = 0
 
         else: #Use body injury formula.
             if HeavyInjuryChance == 0 and Undead != 1 and Savant != 1:
                 if CripplingStrikes == 1 and ShamshirMastery == 1:
-                    if math.floor(hp_roll) >= Def_HP / 6:
-                        HeavyInjuryChance = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/24):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else:
+                        if math.floor(hp_roll) >= Def_HP / 6:
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
                 elif CripplingStrikes == 0 and ShamshirMastery == 1:
-                    if math.floor(hp_roll) >= Def_HP / 4:
-                        HeavyInjuryChance = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/16):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else:
+                        if math.floor(hp_roll) >= Def_HP / 4:
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
                 elif CripplingStrikes == 1 and Shamshir == 1:
-                    if math.floor(hp_roll) >= Def_HP * (2/9):
-                        HeavyInjuryChance = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/18):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else:
+                        if math.floor(hp_roll) >= Def_HP * (2/9):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
                 elif CripplingStrikes == 1 or Shamshir == 1:
-                    if math.floor(hp_roll) >= Def_HP / 3:
-                        HeavyInjuryChance = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/12):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else:
+                        if math.floor(hp_roll) >= Def_HP / 3:
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
                 else: 
-                    if math.floor(hp_roll) >= Def_HP / 2:
-                        HeavyInjuryChance = 1
-                        if Flail3Head == 1:
-                            hits_until_1st_heavy_injury_chance.append(count/3)
-                        else:
-                            hits_until_1st_heavy_injury_chance.append(count)
+                    if Ironjaw == 1:
+                        if math.floor(hp_roll) >= Def_HP * (5/8):
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
+                    else:
+                        if math.floor(hp_roll) >= Def_HP / 2:
+                            HeavyInjuryChance = 1
+                            if Flail3Head == 1:
+                                hits_until_1st_heavy_injury_chance.append(count/3)
+                            else:
+                                hits_until_1st_heavy_injury_chance.append(count)
         
         #Morale check:
         if MoraleCheck == 0:
@@ -1204,3 +1366,5 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Fast Ad. changed to +10 per stack.
 #Version 1.5.1 (9/4/2020)
 #-- Updated Conscript preset as per nerf to 55 HP.
+#Version 1.5.2 (9/28/2020)
+#-- Added Ironjaw option and logic.

@@ -92,6 +92,7 @@ Knife: 15-25, 20% Ignore, 50% Armor.
 Dagger: 15-35, 20% Ignore, 60% Armor.
 Rondel: 20-40, 20% Ignore, 70% Armor.
 Qatal: 30-45, 20% Ignore, 70% Armor.
+Notched Blade: 20-30, 20% Ignore, 60% Armor.
 
 Swords:
 Shortsword: 30-40, 20% Ignore, 75% Armor.
