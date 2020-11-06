@@ -31,7 +31,7 @@ Alternatively, don't worry about the run button, you can run any of the calculat
 
 Using Replit skips the first half of the installation and user guide. Refer to part 2 to understand how to edit and use the calculator (note that it is unlikely that the user guide will load in Replit, open it elsewhere on your computer). Make sure any edits you make are done saving before you run the calculator. You can see a greyed out "saved" status next to the open file tab.
 
-The advantage to using Replit is that it is faster and easier to setup than getting your own VSCode going. The downside is that it makes the code scrunched and hideous to look at, which makes it hard to read the helpful comments I tried to put in. It may also take longer to compute (lower trials variable if it is taking too long).
+The advantage to using Replit is that it is faster and easier to setup than getting your own VSCode going. Once you have the calculator loaded in Replit, you can also save that url link as a bookmark/favorite to quickly load the calculator again later without having to upload it into Replit again. The downside is that it makes the code scrunched and hideous to look at, which makes it hard to read the helpful comments I tried to put in. It may also take longer to compute (lower trials variable if it is taking too long).
 
 Limitations:
 
