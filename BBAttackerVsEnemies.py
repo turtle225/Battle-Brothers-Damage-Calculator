@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.5.2:
+#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.5.3:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run a given attacker against 30 different enemies.
@@ -1474,3 +1474,5 @@ if AverageMeanPerTest == 1:
 #-- Updated Conscript preset as per nerf to 55 HP.
 #Version 1.5.2 (9/28/2020)
 #-- Added Ironjaw option and logic.
+#Version 1.5.3 (11/5/2020)
+#-- Fixed inaccuracies with the Crypt Cleaver preset where I hadn't realized it had gotten nerfed in Blazing Deserts.

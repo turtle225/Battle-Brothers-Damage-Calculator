@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Enemies Vs. Defender Version 1.5.2:
+#Battle Brothers Damage Calculator -- Enemies Vs. Defender Version 1.5.3:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run 35 different enemies against a given defender.
@@ -206,7 +206,7 @@ FallenBetrayerD = 0     #25% armor damage reduction for Watermill Betrayers.
 APreAncientSword = 0    #Ancient Dead: 38-43, 20% Ignore, 80% Armor, Fearsome.
 APreBladedPike = 0      #Ancient Dead: 55-80, 30% Ignore, 125% Armor, 30% Head, Fearsome.
 APreWarscytheAoE = 0    #Ancient Dead: 55-80, 25% Ignore, 104% Armor, Fearsome.
-APreCryptCleaver = 0    #Ancient Dead: 65-85, 25% Ignore, 110% Armor, Fearsome, Cleaver Mastery.
+APreCryptCleaver = 0    #Ancient Dead: 60-80, 25% Ignore, 120% Armor, Fearsome, Cleaver Mastery.
 APreKhopesh = 0         #Necrosavant: 35-55, 25% Ignore, 120% Armor, HeadHunter, Crippling, Double Grip, CleaverBleed.
 APreFHGreatAxe = 0      #Fallen Hero: 80-100, 40 %Ignore, 150% Armor, Fearsome, Split Man.
 APreBerserkChain = 0    #Orc Berserker: 40-100, 30% Ignore, 125% Armor, 40% Head, TwoHander20, Flail2HIgnore, Berserker.
@@ -249,7 +249,7 @@ def PresetCalc():
     if APreWarscytheAoE == 1:
         Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome = 55, 80, 25, 25, 104, 1
     if APreCryptCleaver == 1: 
-        Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, CleaverMastery = 65, 85, 25, 25, 110, 1, 1
+        Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, CleaverMastery = 60, 80, 25, 25, 120, 1, 1
     if APreKhopesh == 1:
         Mind, Maxd, Headchance, Ignore, ArmorMod, HeadHunter, CripplingStrikes, DoubleGrip, CleaverBleed = 35, 55, 25, 25, 120, 1, 1, 1, 1
     if APreFHGreatAxe == 1:
@@ -1629,3 +1629,5 @@ if AverageMeanPerTest == 1:
 #-- Updated Conscript preset as per nerf to 55 HP.
 #Version 1.5.2 (9/28/2020)
 #-- Added Ironjaw option and logic.
+#Version 1.5.3 (11/5/2020)
+#-- Fixed inaccuracies with the Crypt Cleaver preset where I hadn't realized it had gotten nerfed in Blazing Deserts.

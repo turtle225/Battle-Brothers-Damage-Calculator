@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- 2Hander Battery Version 1.5.2:
+#Battle Brothers Damage Calculator -- 2Hander Battery Version 1.5.3:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run all top line 2Hander options in the provided scenario.
@@ -1230,18 +1230,18 @@ calc()
 Mind = 65
 Maxd = 85
 Ignore = 25
-ArmorMod = 1.15
+ArmorMod = 1.10
 SplitMan = 0
 BleedDamage = 10
 if Indomitable == 1:
     BleedDamage = 5
 CleaverMastery = 1
-print("Crypt Cleaver:")
+print("2H Scimitar:")
 calc()
 
 Ignore = 25
 SmartDecap50 = 1
-print("Crypt Cleaver - Decap at 50%:")
+print("2H Scimitar - Decap at 50%:")
 calc()
 
 Mind = 60
@@ -1415,3 +1415,6 @@ calc()
 #-- Updated Conscript preset as per nerf to 55 HP.
 #Version 1.5.2 (9/28/2020)
 #-- Added Ironjaw option and logic.
+#Version 1.5.3 (11/5/2020)
+#-- Fixed inaccuracies with the Crypt Cleaver preset where I hadn't realized it had gotten nerfed in Blazing Deserts.
+#-- Changed Crypt Cleaver test to 2H Scimitar, as it is strictly better.

@@ -171,7 +171,7 @@ Blunt Cleaver: 30-40, 35% Ignore, 80% Armor.
 
 Two-Handed Saif: 50-70, 25% Ignore, 90% Armor.
 Two-Handed Scimitar: 65-85, 25% Ignore, 110% Armor.
-Crypt Cleaver: 65-85, 25% Ignore, 115% Armor.
+Crypt Cleaver: 60-80, 25% Ignore, 120% Armor.
 Rusty Warblade: 60-80, 35% Ignore, 110% Armor.
 
 Hammers:
