@@ -15,7 +15,7 @@ At the bottom of each calculator is a version history, where you can see changel
 
 IMPORTANT:
 
-For instruction on setting up the calculator and how to use it once it is ready, please refer to the Installation and User Guide documents provided in the repository. I walk through step by step how to setup the calculator and use it with pictures and examples. Although I do not have a gui, the calculator is easy to use once you know how. The guide will help you get it running.
+For instruction on setting up the calculator and how to use it once it is ready, please refer to the Installation and User Guide documents provided in the repository. I walk through step by step how to setup the calculator and use it with pictures and examples. Although I do not have a gui, the calculator is easy to use once you know how. The guide will help you get it running. The guide assists with setting up VSCode which is my preferred way to use the calculator, but if you want to use a different IDE then you can do so, or if you don't want to bother with any user setup then use Replit (see below).
 
 An alternative method to use the calculator is to load it into Repl.it, or use the Replit link below (the 3rd link) that I've preloaded already. 
 
