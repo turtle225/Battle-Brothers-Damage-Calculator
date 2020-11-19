@@ -29,10 +29,6 @@ Once it loads in, on the top right you can configure the "run" button if you wis
 
 Alternatively, don't worry about the run button, you can run any of the calculator versions by typing "python calcname.py" without the quotes into the command line on the right, where calcname is the name of the calculator you wish to use. Remember to press your Tab button to autocomplete the command for convenience.
 
-Instead of loading the calculator into Replit yourself, you can use this link that I already loaded in. If for some reason this link doesn't work then follow the above steps and make your own. (Note that upon your first edit in the calculator the page will reload and the url will change, this is normal).
-
-https://repl.it/repls/ElatedButteryKeychanger#BBCalc.py
-
 Using Replit skips the first half of the installation and user guide. Refer to part 2 to understand how to edit and use the calculator (note that it is unlikely that the user guide will load in Replit, open it elsewhere on your computer). Make sure any edits you make are done saving before you run the calculator. You can see a greyed out "saved" status next to the open file tab.
 
 The advantage to using Replit is that it is faster and easier to setup than getting your own VSCode going. Once you have the calculator loaded in Replit, you can also save that url link as a bookmark/favorite to quickly load the calculator again later without having to upload it into Replit again. The downside is that it makes the code scrunched and hideous to look at, which makes it hard to read the helpful comments I tried to put in. It may also take longer to compute (lower trials variable if it is taking too long).
