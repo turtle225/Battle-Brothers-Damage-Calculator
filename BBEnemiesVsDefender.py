@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Enemies Vs. Defender Version 1.5.3:
+#Battle Brothers Damage Calculator -- Enemies Vs. Defender Version 1.5.4:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run 35 different enemies against a given defender.
@@ -41,7 +41,7 @@ Forge = 0
 Indomitable = 0
 #Attachments: Note: Only 1 attachment should be selected.
 AdFurPad = 0            #Additional Fur Padding.
-Boneplate = 0           
+Boneplate = 0          
 HornPlate = 0           #Only select against melee attacks.
 UnholdFurCloak = 0      #Only select against range attacks.
 #Traits:
@@ -1562,7 +1562,7 @@ if TotalMean == 1:
     TotalMean = total
     print(str(TotalMean) + " hits to die total against this test group.")
 if AverageMeanPerTest == 1:
-    AverageMeanPerTest = TotalMean / 31
+    AverageMeanPerTest = TotalMean / 35
     print(str(AverageMeanPerTest) + " hits to die on average against this test group.")
 
 #CREDITS:
@@ -1631,3 +1631,5 @@ if AverageMeanPerTest == 1:
 #-- Added Ironjaw option and logic.
 #Version 1.5.3 (11/5/2020)
 #-- Fixed inaccuracies with the Crypt Cleaver preset where I hadn't realized it had gotten nerfed in Blazing Deserts.
+#Version 1.5.4 (1/14/2021)
+#-- Fixed a mistake introduced in version 1.5 when I added 4 enemies to the test group. I had left the mean division at 31 enemies instead of changing to 35, which was inflating the mean hits to die score.
