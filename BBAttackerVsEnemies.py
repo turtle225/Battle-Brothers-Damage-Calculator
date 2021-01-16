@@ -1477,4 +1477,4 @@ if AverageMeanPerTest == 1:
 #Version 1.5.3 (11/5/2020)
 #-- Fixed inaccuracies with the Crypt Cleaver preset where I hadn't realized it had gotten nerfed in Blazing Deserts.
 #Version 1.5.4 (1/14/2021)
-#-- #-- Fixed a mistake introduced in version 1.5 when I added 4 enemies to the test group. I had left the mean division at 26 enemies instead of changing to 30, which was inflating the mean hits to kill score.
+#-- Fixed a mistake introduced in version 1.5 when I added 4 enemies to the test group. I had left the mean division at 26 enemies instead of changing to 30, which was inflating the mean hits to kill score.
