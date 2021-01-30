@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Nimble Battery Version 1.5.3:
+#Battle Brothers Damage Calculator -- Nimble Battery Version 1.5.5:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 
@@ -44,10 +44,15 @@ Nimble = 1
 Forge = 0
 Indomitable = 0
 #Attachments: Note: Only 1 attachment should be selected.
-AdFurPad = 0            #Additional Fur Padding.
-Boneplate = 0           
-HornPlate = 0           #Only select against melee attacks.
-UnholdFurCloak = 0      #Only select against range attacks.
+#IMPORTANT: Attachments will automatically add armor or subtract Fatigue. Use the base armor/Fatigue values in the Defender Stats section or else you will double dip the attachment.
+Wolf_Hyena = 0          #+15 armor.
+LindwurmCloak = 0       #+60 armor, -3 Fatigue.
+AdFurPad = 0            #Additional Fur Padding. 33% reduced armor ignoring damage. -2 Fatigue.
+Boneplate = 0           #Absorbs first body hit. -2 Fatigue.
+HornPlate = 0           #Only select against melee attacks. +30 armor, 10% damage reduction.
+UnholdFurCloak = 0      #Only select against range attacks. +10 armor, 20% damage reduction.
+SerpentSkin = 0         #Only select in Handgonne tests. +30 armor, -2 Fatigue, 33% damage reduction.
+#Light Padding Replacement -- Modify the Fatigue value directly if you wish to apply this. Has no effect except for Nimble.
 #Traits:
 Ironjaw = 0             #Reduces injury susceptibility.
 GloriousEndurance = 0   #The Bear's unique trait. Reduces damage by 5% each time you are hit, up to a 25% max reduction.
@@ -327,6 +332,68 @@ ArmorMod = ArmorMod/100
 if BrigandLeader == 1:
     ArmorMod += .2
 
+#Fatigue force negative:
+if Fatigue > 0 and Nimble == 1:
+    Fatigue *= -1
+
+#Attachment modifiers:
+AttachMod = 1
+if UnholdFurCloak == 1:
+    AttachMod = .8
+    Def_Armor += 10
+if HornPlate == 1:
+    AttachMod = .9
+    Def_Armor += 30
+if SerpentSkin == 1:
+    AttachMod = .66
+    Def_Armor += 30
+    Fatigue -= 2
+
+if Wolf_Hyena == 1:
+    Def_Armor += 15
+if LindwurmCloak == 1:
+    Def_Armor += 60
+    Fatigue -= 3
+
+if AdFurPad == 1:
+    AdFurPadMod = .66
+    Fatigue -= 2
+else: 
+    AdFurPadMod = 1
+
+if Boneplate == 1:
+    Fatigue -= 2
+
+def AttachmentCalc():
+    global Fatigue,AttachMod,Def_Armor,AdFurPadMod
+    AttachMod = 1
+    if UnholdFurCloak == 1:
+        AttachMod = .8
+        Def_Armor += 10
+    if HornPlate == 1:
+        AttachMod = .9
+        Def_Armor += 30
+    if SerpentSkin == 1:
+        AttachMod = .66
+        Def_Armor += 30
+        Fatigue -= 2
+
+    if Wolf_Hyena == 1:
+        Def_Armor += 15
+    if LindwurmCloak == 1:
+        Def_Armor += 60
+        Fatigue -= 3
+
+    if AdFurPad == 1:
+        AdFurPadMod = .66
+        Fatigue -= 2
+    else: 
+        AdFurPadMod = 1
+
+    if Boneplate == 1:
+        Fatigue -= 2
+
+
 #Nimble calculation:
 def NimbleCalc():
     global Fatigue,NimbleMod
@@ -446,18 +513,6 @@ elif SkeletonVsArrow == 1:
 else:
     SkeletonMod = 1
 
-#Attachment modifiers:
-AttachMod = 1
-if UnholdFurCloak == 1:
-    AttachMod = .8
-if HornPlate == 1:
-    AttachMod = .9
-
-if AdFurPad == 1:
-    AdFurPadMod = .66
-else: 
-    AdFurPadMod = 1
-
 #Bleeding damage:
 BleedDamage = 0
 if CleaverBleed == 1:
@@ -481,6 +536,7 @@ def calc():
     Forge_bonus_armor = [] #This list will hold the amount of extra armor provided by Forge for each iteration (only displays if Forge is checked).
     hits_until_1st_poison = [] #This list will hold how many hits until first poisoning against Ambushers (only displays if Ambusher is checked)
 
+    AttachmentCalc()
     print("HP = " + str(Def_HP) + ", Helmet = " + str(Def_Helmet) + ", Armor = " + str(Def_Armor))
     NimbleCalc()
     print ("Nimble%: " + str(NimbleMod))
@@ -1292,3 +1348,7 @@ calc()
 #-- Added Ironjaw option and logic.
 #Version 1.5.3 (11/5/2020)
 #-- Fixed inaccuracies with the Crypt Cleaver preset where I hadn't realized it had gotten nerfed in Blazing Deserts.
+#Version 1.5.5 (1/30/2021)
+#-- Changed attachments to automatically apply +Armor and -Fatigue, as per recent attachment changes.
+#-- Added Wolf/Hyena, Lindwurm, and Serpent attachments as additional options.
+#-- Changed Nimble with Bone Plate defender preset to use Padded Leather (80) so that it can still be at -15 after Bone Plate nerf.

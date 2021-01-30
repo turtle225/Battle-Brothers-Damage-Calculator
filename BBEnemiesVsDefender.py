@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Enemies Vs. Defender Version 1.5.4:
+#Battle Brothers Damage Calculator -- Enemies Vs. Defender Version 1.5.5:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run 35 different enemies against a given defender.
@@ -40,10 +40,15 @@ Nimble = 0
 Forge = 0
 Indomitable = 0
 #Attachments: Note: Only 1 attachment should be selected.
-AdFurPad = 0            #Additional Fur Padding.
-Boneplate = 0          
-HornPlate = 0           #Only select against melee attacks.
-UnholdFurCloak = 0      #Only select against range attacks.
+#IMPORTANT: Attachments will automatically add armor or subtract Fatigue. Use the base armor/Fatigue values in the Defender Stats section or else you will double dip the attachment.
+Wolf_Hyena = 0          #+15 armor.
+LindwurmCloak = 0       #+60 armor, -3 Fatigue.
+AdFurPad = 0            #Additional Fur Padding. 33% reduced armor ignoring damage. -2 Fatigue.
+Boneplate = 0           #Absorbs first body hit. -2 Fatigue.
+HornPlate = 0           #Only select against melee attacks. +30 armor, 10% damage reduction. WARNING: Applies to all enemies if selected.
+UnholdFurCloak = 0      #Only select against range attacks. +10 armor, 20% damage reduction. WARNING: Applies to all enemies if selected.
+SerpentSkin = 0         #Only select in Handgonne tests. +30 armor, -2 Fatigue, 33% damage reduction. WARNING: Applies to all enemies if selected.
+#Light Padding Replacement -- Modify the Fatigue value directly if you wish to apply this. Has no effect except for Nimble.
 #Traits:
 Ironjaw = 0             #Reduces injury susceptibility.
 GloriousEndurance = 0   #The Bear's unique trait. Reduces damage by 5% each time you are hit, up to a 25% max reduction.
@@ -52,7 +57,7 @@ GloriousEndurance = 0   #The Bear's unique trait. Reduces damage by 5% each time
 #A preset will automatically set defender stats and defender perks.
 #Does not disable perks that shouldn't be active. For example, Don't activate Nimble and then check the Orc Warrior Preset.
 DPreNimbleBro = 0       # 120hp, 120/95, Nimble (A generic Nimble line with just Nimble).
-DPreNimbleBroBP = 0     # 120hp, 120/95 Nimble, Bone Plates.
+DPreNimbleBroBP = 0     # 120hp, 120/80 Nimble, Bone Plates.
 DPreForgeBro = 0        # 80hp, 300/300, Forge (A generic Forge line with just Forge).
 DPreForgeBroAFP = 0     # 80hp, 300/300, Forge, Additional Fur Padding.
 DPreAncientLegion = 0   # 55hp, 130/135, Forge, SteelBrow, Undead. (Manually apply Skeleton flag if necessary).
@@ -317,7 +322,7 @@ def PresetCalc():
 if DPreNimbleBro == 1:
     Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 120, 120, 95, -15, 1
 if DPreNimbleBroBP == 1:
-    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, Boneplate = 120, 120, 95, -15, 1, 1
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, Boneplate = 120, 120, 80, -13, 1, 1
 if DPreForgeBro == 1:
     Def_HP, Def_Helmet, Def_Armor, Forge = 80, 300, 300, 1
 if DPreForgeBroAFP == 1:
@@ -413,6 +418,38 @@ if Def_HP > 500 or Def_Helmet > 500 or Def_Armor > 500:
 if Trials < 2:
     sys.exit("Trials must be >= 2.")
 
+#Fatigue force negative:
+if Fatigue > 0 and Nimble == 1:
+    Fatigue *= -1
+
+#Attachment modifiers:
+AttachMod = 1
+if UnholdFurCloak == 1:
+    AttachMod = .8
+    Def_Armor += 10
+if HornPlate == 1:
+    AttachMod = .9
+    Def_Armor += 30
+if SerpentSkin == 1:
+    AttachMod = .66
+    Def_Armor += 30
+    Fatigue -= 2
+
+if Wolf_Hyena == 1:
+    Def_Armor += 15
+if LindwurmCloak == 1:
+    Def_Armor += 60
+    Fatigue -= 3
+
+if AdFurPad == 1:
+    AdFurPadMod = .66
+    Fatigue -= 2
+else: 
+    AdFurPadMod = 1
+
+if Boneplate == 1:
+    Fatigue -= 2
+
 #Nimble calculation:
 def NimbleCalc():
     global NimbleMod
@@ -443,18 +480,6 @@ elif SkeletonVsArrow == 1:
     SkeletonMod = .1
 else:
     SkeletonMod = 1
-
-#Attachment modifiers:
-AttachMod = 1
-if UnholdFurCloak == 1:
-    AttachMod = .8
-if HornPlate == 1:
-    AttachMod = .9
-
-if AdFurPad == 1:
-    AdFurPadMod = .66
-else: 
-    AdFurPadMod = 1
 
 total = 0 #This is used when adding means for when you have that data output checked at the very top.
 
@@ -1633,3 +1658,7 @@ if AverageMeanPerTest == 1:
 #-- Fixed inaccuracies with the Crypt Cleaver preset where I hadn't realized it had gotten nerfed in Blazing Deserts.
 #Version 1.5.4 (1/14/2021)
 #-- Fixed a mistake introduced in version 1.5 when I added 4 enemies to the test group. I had left the mean division at 31 enemies instead of changing to 35, which was inflating the mean hits to die score.
+#Version 1.5.5 (1/30/2021)
+#-- Changed attachments to automatically apply +Armor and -Fatigue, as per recent attachment changes.
+#-- Added Wolf/Hyena, Lindwurm, and Serpent attachments as additional options.
+#-- Changed Nimble with Bone Plate defender preset to use Padded Leather (80) so that it can still be at -15 after Bone Plate nerf.
