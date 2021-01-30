@@ -1,7 +1,7 @@
 # Battle-Brothers-Damage-Calculator
 Updated for Blazing Deserts
 
-Last update: 1/14/2021 - Fixed a mistake introduced in my Blazing Deserts update in BBEnemiesVsDefender and BBAttackerVsEnemies scripts that was inflating the mean hits to die/kill against the test group.
+Last update: 1/30/2021 - Added Wolf/Hyena, Lindwurm, and Serpent attachments. Modified attachments to automatically apply +Armor and -Fatigue effects, as the recent attachment changes in the game added +Armor to KrakenPlate/FurCloak and -Fatigue to Bones/AFP. If you've tried doing tests on these since the game updated, you would have had to manually apply Armor/Fatigue effects. This is no longer necessary, the calculator will do it automatically just by selecting the attachment.
 
 A script that simulates the damage formula used in Battle Brothers, returning expected hits until death, injury, heavy injury, and morale check given whatever scenario you provide. Also returns % chance of death by hit, and can also return % chance of first injuries or morale by hit. 
 
