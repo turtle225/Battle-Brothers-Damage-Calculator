@@ -1,7 +1,7 @@
 # Battle-Brothers-Damage-Calculator
 Updated for Blazing Deserts
 
-Last update: 1/30/2021 - Added Wolf/Hyena, Lindwurm, and Serpent attachments. Modified attachments to automatically apply +Armor and -Fatigue effects, as the recent attachment changes in the game added +Armor to KrakenPlate/FurCloak and -Fatigue to Bones/AFP. If you've tried doing tests on these since the game updated, you would have had to manually apply Armor/Fatigue effects. This is no longer necessary, the calculator will do it automatically just by selecting the attachment.
+Last update: 7/17/2021 - Added morale check/drop mechanics and tracking. You can now see the expected number of hits before the defender will fall to Wavering, Breaking, or Fleeing morale. Added Fearsome logic to this as well. Currently, only the main BBCalc.py script has been updated with these new options. As a disclaimer, a 1v1 sandbox calculator isn't going to be able to truly capture the dynamic nature of morale checks in game as there are many things that cause morale drops beyond just damage, and there are many external factors that influence resolve such as Banner/Leader auras, hidden adjacency bonuses, rallying, etc.
 
 A script that simulates the damage formula used in Battle Brothers, returning expected hits until death, injury, heavy injury, and morale check given whatever scenario you provide. Also returns % chance of death by hit, and can also return % chance of first injuries or morale by hit. 
 
