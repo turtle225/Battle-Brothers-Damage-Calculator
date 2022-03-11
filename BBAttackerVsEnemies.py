@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.5.5:
+#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.6.1:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run a given attacker against 30 different enemies.
@@ -45,7 +45,8 @@ DoubleGrip = 0          #Only 1Handers are valid for DoubleGrip. Dagger Puncture
 TwoHander20 = 0         #Damage +20. Applies to the single target 2Hander attacks Cudgel (Mace), Pound (Flail), Smite (Hammer), Overhead Strike (Long/GreatSword).
 FlailLash = 0           #Gaurantees headshot. Also apply to 3Head Hail special.
 Flail3Head = 0          #3Head Flail. Returns number of swings rather than number of hits.
-Flail2HIgnore = 0       #Ignore +10%. Applies to 2H Flail Pound attack. Apply the +20 damage from Pound using the TwoHander20 switch.
+Flail2HPound = 0        #Ignore +10% on body hits and +20% on headshots. Applies to 2H Flail Pound attack. Apply the +20 damage from Pound using the TwoHander20 switch.
+FlailMastery = 0        #Flail Mastery. Will apply an extra 10% armor ignore on headshots for Pound. Does nothing unless Flail2HPound is set.
 Hammer10 = 0            #Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.
 DestroyArmor = 0        #Will use Destroy Armor once and then switch to normal attacks.
 DestroyArmorMastery = 0 #Hammer Mastery. Will use Destroy Armor once and then switch to normal attacks.
@@ -64,7 +65,7 @@ Sword2HSplit = 0        #Ignore +5%. Applies to Greatsword Split attack. Does no
 Puncture = 0            #Dagger Puncture. Do not apply Double Grip
 Deathblow = 0           #Qatal special. Ignore +20%. Damage x1.33. Assumes target is always setup for Deathblow value in calculation.
 Spearwall = 0           #Warning: May take a long time to compute against durable targets, considering lowering number of trials. 
-AimedShot = 0           #Damage +10% for Bows.
+AimedShot = 0           #HP Damage +10% for Bows. +5% Armor Ignore.
 XbowMastery = 0         #Ignore +20%.
 R2Throw = 0             #Throwing Mastery for 1 or 2 Range.
 R3Throw = 0             #Throwing Mastery for 3 Range.
@@ -338,12 +339,17 @@ Headshotchance = Headchance
 
 #Ignore modifiers:
 Ignore = Ignore/100
-if Flail2HIgnore == 1:
-    Ignore += .1
+if Flail2HPound == 1:
+    Flail2HBodyshot = Ignore + .1
+    Flail2HHeadshot = Ignore + .2
+    if FlailMastery == 1:
+        Flail2HHeadshot += .1
 if Sword2HSplit == 1:
     Ignore += .05
 if Deathblow == 1:
     Ignore += .2
+if AimedShot == 1:
+    Ignore += .05
 if XbowMastery == 1:
     Ignore += .2
 if Ambusher == 1:
@@ -421,7 +427,7 @@ if Deathblow == 1:
 if Spearwall == 1:
     DamageMod *= .5
 if R2Throw == 1:
-    DamageMod *= 1.4
+    DamageMod *= 1.3
 if R3Throw == 1:
     DamageMod *= 1.2
 if Scatter == 1:
@@ -518,7 +524,7 @@ total = 0 #This is used when adding means for when you have that data output che
 print("-----") #Added for readability. If this annoys you then remove this line.
 
 def calc():
-    global Headshotchance,total,HHStack
+    global Headshotchance,total,HHStack,Ignore
 
     #Headshot damage modifiers:
     HeadMod = 1.5
@@ -566,7 +572,7 @@ def calc():
         HeavyInjuryChance = 0
         UseHeadShotInjuryFormula = 0
         UseHeadShotInjuryFormulaHeavy = 0
-        MoraleCheck = 0
+        FirstMoraleCheck = 0
         FearsomeProcs = 0
         Bleedstack1T = 0
         Bleedstack2T = 0
@@ -639,6 +645,9 @@ def calc():
                         HHStack = 1
                     elif HHStack == 1:
                         HHStack = 0
+                #2H Flail Check -- Have a higher armor ignoring% on Pound for headshots compared to bodyshots.
+                if Flail2HPound == 1:
+                    Ignore = Flail2HHeadshot        
                 #Destroy armor check -- if Destroy Armor special is active do this code block and skip the rest.
                 if DArmorMod != 1:
                     hp_roll = 10 #DestroyArmor forces hp damage to = 10.
@@ -697,6 +706,9 @@ def calc():
                                 hp = math.ceil(hp - SMhp_roll)
                         
             else: #If not a headshot, do the following. 
+                #2H Flail Check -- Have a higher armor ignoring% on Pound for headshots compared to bodyshots.
+                if Flail2HPound == 1:
+                    Ignore = Flail2HBodyshot
                 #Bone Plates check -- Attack is negated if Boneplates are online, then turns off Boneplates until next trial.
                 if BoneplateMod == 1:
                     BoneplateMod = 0
@@ -1078,17 +1090,17 @@ def calc():
                                     hits_until_1st_heavy_injury_chance.append(count)                     
             
             #Morale check:
-            if MoraleCheck == 0:
+            if FirstMoraleCheck == 0:
                 if Fearsome == 1:
                     if math.floor(hp_roll) > 0:
-                        MoraleCheck = 1
+                        FirstMoraleCheck = 1
                         if Flail3Head == 1:
                             hits_until_1st_morale.append(count/3)
                         else:
                             hits_until_1st_morale.append(count)
                 else:
                     if math.floor(hp_roll) >= 15:
-                        MoraleCheck = 1
+                        FirstMoraleCheck = 1
                         if Flail3Head == 1:
                             hits_until_1st_morale.append(count/3)
                         else:
@@ -1131,7 +1143,7 @@ def calc():
             #If death occurs, check for NineLives and otherwise add the hitcount to the list for later analysis and start the next trial.
             if hp <= 0: 
                 if NineLivesMod == 1:
-                    hp = random.randint(5,10)
+                    hp = random.randint(11,15)
                     NineLivesMod = 0
                     Bleedstack1T = 0
                     Bleedstack2T = 0
@@ -1507,3 +1519,12 @@ if AverageMeanPerTest == 1:
 #-- Changed attachments to automatically apply +Armor and -Fatigue, as per recent attachment changes.
 #-- Added Wolf/Hyena, Lindwurm, and Serpent attachments as additional options.
 #-- Changed Nimble with Bone Plate defender preset to use Padded Leather (80) so that it can still be at -15 after Bone Plate nerf.
+#Version 1.6 (7/17/2021)
+#-- Updated Lindwurms to have 35% armor ignore after they were "nerfed" from 40% after a game bug was fixed (where they had been doing 0% prior).
+#Version 1.6.1 (3/10/2022) - Of Flesh and Faith DLC release.
+#-- Added new 2HFlail logic as per the change where Pound does +10% ignore on headshots (and +20% with Flail Mastery)
+#-- Changed Flail2HIgnore swtich to Flail2HPound and also added FlailMastery switch.
+#-- Changed Nine Lives to retrun 11-15 hp, up from 5-10.
+#-- Changed Handgonne attacker preset to have 90% armor damage, down from 100%.
+#-- Changed R2Throw (two range Throwing) switch to deal +30% damage, down from +40%.
+#-- Added +5% armor ignore to Aimed Shot (this is not a new game change, just something I never realized before).

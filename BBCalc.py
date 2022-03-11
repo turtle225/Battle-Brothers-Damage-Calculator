@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator Version 1.6.0:
+#Battle Brothers Damage Calculator Version 1.6.1:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
@@ -21,9 +21,9 @@ InjuryPercent = 0      #Returns % chance of first injury by each hit.
 HeavyInjuryMean = 1    #Returns average number of hits until chance of first heavy injury (heavy injuries are not guaranteed even when threshold is met).
 HeavyInjuryPercent = 0 #Returns % chance of first heavy injury chance by each hit.
 MoraleChecksTotal = 0  #Returns the total number of morale checks before death.
-MoraleMean = 0         #Returns average number of hits until first morale check.
+MoraleMean = 1         #Returns average number of hits until first morale check.
 MoralePercent = 0      #Returns % chance of first morale check by each hit.
-MoraleDropsMean = 1    #Returns average number of hits to drop morale to each morale level.
+MoraleDropsMean = 0    #Returns average number of hits to drop morale to each morale level.
 MoraleDropsPercent = 0 #Returns % chance of dropping morale to each morale level by each hit.
 
 #Attacker Stats: #Example is Ancient Bladed Pike, follow that formatting. If you wish to use a attacker Preset, then skip this section.
@@ -68,7 +68,8 @@ DoubleGrip = 0          #Only 1Handers are valid for DoubleGrip. Dagger Puncture
 TwoHander20 = 0         #Damage +20. Applies to the single target 2Hander attacks Cudgel (Mace), Pound (Flail), Smite (Hammer), Overhead Strike (Long/GreatSword).
 FlailLash = 0           #Gaurantees headshot. Also apply to 3Head Hail special.
 Flail3Head = 0          #3Head Flail. Returns number of swings rather than number of hits.
-Flail2HIgnore = 0       #Ignore +10%. Applies to 2H Flail Pound attack. Apply the +20 damage from Pound using the TwoHander20 switch.
+Flail2HPound = 0        #Ignore +10% on body hits and +20% on headshots. Applies to 2H Flail Pound attack. Apply the +20 damage from Pound using the TwoHander20 switch.
+FlailMastery = 0        #Flail Mastery. Will apply an extra 10% armor ignore on headshots for Pound. Does nothing unless Flail2HPound is set.
 Hammer10 = 0            #Guarantees at least 10 hp damage, applies to 1H Hammer and Polehammer.
 DestroyArmor = 0        #Will use Destroy Armor once and then switch to normal attacks.
 DestroyArmorMastery = 0 #Hammer Mastery. Will use Destroy Armor once and then switch to normal attacks.
@@ -87,7 +88,7 @@ Sword2HSplit = 0        #Ignore +5%. Applies to Greatsword Split attack. Does no
 Puncture = 0            #Dagger Puncture. Do not apply Double Grip
 Deathblow = 0           #Qatal special. Ignore +20%. Damage x1.33. Assumes target is always setup for Deathblow value in calculation.
 Spearwall = 0           #Warning: May take a long time to compute against durable targets, considering lowering number of trials. 
-AimedShot = 0           #Damage +10% for Bows.
+AimedShot = 0           #HP Damage +10% for Bows. +5% Armor Ignore.
 XbowMastery = 0         #Ignore +20%.
 R2Throw = 0             #Throwing Mastery for 1 or 2 Range.
 R3Throw = 0             #Throwing Mastery for 3 Range.
@@ -99,7 +100,7 @@ HeadHunter = 0          #Will carry over HH stacks between kills as happens in g
 Duelist = 0             #All Duelists should also be given DoubleGrip except for Throwing weapons.
 KillingFrenzy = 0
 Fearsome = 0            #Will also return # of extra Fearsome checks, which are all attacks that deal 1-14 damage. Assign Attacker Resolve below.
-Atk_Resolve = 50        #Only used if Fearsome is selected. 20% of this value is applied as a penalty to defender Resolve during morale checks.
+Atk_Resolve = 50        #Only used if Fearsome is selected. 20% of (Resolve -10) is applied as a penalty to defender Resolve during morale checks.
 #Traits:
 Brute = 0               #Headshot damage +15%.
 Drunkard = 0            #Damage +10%.
@@ -161,7 +162,7 @@ APreWarscytheAoE = 0    #Ancient Dead: 55-80, 25% Ignore, 104% Armor, Fearsome.
 APreCryptCleaver = 0    #Ancient Dead: 60-80, 25% Ignore, 120% Armor, Fearsome, Cleaver Mastery.
 APreKhopesh = 0         #Necrosavant: 35-55, 25% Ignore, 120% Armor, HeadHunter, Crippling, Double Grip, CleaverBleed.
 APreFHGreatAxe = 0      #Fallen Hero: 80-100, 40 %Ignore, 150% Armor, Fearsome, Split Man.
-APreBerserkChain = 0    #Orc Berserker: 40-100, 30% Ignore, 125% Armor, 40% Head, TwoHander20, Flail2HIgnore, Berserker.
+APreBerserkChain = 0    #Orc Berserker: 40-100, 30% Ignore, 125% Armor, 40% Head, TwoHander20, Flail2HPound, FlailMastery, Berserker.
 APreHeadSplitter = 0    #Orc Young/Warrior: 35-65, 30% Ignore, 130% Armor, 1HAxe, Warrior.
 APreHeadChopper = 0     #Orc Young/Warrior: 40-70, 25% Ignore, 110% Armor, Cleaver Mastery, Warrior.
 APreMansplitter = 0     #Orc Warlord: 90-120, 40% Ignore, 160% Armor, Split Man, Fearsome, Warlord.
@@ -182,7 +183,7 @@ APreMedXbow = 0         #Marksman: 40-60, 50% Ignore, 70% Armor, Xbow Mastery.
 APreNobleSword = 0      #Swordmaster: 45-50, 20% Ignore, 85% Armor, Duelist, Double Grip, Crippling, Executioner.
 APreWarbow = 0          #Master Archer: 50-70, 35% Ignore, 65% Armor, Crippling, Executioner, HeadHunter, Master Archer. 
 APrePoleMace = 0        #Conscript: 60-75, 40% Ignore, 120% Armor, 30% Head.
-APreHandgonne = 0       #Gunner: 35-75, 25% Ignore, 100% Armor, Fearsome.
+APreHandgonne = 0       #Gunner: 35-75, 25% Ignore, 90% Armor, Fearsome.
 APre2HScimitar = 0      #Officer: 65-85, 25% Ignore, 110% Armor, Crippling, Executioner.
 APreQatal = 0           #Assassin: 30-45, 20% Ignore, 70% Armor, Duelist, Double Grip, Executioner.
 APreFDirewolf = 0       #Frenzied Direwolf: 30-50, 20% Ignore, 70% Armor, Executioner, Frenzied Direwolf.
@@ -261,7 +262,7 @@ if APreKhopesh == 1:
 if APreFHGreatAxe == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve, SplitMan = 80, 100, 25, 40, 150, 1, 100, 1
 if APreBerserkChain == 1:
-    Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20, Flail2HIgnore, Berserker = 40, 100, 40, 30, 125, 1, 1, 1
+    Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20, Flail2HPound, FlailMastery, Berserker = 40, 100, 40, 30, 125, 1, 1, 1, 1
 if APreHeadSplitter == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, Axe1H, Warrior = 35, 65, 25, 30, 130, 1, 1
 if APreHeadChopper == 1:
@@ -303,7 +304,7 @@ if APreWarbow == 1:
 if APrePoleMace == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod = 60, 75, 30, 40, 120
 if APreHandgonne == 1:
-    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 35, 75, 25, 25, 100, 1, 70
+    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 35, 75, 25, 25, 90, 1, 70
 if APre2HScimitar == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, CleaverMastery, CripplingStrikes, Executioner = 65, 85, 25, 25, 110, 1, 1, 1
 if APreQatal == 1:
@@ -437,12 +438,17 @@ Headshotchance = Headchance
 
 #Ignore modifiers:
 Ignore = Ignore/100
-if Flail2HIgnore == 1:
-    Ignore += .1
+if Flail2HPound == 1:
+    Flail2HBodyshot = Ignore + .1
+    Flail2HHeadshot = Ignore + .2
+    if FlailMastery == 1:
+        Flail2HHeadshot += .1
 if Sword2HSplit == 1:
     Ignore += .05
 if Deathblow == 1:
     Ignore += .2
+if AimedShot == 1:
+    Ignore += .05
 if XbowMastery == 1:
     Ignore += .2
 if Ambusher == 1:
@@ -522,7 +528,7 @@ HHStack = 0
 
 #Fearsome
 if Fearsome == 1:
-    FearsomeMod = min(Atk_Resolve / 5,20)
+    FearsomeMod = min((Atk_Resolve - 10) / 5,18)
 
 #Damage modifiers:
 DamageMod = 1
@@ -535,7 +541,7 @@ if Deathblow == 1:
 if Spearwall == 1:
     DamageMod *= .5
 if R2Throw == 1:
-    DamageMod *= 1.4
+    DamageMod *= 1.3
 if R3Throw == 1:
     DamageMod *= 1.2
 if Scatter == 1:
@@ -747,6 +753,9 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                     HHStack = 1
                 elif HHStack == 1:
                     HHStack = 0
+            #2H Flail Check -- Have a higher armor ignoring% on Pound for headshots compared to bodyshots.
+            if Flail2HPound == 1:
+                Ignore = Flail2HHeadshot
                 
             #Destroy armor check -- if Destroy Armor special is active do this code block and skip the rest.
             if DArmorMod != 1:
@@ -806,6 +815,9 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                             hp = math.ceil(hp - SMhp_roll)
                     
         else: #If not a headshot, do the following. 
+            #2H Flail Check -- Have a higher armor ignoring% on Pound for headshots compared to bodyshots.
+            if Flail2HPound == 1:
+                Ignore = Flail2HBodyshot
             #Bone Plates check -- Attack is negated if Boneplates are online, then turns off Boneplates until next trial.
             if BoneplateMod == 1:
                 BoneplateMod = 0
@@ -1359,7 +1371,7 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
         #If death occurs, check for NineLives and otherwise add the hitcount to the list for later analysis and start the next trial.
         if hp <= 0: 
             if NineLivesMod == 1:
-                hp = random.randint(5,10)
+                hp = random.randint(11,15)
                 NineLivesMod = 0
                 Bleedstack1T = 0
                 Bleedstack2T = 0
@@ -1606,9 +1618,17 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #Version 1.6 (7/17/2021)
 #-- Added feature to track/return the time it takes for morale to drop to Wavering, Breaking, and Fleeing.
 #-- Added switches at the top to turn on or off the data returns for morale related data.
-#-- Added Fearsome logic for morale check calculations
+#-- Added Fearsome logic for morale check calculations.
 #-- Added Atk_Resolve and Def_Resolve fields for use in morale calculations.
 #-- Added Attacker and Defender Resolve to appropriate presets.
 #-- Updated Lindwurms to have 35% armor ignore after they were "nerfed" from 40% after a game bug was fixed (where they had been doing 0% prior).
 #-- Added logic to a few code blocks to prevent them from running reduntantly (ie checking for injury when already injured) to improve efficiency slightly.
-#-- Added logic to a few code blocks to prevent them from running reduntantly (ie checking for injury on the turn a target dies) to improve efficiency slightly.  
+#-- Added logic to a few code blocks to prevent them from running reduntantly (ie checking for injury on the turn a target dies) to improve efficiency slightly.
+#Version 1.6.1 (3/10/2022) - Of Flesh and Faith DLC release.
+#-- Added new 2HFlail logic as per the change where Pound does +10% ignore on headshots (and +20% with Flail Mastery)
+#-- Changed Flail2HIgnore swtich to Flail2HPound and also added FlailMastery switch.
+#-- Changed Nine Lives to retrun 11-15 hp, up from 5-10.
+#-- Changed Handgonne attacker preset to have 90% armor damage, down from 100%.
+#-- Changed R2Throw (two range Throwing) switch to deal +30% damage, down from +40%.
+#-- Adjusted Fearsome to the new formula of (Resolve - 10) * 20%
+#-- Added +5% armor ignore to Aimed Shot (this is not a new game change, just something I never realized before).

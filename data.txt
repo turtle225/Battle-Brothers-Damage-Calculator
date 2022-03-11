@@ -156,7 +156,7 @@ Flail: 25-55, 30% Ignore, 100% Armor, 35% Head.
 3Head Flail: 30-75, 30% Ignore, 100% Armor, 35% Head.
 
 2H Wood Flail: 25-60, 30% Ignore, 80% Armor, 40% Head.
-2H Flail: 40-80, 30% Ignore, 110% Armor, 40% Head.
+2H Flail: 45-90, 30% Ignore, 115% Armor, 40% Head.
 Berserk Chain: 40-100, 30% Ignore, 125% Armor, 40% Head.
 
 Cleavers:
@@ -223,7 +223,7 @@ Spike Impaler: 50-70, 50% Ignore, 75% Armor.
 
 Firearms:
 FireLance (Ignite): 40-60, 15% Ignore, 90% Armor.
-Handgonne: 35-75, 25% Ignore, 100% Armor.
+Handgonne: 35-75, 25% Ignore, 90% Armor.
 
 Beasts:
 Direwolf: 30-50, 20% Ignore, 70% Armor.
