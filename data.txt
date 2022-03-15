@@ -157,7 +157,7 @@ Flail: 25-55, 30% Ignore, 100% Armor, 35% Head.
 
 2H Wood Flail: 25-60, 30% Ignore, 80% Armor, 40% Head.
 2H Flail: 45-90, 30% Ignore, 115% Armor, 40% Head.
-Berserk Chain: 40-100, 30% Ignore, 125% Armor, 40% Head.
+Berserk Chain: 50-100, 30% Ignore, 125% Armor, 40% Head.
 
 Cleavers:
 Butcher Cleaver: 20-35, 25% Ignore, 75% Armor.

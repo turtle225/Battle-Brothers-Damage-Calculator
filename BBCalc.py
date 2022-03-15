@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator Version 1.6.1:
+#Battle Brothers Damage Calculator Version 1.6.2:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
@@ -162,7 +162,7 @@ APreWarscytheAoE = 0    #Ancient Dead: 55-80, 25% Ignore, 104% Armor, Fearsome.
 APreCryptCleaver = 0    #Ancient Dead: 60-80, 25% Ignore, 120% Armor, Fearsome, Cleaver Mastery.
 APreKhopesh = 0         #Necrosavant: 35-55, 25% Ignore, 120% Armor, HeadHunter, Crippling, Double Grip, CleaverBleed.
 APreFHGreatAxe = 0      #Fallen Hero: 80-100, 40 %Ignore, 150% Armor, Fearsome, Split Man.
-APreBerserkChain = 0    #Orc Berserker: 40-100, 30% Ignore, 125% Armor, 40% Head, TwoHander20, Flail2HPound, FlailMastery, Berserker.
+APreBerserkChain = 0    #Orc Berserker: 50-100, 30% Ignore, 125% Armor, 40% Head, TwoHander20, Flail2HPound, FlailMastery, Berserker.
 APreHeadSplitter = 0    #Orc Young/Warrior: 35-65, 30% Ignore, 130% Armor, 1HAxe, Warrior.
 APreHeadChopper = 0     #Orc Young/Warrior: 40-70, 25% Ignore, 110% Armor, Cleaver Mastery, Warrior.
 APreMansplitter = 0     #Orc Warlord: 90-120, 40% Ignore, 160% Armor, Split Man, Fearsome, Warlord.
@@ -262,7 +262,7 @@ if APreKhopesh == 1:
 if APreFHGreatAxe == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve, SplitMan = 80, 100, 25, 40, 150, 1, 100, 1
 if APreBerserkChain == 1:
-    Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20, Flail2HPound, FlailMastery, Berserker = 40, 100, 40, 30, 125, 1, 1, 1, 1
+    Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20, Flail2HPound, FlailMastery, Berserker = 50, 100, 40, 30, 125, 1, 1, 1, 1
 if APreHeadSplitter == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, Axe1H, Warrior = 35, 65, 25, 30, 130, 1, 1
 if APreHeadChopper == 1:
@@ -1632,3 +1632,5 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Changed R2Throw (two range Throwing) switch to deal +30% damage, down from +40%.
 #-- Adjusted Fearsome to the new formula of (Resolve - 10) * 20%
 #-- Added +5% armor ignore to Aimed Shot (this is not a new game change, just something I never realized before).
+#Version 1.6.2 (3/14/2022)
+#-- Adjusted Orc Berserker preset for new buff to Berserk Chain to 50-100, up from 40-100.
