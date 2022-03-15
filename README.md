@@ -1,9 +1,11 @@
 # Battle-Brothers-Damage-Calculator
 Updated for Of Flesh and Faith
 
-Last update: 3/10/2022 - Added the changes that occurred from the Of Flash and Faith dlc balance pass. Notably, 2H Flails got reworked and that logic has been configured. HeadHunter change only effects the hit chance version of the calculator. Nine Lives, Handgonne, Throwing, and Fearsome changes are all in. Also added +5% armor ignore to Aimed Shot which I never realized it had before.
+Latest Update: 3/13/2022 - Adjusted Orc Berserker preset for Besrerk Chain damage buff.
 
-Last update: 7/17/2021 - Added morale check/drop mechanics and tracking. You can now see the expected number of hits before the defender will fall to Wavering, Breaking, or Fleeing morale. Added Fearsome logic to this as well. Currently, only the main BBCalc.py script has been updated with these new options. As a disclaimer, a 1v1 sandbox calculator isn't going to be able to truly capture the dynamic nature of morale checks in game as there are many things that cause morale drops beyond just damage, and there are many external factors that influence resolve such as Banner/Leader auras, hidden adjacency bonuses, rallying, etc.
+Prior update: 3/10/2022 - Added the changes that occurred from the Of Flash and Faith dlc balance pass. Notably, 2H Flails got reworked and that logic has been configured. HeadHunter change only effects the hit chance version of the calculator. Nine Lives, Handgonne, Throwing, and Fearsome changes are all in. Also added +5% armor ignore to Aimed Shot which I never realized it had before.
+
+Prior update: 7/17/2021 - Added morale check/drop mechanics and tracking. You can now see the expected number of hits before the defender will fall to Wavering, Breaking, or Fleeing morale. Added Fearsome logic to this as well. Currently, only the main BBCalc.py script has been updated with these new options. As a disclaimer, a 1v1 sandbox calculator isn't going to be able to truly capture the dynamic nature of morale checks in game as there are many things that cause morale drops beyond just damage, and there are many external factors that influence resolve such as Banner/Leader auras, hidden adjacency bonuses, rallying, etc.
 
 A script that simulates the damage formula used in Battle Brothers, returning expected hits until death, injury, heavy injury, and morale check given whatever scenario you provide. Also returns % chance of death by hit, and can also return % chance of first injuries or morale by hit. 
 
