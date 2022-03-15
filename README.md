@@ -1,7 +1,7 @@
 # Battle-Brothers-Damage-Calculator
 Updated for Of Flesh and Faith
 
-Latest Update: 3/13/2022 - Adjusted Orc Berserker preset for Besrerk Chain damage buff.
+Latest Update: 3/13/2022 - Adjusted Orc Berserker preset for Berserk Chain damage buff.
 
 Prior update: 3/10/2022 - Added the changes that occurred from the Of Flash and Faith dlc balance pass. Notably, 2H Flails got reworked and that logic has been configured. HeadHunter change only effects the hit chance version of the calculator. Nine Lives, Handgonne, Throwing, and Fearsome changes are all in. Also added +5% armor ignore to Aimed Shot which I never realized it had before.
 
