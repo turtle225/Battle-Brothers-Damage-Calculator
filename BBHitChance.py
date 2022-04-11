@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Hit Chance Version 1.6.2:
+#Battle Brothers Damage Calculator -- Hit Chance Version 1.6.3:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator is a very basic addition of Hit Chance to the regular calculator.
@@ -21,7 +21,7 @@ InjuryMean = 1         #Returns average number of hits until first injury.
 InjuryPercent = 0      #Returns % chance of first injury by each hit.
 HeavyInjuryMean = 1    #Returns average number of hits until chance of first heavy injury (heavy injuries are not guaranteed even when threshold is met).
 HeavyInjuryPercent = 0 #Returns % chance of first heavy injury chance by each hit.
-MoraleMean = 1         #Returns average number of hits until first morale check.
+MoraleMean = 0         #Returns average number of hits until first morale check.
 MoralePercent = 0      #Returns % chance of first morale check by each hit.
 
 #Hit Chance: Use a whole number - 50% hit chance put "50" rather than .5
@@ -796,7 +796,7 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                             SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod * AttachMod
                             hp = math.ceil(hp - SMhp_roll)
                         else:
-                            SMarmor_roll = min(body,(random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod * AttachMod))
+                            SMarmor_roll = random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod * AttachMod
                             ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
                             SMarmor_roll = min(body,(SMarmor_roll * ForgeMod))
                             body -= SMarmor_roll
@@ -854,7 +854,7 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
                         SMhp_roll = SMhp_roll * NimbleMod * GladMod * IndomMod
                         hp = math.ceil(hp - SMhp_roll)
                     else:
-                        SMarmor_roll = min(helmet,(random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod))
+                        SMarmor_roll = random.randint(Mind,Maxd) * .5 * ArmorMod * GladMod * IndomMod
                         ForgeSaved += SMarmor_roll - SMarmor_roll * ForgeMod
                         SMarmor_roll = min(helmet,(SMarmor_roll * ForgeMod))
                         helmet -= SMarmor_roll
@@ -1418,3 +1418,5 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Added +5% armor ignore to Aimed Shot (this is not a new game change, just something I never realized before).
 #Version 1.6.2 (3/14/2022)
 #-- Adjusted Orc Berserker preset for new buff to Berserk Chain to 50-100, up from 40-100.
+#Version 1.6.3 (4/11/2022)
+#-- Fixed a bug with Forge + Split Man interaction where having low armor with Forge was giving much better survivability than it should have been against Split man.
