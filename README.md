@@ -1,11 +1,7 @@
 # Battle-Brothers-Damage-Calculator
 Updated for Of Flesh and Faith
 
-Latest Update: 3/13/2022 - Adjusted Orc Berserker preset for Berserk Chain damage buff.
-
-Prior update: 3/10/2022 - Added the changes that occurred from the Of Flash and Faith dlc balance pass. Notably, 2H Flails got reworked and that logic has been configured. HeadHunter change only effects the hit chance version of the calculator. Nine Lives, Handgonne, Throwing, and Fearsome changes are all in. Also added +5% armor ignore to Aimed Shot which I never realized it had before.
-
-Prior update: 7/17/2021 - Added morale check/drop mechanics and tracking. You can now see the expected number of hits before the defender will fall to Wavering, Breaking, or Fleeing morale. Added Fearsome logic to this as well. Currently, only the main BBCalc.py script has been updated with these new options. As a disclaimer, a 1v1 sandbox calculator isn't going to be able to truly capture the dynamic nature of morale checks in game as there are many things that cause morale drops beyond just damage, and there are many external factors that influence resolve such as Banner/Leader auras, hidden adjacency bonuses, rallying, etc.
+Latest Update: 4/11/2022 - Fixed a bug where having Forge with low armor against Split Man was giving much better survivability than it should have been. Heavy armor Forge vs. Split Man tests were unlikely to be impacted by this bug, as they tend to die before armor was destroyed anyway.
 
 A script that simulates the damage formula used in Battle Brothers, returning expected hits until death, injury, heavy injury, and morale check given whatever scenario you provide. Also returns % chance of death by hit, and can also return % chance of first injuries or morale by hit. 
 
@@ -59,3 +55,9 @@ helping me with many questions along the way.
 -- You: If you are using the calculator, thank you! If you find any bugs or have feedback/questions/suggestions, you can usually find me on the Steam forums or send me an email.
 
 -- Overhype: For making an amazing game for us to play.
+
+Prior Update: 3/13/2022 - Adjusted Orc Berserker preset for Berserk Chain damage buff.
+
+Prior update: 3/10/2022 - Added the changes that occurred from the Of Flash and Faith dlc balance pass. Notably, 2H Flails got reworked and that logic has been configured. HeadHunter change only effects the hit chance version of the calculator. Nine Lives, Handgonne, Throwing, and Fearsome changes are all in. Also added +5% armor ignore to Aimed Shot which I never realized it had before.
+
+Prior update: 7/17/2021 - Added morale check/drop mechanics and tracking. You can now see the expected number of hits before the defender will fall to Wavering, Breaking, or Fleeing morale. Added Fearsome logic to this as well. Currently, only the main BBCalc.py script has been updated with these new options. As a disclaimer, a 1v1 sandbox calculator isn't going to be able to truly capture the dynamic nature of morale checks in game as there are many things that cause morale drops beyond just damage, and there are many external factors that influence resolve such as Banner/Leader auras, hidden adjacency bonuses, rallying, etc.
