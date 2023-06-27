@@ -56,6 +56,8 @@ helping me with many questions along the way.
 
 -- Overhype: For making an amazing game for us to play.
 
+Prior update: 4/11/2022 - Fixed a bug where having Forge with low armor against Split Man was giving much better survivability than it should have been. Heavy armor Forge vs. Split Man tests were unlikely to be impacted by this bug, as they tend to die before armor was destroyed anyway.
+
 Prior Update: 3/13/2022 - Adjusted Orc Berserker preset for Berserk Chain damage buff.
 
 Prior update: 3/10/2022 - Added the changes that occurred from the Of Flash and Faith dlc balance pass. Notably, 2H Flails got reworked and that logic has been configured. HeadHunter change only effects the hit chance version of the calculator. Nine Lives, Handgonne, Throwing, and Fearsome changes are all in. Also added +5% armor ignore to Aimed Shot which I never realized it had before.
