@@ -1,7 +1,7 @@
 # Battle-Brothers-Damage-Calculator
 Updated for Of Flesh and Faith
 
-Latest Update: 4/11/2022 - Fixed a bug where having Forge with low armor against Split Man was giving much better survivability than it should have been. Heavy armor Forge vs. Split Man tests were unlikely to be impacted by this bug, as they tend to die before armor was destroyed anyway.
+Latest Update: 6/27/2023 - Added the ability to track the first instance of a bleed proc for cleaver tests and return this data in the output. Now you can test various armor lines, perks, or attachments, and see how that helps prolong the first instance of suffering bleed.
 
 A script that simulates the damage formula used in Battle Brothers, returning expected hits until death, injury, heavy injury, and morale check given whatever scenario you provide. Also returns % chance of death by hit, and can also return % chance of first injuries or morale by hit. 
 
