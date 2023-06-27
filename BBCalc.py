@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator Version 1.6.3:
+#Battle Brothers Damage Calculator Version 1.6.4:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
@@ -28,7 +28,7 @@ MoraleDropsPercent = 0 #Returns % chance of dropping morale to each morale level
 
 #Attacker Stats: #Example is Ancient Bladed Pike, follow that formatting. If you wish to use a attacker Preset, then skip this section.
 Mind = 55        #Mind = 55
-Maxd = 80       #Maxd = 80
+Maxd = 80        #Maxd = 80
 Headchance = 30  #Headchance = 30
 Ignore = 30      #Ignore = 30
 ArmorMod = 125   #ArmorMod = 125
@@ -38,7 +38,7 @@ Def_HP = 100
 Def_Helmet = 120
 Def_Armor = 95 
 Fatigue = -15           #Fatigue value only effects Nimble.
-Def_Resolve = 50        #Used only if morale drop data returns are enabled.
+Def_Resolve = 70        #Used only if morale drop data returns are enabled.
 
 #DEFENDER FLAGS: Set these values to 1 if they apply and 0 otherwise. If you select a Preset then leave these on 0.
 #Perks:
@@ -184,7 +184,7 @@ APreNobleSword = 0      #Swordmaster: 45-50, 20% Ignore, 85% Armor, Duelist, Dou
 APreWarbow = 0          #Master Archer: 50-70, 35% Ignore, 65% Armor, Crippling, Executioner, HeadHunter, Master Archer. 
 APrePoleMace = 0        #Conscript: 60-75, 40% Ignore, 120% Armor, 30% Head.
 APreHandgonne = 0       #Gunner: 35-75, 25% Ignore, 90% Armor, Fearsome.
-APre2HScimitar = 0      #Officer: 65-85, 25% Ignore, 110% Armor, Crippling, Executioner.
+APre2HScimitar = 0      #Officer: 65-85, 25% Ignore, 110% Armor, Crippling, Executioner, Cleaver Mastery.
 APreQatal = 0           #Assassin: 30-45, 20% Ignore, 70% Armor, Duelist, Double Grip, Executioner.
 APreFDirewolf = 0       #Frenzied Direwolf: 30-50, 20% Ignore, 70% Armor, Executioner, Frenzied Direwolf.
 APreNachTier3 = 0       #Tier 3 Nachzehrer: 55-80, 10% Ignore, 75% Armor.
@@ -639,12 +639,13 @@ hits_until_1st_injury = [] #This list will hold how many hits until first injury
 hits_until_1st_heavy_injury_chance = [] #This list will hold how many hits until a chance of heavy injury for each iteration.
 hits_until_1st_morale = [] #This list will hold how many hits until first morale check for each iteration.
 Total_Morale_Checks = [] #This list will hold how many morale checks occur for each iteration.
-hits_until_wavering = [] #this list will hold how many hits until morale falls to wavering for each iteration.
+hits_until_wavering = [] #this list will hold how many hits until morale falls to for each iteration.
 hits_until_breaking = [] #this list will hold how many hits until morale falls to breaking for each iteration.
 hits_until_fleeing = [] #this list will hold how many hits until morale falls to fleeing for each iteration.
 NumberFearsomeProcs = [] #This list will hold number of Fearsome procs for each iteration (only displays if Fearsome is checked).
 Forge_bonus_armor = [] #This list will hold the amount of extra armor provided by Forge for each iteration (only displays if Forge is checked).
-hits_until_1st_poison = [] #This list will hold how many hits until first poisoning against Ambushers (only displays if Ambusher is checked)
+hits_until_1st_poison = [] #This list will hold how many hits until first poisoning against Ambushers (only displays if Ambusher is checked).
+hits_until_1st_bleed = [] #This list will hold how many hits until first bleed against cleavers (only displays if CleaverBleed or CleaverMastery is checked).
 
 print("-----") #Added for readability. If this annoys you then remove this line.
 print("HP = " + str(Def_HP) + ", Helmet = " + str(Def_Helmet) + ", Armor = " + str(Def_Armor))
@@ -684,6 +685,7 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
     Bleedstack2T = 0                    #Tracker for bleed stacks with two turns remaining.
     ForgeSaved = 0                      #Tracker to add the amount of armor gained from Forge for each iteration.
     Poison = 0                          #Tracker for when first poisoning occurs against Ambushers.
+    Bleed = 0                           #Tracker for when first bleeding occurs against cleavers.
 
     count = 0 #Number of hits until death. Starts at 0 and goes up after each attack.
 
@@ -1349,6 +1351,10 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
             if hp > 0 or NineLivesMod == 1:
                 if math.floor(hp_roll) >= 6 and DecapMod == 1 and Decapitate != 1:
                     Bleedstack2T += 1
+                    #Track fist instance of bleed for later data return.
+                    if Bleed == 0:
+                        Bleed = 1
+                        hits_until_1st_bleed.append(count)
                 #Every two attacks (1 turn for Cleavers), apply bleed damage based on current bleed stacks.
                 #If Resilient, 2 turn bleed stacks apply damage and then are removed. Otherwise 2 turn bleed stacks apply damage and convert into 1 turn bleed stacks.
                 if count % 2 == 0:
@@ -1459,6 +1465,9 @@ if Forge == 1:
 if Ambusher == 1:
     if len(hits_until_1st_poison) != 0:
         hits_to_posion = statistics.mean(hits_until_1st_poison)
+if (CleaverBleed == 1 or CleaverMastery == 1):
+    if len(hits_until_1st_bleed) != 0:
+        hits_to_bleed = statistics.mean(hits_until_1st_bleed)
 
 #Results:
 if DeathMean == 1:
@@ -1532,8 +1541,10 @@ if Undead != 1 and Savant != 1:
 
 if Forge == 1:
     print(str(AvgForgeArmor) + " bonus armor from Forge on average.")
-if Ambusher == 1:
+if (Ambusher == 1 and len(hits_until_1st_poison) != 0):
     print("First poison in " + str(hits_to_posion) + " hits on average.")
+if (CleaverBleed == 1 or CleaverMastery == 1 and len(hits_until_1st_bleed) != 0):
+    print("First bleed in " + str(hits_to_bleed) + " hits on average.")
 print("-----") #Added for readability. If this annoys you then remove this line.
 
 #CREDITS:
@@ -1636,3 +1647,5 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Adjusted Orc Berserker preset for new buff to Berserk Chain to 50-100, up from 40-100.
 #Version 1.6.3 (4/11/2022)
 #-- Fixed a bug with Forge + Split Man interaction where having low armor with Forge was giving much better survivability than it should have been against Split man.
+#Version 1.6.4 (6/27/2023)
+#-- Added a tracker that returns the average hits until first bleed proc for cleaver tests.
