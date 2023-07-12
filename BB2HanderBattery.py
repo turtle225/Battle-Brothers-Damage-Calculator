@@ -1399,7 +1399,7 @@ calc()
 Mind = 35
 Maxd = 75
 Ignore = 25
-ArmodMod = .9
+ArmorMod = .9
 print("Handgonne")
 calc()
 
