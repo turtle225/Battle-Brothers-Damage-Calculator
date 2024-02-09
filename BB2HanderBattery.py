@@ -1492,5 +1492,5 @@ calc()
 #-- Fixed a bug with Forge + Split Man interaction where having low armor with Forge was giving much better survivability than it should have been against Split man.
 #Version 1.6.4 (6/27/2023)
 #-- Added a tracker that returns the average hits until first bleed proc for cleaver tests.
-#Version 1.6.5
+#Version 1.6.5 (2/8/2024)
 #-- Fixed a typo in the Handgonne section causing incorrect results. Thank you to vsobotka for pointing this out.
