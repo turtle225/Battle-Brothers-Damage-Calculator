@@ -3,6 +3,10 @@ Updated for Of Flesh and Faith
 
 Latest Update: 6/27/2023 - Added the ability to track the first instance of a bleed proc for cleaver tests and return this data in the output. Now you can test various armor lines, perks, or attachments, and see how that helps prolong the first instance of suffering bleed.
 
+Note: Osgboy has made a web-app version of the calculator if you don't want to have to download and use the raw code. Check it out here: https://osgboy.pythonanywhere.com/
+Big thanks to Osgboy for adapting the code and buliding the site to make it more user friendly.
+
+Overview:
 A script that simulates the damage formula used in Battle Brothers, returning expected hits until death, injury, heavy injury, and morale check given whatever scenario you provide. Also returns % chance of death by hit, and can also return % chance of first injuries or morale by hit. 
 
 Includes over 80 different switches from unique weapon cases, perks, attachments, race, etc. to create almost any scenario you can imagine from in game. There are 35 attacker presets and 41 defender presets provided for convenience.
@@ -17,23 +21,11 @@ At the bottom of each calculator is a version history, where you can see changel
 
 IMPORTANT:
 
-For instruction on setting up the calculator and how to use it once it is ready, please refer to the Installation and User Guide documents provided in the repository. I walk through step by step how to setup the calculator and use it with pictures and examples. Although I do not have a gui, the calculator is easy to use once you know how. The guide will help you get it running. The guide assists with setting up VSCode which is my preferred way to use the calculator, but if you want to use a different IDE then you can do so, or if you don't want to bother with any user setup then use Replit (see below).
+For instruction on setting up the calculator and how to use it once it is ready, please refer to the Installation and User Guide documents provided in the repository. I walk through step by step how to setup the calculator and use it with pictures and examples. Although I do not have a gui, the calculator is easy to use once you know how. The guide will help you get it running. The guide assists with setting up VSCode which is my preferred way to use the calculator, but if you want to use a different IDE then you can do so. 
 
-An alternative method to use the calculator is to load it into Repl.it. 
+If you don't want to bother with manually installing and interacting with the code, then please use the web-app gui that osgboy has created here: https://osgboy.pythonanywhere.com/
 
-https://repl.it/
-
-You don't have to sign up, choose "start coding" or "new repl"  in the top right. Choose "Import from GitHub" and put my link url
-
-https://github.com/turtle225/Battle-Brothers-Damage-Calculator
-
-Once it loads in, on the top right you can configure the "run" button if you wish to use it (it isn't necessary). To do so select Python from the drop down and in the box type "python BBCalc.py" without the quotes. This will make it so that the green run button runs the main calculator, but this won't work for the other calculators.
-
-Alternatively, don't worry about the run button, you can run any of the calculator versions by typing "python calcname.py" without the quotes into the command line on the right, where calcname is the name of the calculator you wish to use. Remember to press your Tab button to autocomplete the command for convenience.
-
-Using Replit skips the first half of the installation and user guide. Refer to part 2 to understand how to edit and use the calculator (note that it is unlikely that the user guide will load in Replit, open it elsewhere on your computer). Make sure any edits you make are done saving before you run the calculator. You can see a greyed out "saved" status next to the open file tab.
-
-The advantage to using Replit is that it is faster and easier to setup than getting your own VSCode going. Once you have the calculator loaded in Replit, you can also save that url link as a bookmark/favorite to quickly load the calculator again later without having to upload it into Replit again. The downside is that it makes the code scrunched and hideous to look at, which makes it hard to read the helpful comments I tried to put in. It may also take longer to compute (lower trials variable if it is taking too long).
+Another alternative to manually setting up your own coding environment is to import the code into https://replit.com/. This will still involve manually interacting with the code, but it makes it so that you don't have to download your own IDE. This is not my preferred way of using the calculator but I still wanted to mention it as an option.
 
 Limitations:
 
@@ -50,11 +42,15 @@ Special Thanks:
 -- Abel (aka) Villain Joueur: For grabbing the damage formula out of the game code, writing the damage page on the wiki, and for 
 helping me with many questions along the way.
 
+-- Osgboy: For making a web-app gui version of the calculator making it much more user friendly and accessible to people.
+
 -- Wall (aka) Wlira: For helping me with some questions along the way and having an existing calculator for me to test against. Also for pointing out Replit as an option for using the calculator.
 
 -- You: If you are using the calculator, thank you! If you find any bugs or have feedback/questions/suggestions, you can usually find me on the Steam forums or send me an email.
 
 -- Overhype: For making an amazing game for us to play.
+
+Upcoming update (note written 8/4/2024): There is currently a bug in the game with Split Man where it does not interact with generic damage modifiers on the second hit (ie things like Frenzy, Huge, Dazed, etc.). This is reportedly fixed in the next update of the game, but that has not been released yet. I will update the calculator once that update goes live. The calculator currently accounts for the bug existing.
 
 Prior update: 4/11/2022 - Fixed a bug where having Forge with low armor against Split Man was giving much better survivability than it should have been. Heavy armor Forge vs. Split Man tests were unlikely to be impacted by this bug, as they tend to die before armor was destroyed anyway.
 
