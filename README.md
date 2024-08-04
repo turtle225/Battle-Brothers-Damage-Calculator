@@ -7,6 +7,7 @@ Note: Osgboy has made a web-app version of the calculator if you don't want to h
 Big thanks to Osgboy for adapting the code and buliding the site to make it more user friendly.
 
 Overview:
+
 A script that simulates the damage formula used in Battle Brothers, returning expected hits until death, injury, heavy injury, and morale check given whatever scenario you provide. Also returns % chance of death by hit, and can also return % chance of first injuries or morale by hit. 
 
 Includes over 80 different switches from unique weapon cases, perks, attachments, race, etc. to create almost any scenario you can imagine from in game. There are 35 attacker presets and 41 defender presets provided for convenience.
