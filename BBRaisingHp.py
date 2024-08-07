@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- HP Changing Version 1.6.4:
+#Battle Brothers Damage Calculator -- HP Changing Version 1.6.5:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 
@@ -656,6 +656,7 @@ def calc():
                 if SplitMan == 1:
                     if BoneplateMod == 1:
                         BoneplateMod = 0
+                        SMhp_roll = 0
                     else:
                         SMhp_roll = random.randint(Mind,Maxd) * .5
                         if body == 0:
@@ -1314,3 +1315,5 @@ calc()
 #Version 1.6.4 (6/27/2023)
 #-- Added a tracker that returns the average hits until first bleed proc for cleaver tests.
 #-- Fixed an error where HeadHunter tests were causing the calculator to break.
+#Version 1.6.5 (8/7/2024)
+#-- Fixed a error/break when Split Man, Boneplates, and Morale Checks were all enabled. (Thank you to Osgboy for pointing this out).
