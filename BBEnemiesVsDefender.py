@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Enemies Vs. Defender Version 1.6.4:
+#Battle Brothers Damage Calculator -- Enemies Vs. Defender Version 1.6.5:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run 35 different enemies against a given defender.
@@ -788,6 +788,7 @@ def calc():
                 if SplitMan == 1:
                     if BoneplateMod == 1:
                         BoneplateMod = 0
+                        SMhp_roll = 0
                     else:
                         SMhp_roll = random.randint(Mind,Maxd) * .5
                         if body == 0:
@@ -1701,3 +1702,5 @@ if AverageMeanPerTest == 1:
 #-- Fixed a bug with Forge + Split Man interaction where having low armor with Forge was giving much better survivability than it should have been against Split man.
 #Version 1.6.4 (6/27/2023)
 #-- Added a tracker that returns the average hits until first bleed proc for cleaver tests.
+#Version 1.6.5 (8/7/2024)
+#-- Fixed a error/break when Split Man, Boneplates, and Morale Checks were all enabled. (Thank you to Osgboy for pointing this out).
