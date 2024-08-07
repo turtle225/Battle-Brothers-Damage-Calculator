@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- 2Hander Battery Version 1.6.5:
+#Battle Brothers Damage Calculator -- 2Hander Battery Version 1.6.6:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run all top line 2Hander options in the provided scenario.
@@ -667,6 +667,7 @@ def calc():
                 if SplitMan == 1:
                     if BoneplateMod == 1:
                         BoneplateMod = 0
+                        SMhp_roll = 0
                     else:
                         SMhp_roll = random.randint(Mind,Maxd) * .5
                         if body == 0:
@@ -1494,3 +1495,5 @@ calc()
 #-- Added a tracker that returns the average hits until first bleed proc for cleaver tests.
 #Version 1.6.5 (2/8/2024)
 #-- Fixed a typo in the Handgonne section causing incorrect results. Thank you to vsobotka for pointing this out.
+#Version 1.6.6 (8/7/2024)
+#-- Fixed a error/break when Split Man, Boneplates, and Morale Checks were all enabled. (Thank you to Osgboy for pointing this out).
