@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator Version 1.6.4:
+#Battle Brothers Damage Calculator Version 1.6.5:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 #Written in Python 3.7, earlier versions of Python 3 should work, but Python 2 will not.
@@ -797,6 +797,7 @@ for i in range(0,Trials): #This will run a number of trials as set above by the 
             if SplitMan == 1:
                 if BoneplateMod == 1:
                     BoneplateMod = 0
+                    SMhp_roll = 0
                 else:
                     SMhp_roll = random.randint(Mind,Maxd) * .5
                     if body == 0:
@@ -1649,3 +1650,5 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Fixed a bug with Forge + Split Man interaction where having low armor with Forge was giving much better survivability than it should have been against Split man.
 #Version 1.6.4 (6/27/2023)
 #-- Added a tracker that returns the average hits until first bleed proc for cleaver tests.
+#Version 1.6.5 (8/7/2024)
+#-- Fixed a error/break when Split Man, Boneplates, and Morale Checks were all enabled. (Thank you to Osgboy for pointing this out).
