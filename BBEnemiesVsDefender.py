@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Enemies Vs. Defender Version 1.6.5:
+#Battle Brothers Damage Calculator -- Enemies Vs. Defender Version 1.6.6:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run 35 different enemies against a given defender.
@@ -73,7 +73,7 @@ DPreSkirmisherHeavy = 0 # 40hp, 90/90.
 DPreAmbusher = 0        # 40hp, 25/35.
 DPreShaman = 0          # 70hp, 35/45.
 DPreOverseer = 0        # 70hp, 120/180.
-DPreReaverHeavy = 0     # 80hp, 145/95, Resilient.
+DPreReaverHeavy = 0     # 120hp, 145/95, Resilient.
 DPreChosenLight = 0     # 130hp, 145/140, Forge, Resilient.
 DPreChosenHeavy = 0     # 130hp, 190/230, Forge, Resilient.
 DPreBarbKing = 0        # 150hp, 250/270, Forge, Resilient.
@@ -82,20 +82,20 @@ DPreFootmanHeavy = 0    # 70hp, 215/150, Forge.
 DPreBillman = 0         # 70hp, 80/130, Forge.
 DPreArbalester = 0      # 60hp, 80/65.
 DPreBannerHeavy = 0     # 80hp, 215/150, SteelBrow.
-DPreKnight = 0          # 125hp, 300/300, Forge. 
-DPreSergeant = 0        # 100hp, 0/150, Nimble, SteelBrow. (-18 Fat)
+DPreKnight = 0          # 135hp, 300/300, Forge. 
+DPreSergeant = 0        # 100hp, 0/150, Nimble, SteelBrow, Resilient. (-18 Fat)
 DPreZweiHeavy = 0       # 90hp, 160/240, Forge, SteelBrow. 
-DPreRaiderHeavy = 0     # 70hp, 140/115.
+DPreRaiderHeavy = 0     # 75hp, 140/115.
 DPreMarkman = 0         # 60hp, 45/70.
-DPreLeaderHeavy = 0     # 100hp, 250/230, NineLives.
+DPreLeaderHeavy = 0     # 100hp, 250/210, NineLives.
 DPreMercenaryHeavy = 0  # 90hp, 230/260, Forge.
 DPreMercRange = 0       # 65hp, 115/115, Nimble. (-18 Fat)
 DPreHedgeKnight = 0     # 150hp, 300/300, Forge, Resilient.
-DPreSwordmaster = 0     # 70hp, 70/115, Nimble, SteelBrow. (-15 Fat)
+DPreSwordmaster = 0     # 70hp, 80/115, Nimble, SteelBrow. (-16 Fat)
 DPreMasterArcher = 0    # 80hp, 30/115, Nimble, SteelBrow. (-12 Fat)
 DPreOutlawHeavy = 0     # 75hp, 125/105.
 DPreConscript = 0       # 55hp, 105/110, Nimble. (-16 Fat)
-DPreOfficer = 0         # 100hp, 290/290, Forge.
+DPreOfficer = 0         # 110hp, 290/290, Forge.
 DPreAssassinHeavy = 0   # 80hp, 140/120, Nimble. (-15 Fat)
 
 # ------------------------------------------------------------------------
@@ -211,7 +211,7 @@ FallenBetrayerD = 0     #25% armor damage reduction for Watermill Betrayers.
 #Does not disable perks that shouldn't be active. For example, don't activate Duelist and then check the Chosen Preset.
 APreAncientSword = 0    #Ancient Dead: 38-43, 20% Ignore, 80% Armor, Fearsome.
 APreBladedPike = 0      #Ancient Dead: 55-80, 30% Ignore, 125% Armor, 30% Head, Fearsome.
-APreWarscytheAoE = 0    #Ancient Dead: 55-80, 25% Ignore, 104% Armor, Fearsome.
+APreWarscytheAoE = 0    #Ancient Dead: 55-80, 25% Ignore, 105% Armor, Fearsome.
 APreCryptCleaver = 0    #Ancient Dead: 60-80, 25% Ignore, 120% Armor, Fearsome, Cleaver Mastery.
 APreKhopesh = 0         #Necrosavant: 35-55, 25% Ignore, 120% Armor, HeadHunter, Crippling, Double Grip, CleaverBleed.
 APreFHGreatAxe = 0      #Fallen Hero: 80-100, 40 %Ignore, 150% Armor, Fearsome, Split Man.
@@ -234,14 +234,14 @@ APreFlailDGrip = 0      #Raider: 25-55, 30% Ignore, 100% Armor, 35% Head, Double
 APreLongAxe = 0         #Raider: 70-95, 30% Ignore, 110% Armor, 30% Head, Executioner. 
 APreMedXbow = 0         #Marksman: 40-60, 50% Ignore, 70% Armor, Xbow Mastery.
 APreNobleSword = 0      #Swordmaster: 45-50, 20% Ignore, 85% Armor, Duelist, Double Grip, Crippling, Executioner.
-APreWarbow = 0          #Master Archer: 50-70, 35% Ignore, 65% Armor, Crippling, Executioner, HeadHunter, Master Archer. 
+APreWarbow = 0          #Master Archer: 50-70, 35% Ignore, 60% Armor, Crippling, Executioner, HeadHunter, Master Archer. 
 APrePoleMace = 0        #Conscript: 60-75, 40% Ignore, 120% Armor, 30% Head.
 APreHandgonne = 0       #Gunner: 35-75, 25% Ignore, 90% Armor, Fearsome.
 APre2HScimitar = 0      #Officer: 65-85, 25% Ignore, 110% Armor, Crippling, Executioner, Cleaver Mastery.
 APreQatal = 0           #Assassin: 30-45, 20% Ignore, 70% Armor, Duelist, Double Grip, Executioner.
 APreFDirewolf = 0       #Frenzied Direwolf: 30-50, 20% Ignore, 70% Armor, Executioner, Frenzied Direwolf.
 APreNachTier3 = 0       #Tier 3 Nachzehrer: 55-80, 10% Ignore, 75% Armor.
-APreLindwurm = 0        #Lindwurm Head: 80-140, 35% Ignore, 140% Armor, Fearsome.
+APreLindwurm = 0        #Lindwurm Head: 80-140, 35% Ignore, 150% Armor, Fearsome.
 APreUnhold = 0          #Unhold: 40-80, 40% Ignore, 80% Armor, Crippling.
 APreSchrat = 0          #Schrat: 70-100, 50% Ignore, 80% Armor, Crippling.
 
@@ -253,7 +253,7 @@ def PresetCalc():
     if APreBladedPike == 1:
         Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome = 55, 80, 30, 30, 125, 1
     if APreWarscytheAoE == 1:
-        Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome = 55, 80, 25, 25, 104, 1
+        Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome = 55, 80, 25, 25, 105, 1
     if APreCryptCleaver == 1: 
         Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, CleaverMastery = 60, 80, 25, 25, 120, 1, 1
     if APreKhopesh == 1:
@@ -299,7 +299,7 @@ def PresetCalc():
     if APreNobleSword == 1:
         Mind, Maxd, Headchance, Ignore, ArmorMod, Duelist, DoubleGrip, CripplingStrikes, Executioner = 45, 50, 25, 20, 85, 1, 1, 1, 1
     if APreWarbow == 1:
-        Mind, Maxd, Headchance, Ignore, ArmorMod, CripplingStrikes, Executioner, MasterArcher, HeadHunter = 50, 70, 25, 35, 65, 1, 1, 1, 1
+        Mind, Maxd, Headchance, Ignore, ArmorMod, CripplingStrikes, Executioner, MasterArcher, HeadHunter = 50, 70, 25, 35, 60, 1, 1, 1, 1
     if APrePoleMace == 1:
         Mind, Maxd, Headchance, Ignore, ArmorMod = 60, 75, 30, 40, 120
     if APreHandgonne == 1:
@@ -313,7 +313,7 @@ def PresetCalc():
     if APreNachTier3 == 1:
         Mind, Maxd, Headchance, Ignore, ArmorMod = 55, 80, 25, 10, 75
     if APreLindwurm == 1:
-        Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome = 80, 140, 25, 35, 140, 1
+        Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome = 80, 140, 25, 35, 150, 1
     if APreUnhold == 1:
         Mind, Maxd, Headchance, Ignore, ArmorMod, CripplingStrikes = 40, 80, 25, 40, 80, 1
     if APreSchrat == 1:
@@ -355,7 +355,7 @@ if DPreShaman == 1:
 if DPreOverseer == 1:
     Def_HP, Def_Helmet, Def_Armor = 70, 120, 180
 if DPreReaverHeavy == 1:
-    Def_HP, Def_Helmet, Def_Armor, Resilient = 80, 145, 95, 1
+    Def_HP, Def_Helmet, Def_Armor, Resilient = 120, 145, 95, 1
 if DPreChosenLight == 1:
     Def_HP, Def_Helmet, Def_Armor, Forge, Resilient = 130, 145, 140, 1, 1
 if DPreChosenHeavy == 1:
@@ -373,17 +373,17 @@ if DPreArbalester == 1:
 if DPreBannerHeavy == 1:
     Def_HP, Def_Helmet, Def_Armor, SteelBrow = 80, 215, 150, 1
 if DPreKnight == 1:
-    Def_HP, Def_Helmet, Def_Armor, Forge = 125, 300, 300, 1
+    Def_HP, Def_Helmet, Def_Armor, Forge = 135, 300, 300, 1
 if DPreSergeant == 1:
-    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, SteelBrow = 100, 0, 150, -18, 1, 1
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, SteelBrow, Resilient = 100, 0, 150, -18, 1, 1, 1
 if DPreZweiHeavy == 1:
     Def_HP, Def_Helmet, Def_Armor, Forge, SteelBrow = 90, 160, 240, 1, 1
 if DPreRaiderHeavy == 1:
-    Def_HP, Def_Helmet, Def_Armor = 70, 140, 115
+    Def_HP, Def_Helmet, Def_Armor = 75, 140, 115
 if DPreMarkman == 1:
     Def_HP, Def_Helmet, Def_Armor = 60, 45, 70
 if DPreLeaderHeavy == 1:
-    Def_HP, Def_Helmet, Def_Armor, NineLives = 100, 250, 230, 1
+    Def_HP, Def_Helmet, Def_Armor, NineLives = 100, 250, 210, 1
 if DPreMercenaryHeavy == 1:
     Def_HP, Def_Helmet, Def_Armor, Forge = 90, 230, 260, 1
 if DPreMercRange == 1:
@@ -391,7 +391,7 @@ if DPreMercRange == 1:
 if DPreHedgeKnight == 1:
     Def_HP, Def_Helmet, Def_Armor, Forge, Resilient = 150, 300, 300, 1, 1
 if DPreSwordmaster == 1:
-    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, SteelBrow = 70, 70, 115, -15, 1, 1
+    Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, SteelBrow = 70, 80, 115, -16, 1, 1
 if DPreMasterArcher == 1:   
     Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble, SteelBrow = 80, 30, 115, -12, 1, 1
 if DPreOutlawHeavy == 1:
@@ -399,7 +399,7 @@ if DPreOutlawHeavy == 1:
 if DPreConscript == 1:
     Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 55, 105, 110, -16, 1
 if DPreOfficer == 1:
-    Def_HP, Def_Helmet, Def_Armor, Forge = 100, 290, 290, 1
+    Def_HP, Def_Helmet, Def_Armor, Forge = 110, 290, 290, 1
 if DPreAssassinHeavy == 1:
     Def_HP, Def_Helmet, Def_Armor, Fatigue, Nimble = 80, 140, 120, -15, 1
 
@@ -813,7 +813,7 @@ def calc():
                 if Flail2HPound == 1:
                     Ignore = Flail2HBodyshot
                 #Bone Plates check -- Attack is negated if Boneplates are online, then turns off Boneplates until next trial.
-                if BoneplateMod == 1:
+                if BoneplateMod == 1 and Puncture != 1:
                     BoneplateMod = 0
                     hp_roll = 0
                 else:
@@ -1621,6 +1621,7 @@ if AverageMeanPerTest == 1:
 #Copyright 2019, turtle225. All rights reserved.
 #Special Thanks:
 #-- Abel (aka) Villain Joueur: For grabbing the damage formula out of the game code, writing the damage page on the wiki, and for helping me with many questions along the way.
+#-- Osgboy: For making a web-app gui version of the calculator making it much more user friendly and accessible to people. Located here: https://osgboy.pythonanywhere.com/
 #-- Wall (aka) Wlira: For helping me with some questions along the way and having an existing calculator for me to test against.
 #-- You: If you are using the calculator, thank you! If you find any bugs or have feedback/questions/suggestions, you can usually find me on the Steam forums or send me an email.
 #-- Overhype: For making an amazing game for us to play.
@@ -1704,3 +1705,18 @@ if AverageMeanPerTest == 1:
 #-- Added a tracker that returns the average hits until first bleed proc for cleaver tests.
 #Version 1.6.5 (8/7/2024)
 #-- Fixed a error/break when Split Man, Boneplates, and Morale Checks were all enabled. (Thank you to Osgboy for pointing this out).
+#Version 1.6.6 (8/22/2024)
+#-- Fixed some presets that were incorrect due to either human error on my part, or it became outdated from a change in the game that I had missed. See below.
+#-- Defender presets:
+#---- Raider: HP Updated to 75 (was 70).
+#---- Reaver: HP Updated to 120 (was 80).
+#---- Knight: HP updated to 135 (was 125).
+#---- Officer: HP updated to 110 (was 100).
+#---- Sergeant: Added Resilient perk.
+#---- Brigand Leader: Body armor changed from 230 to 210. (Leaders cannot spawn with 230 body armor so switching to Reinforced Hauberk at 210).
+#---- SwordMaster: helmet changed from 70 to 80. Total fatigue (for Nimble) to 16 from 15. (Swordmasters cannot spawn with 70/-3 Duelist Hat so switching to Mail Coif at 80/-4).
+#-- Attacker presets:
+#---- Warcythe: Armor% changed to 105% (was 104%). Used in Ancient Dead preset. (Note - Ingame tooltip incorrectly displays 104%).
+#---- Warbow: Armor% changed to 60% (was 65%). Used in Master Archer preset.
+#---- Lindwurm: armor% changed to 150% (was 140%). Used in Lindwurm preset.
+#-- Fixed an oversight where BonePlates attachment was blocking a hit against Puncture tests when it shouldn't be able to.
