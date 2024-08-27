@@ -1376,12 +1376,12 @@ Mind = 55
 Maxd = 80
 Headchance = 25
 Ignore = 30
-ArmorMod = 1.04
+ArmorMod = 1.05
 print("Warscythe:")
 calc()
 
 Ignore = 25
-ArmorMod = 1.04
+ArmorMod = 1.05
 print("Warscythe - AoE:")
 calc()
 
