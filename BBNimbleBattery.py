@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Nimble Battery Version 1.6.6:
+#Battle Brothers Damage Calculator -- Nimble Battery Version 1.6.7:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 #The calculator expects you to make smart decisions, such as not giving Xbow Mastery to a Hammer. 
 
@@ -577,7 +577,7 @@ def calc():
         ForgeSaved = 0                      #Tracker to add the amount of armor gained from Forge for each iteration.
         Poison = 0                          #Tracker for when first poisoning occurs against Ambushers.
         Bleed = 0                           #Tracker for when first bleeding occurs against cleavers.
-        
+
         count = 0 #Number of hits until death. Starts at 0 and goes up after each attack.
 
         while hp > 0: #Continue looping until death.
@@ -764,6 +764,9 @@ def calc():
                             hp = math.ceil(hp - SMhp_roll)
 
             count += 1 #Add +1 to the number of hits taken. 
+            if count > 500: #This if statement is here to prevent accidental infinite loops with Ijirok armor, or simply any abnormal testing scenario that would take a very long time to compute.
+                print("Defender is surviving over 500 attacks, please adjust testing parameters.")
+                exit()
 
             #Injury check:
             if UseHeadShotInjuryFormula == 1:
@@ -1145,15 +1148,15 @@ def calc():
                     NineLivesMod = 0
                     Bleedstack1T = 0
                     Bleedstack2T = 0
-                elif Fearsome == 1:
-                    if Forge == 1:
-                        Forge_bonus_armor.append(ForgeSaved)
-                    hits_until_death.append(count)
-                    NumberFearsomeProcs.append(FearsomeProcs)
                 else:
                     if Forge == 1:
                         Forge_bonus_armor.append(ForgeSaved)
-                    hits_until_death.append(count)
+                    if Fearsome == 1:
+                        NumberFearsomeProcs.append(FearsomeProcs)
+                    if Flail3Head == 1:
+                        hits_until_death.append(count/3)
+                    else:
+                        hits_until_death.append(count)
 
     #Analysis on data collection:
     HitsToDeath = statistics.mean(hits_until_death)
@@ -1411,3 +1414,6 @@ calc()
 #---- Warbow: Armor% changed to 60% (was 65%). Used in Master Archer preset.
 #---- Lindwurm: armor% changed to 150% (was 140%). Used in Lindwurm preset.
 #-- Fixed an oversight where BonePlates attachment was blocking a hit against Puncture tests when it shouldn't be able to.
+#Version 1.6.7 (10/1/2024)
+#-- Added logic and switches for Ijirok armor tests in the other calculators. This variant remains unchanged.
+#-- Added a condition for the code to terminate if a defender is surviving over 500 attacks.

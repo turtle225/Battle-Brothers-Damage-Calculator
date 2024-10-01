@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.6.6:
+#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.6.7:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run a given attacker against 30 different enemies.
@@ -767,6 +767,9 @@ def calc():
                             hp = math.ceil(hp - SMhp_roll)
 
             count += 1 #Add +1 to the number of hits taken. 
+            if count > 500: #This if statement is here to prevent accidental infinite loops with Ijirok armor, or simply any abnormal testing scenario that would take a very long time to compute.
+                print("Defender is surviving over 500 attacks, please adjust testing parameters.")
+                exit()
 
             #Injury check:
             if UseHeadShotInjuryFormula == 1:
@@ -1154,17 +1157,11 @@ def calc():
                     NineLivesMod = 0
                     Bleedstack1T = 0
                     Bleedstack2T = 0
-                elif Fearsome == 1:
-                    if Forge == 1:
-                        Forge_bonus_armor.append(ForgeSaved)
-                    if Flail3Head == 1:
-                        hits_until_death.append(count/3)
-                    else:
-                        hits_until_death.append(count)
-                    NumberFearsomeProcs.append(FearsomeProcs)
                 else:
                     if Forge == 1:
                         Forge_bonus_armor.append(ForgeSaved)
+                    if Fearsome == 1:
+                        NumberFearsomeProcs.append(FearsomeProcs)
                     if Flail3Head == 1:
                         hits_until_death.append(count/3)
                     else:
@@ -1565,3 +1562,6 @@ if AverageMeanPerTest == 1:
 #---- Warbow: Armor% changed to 60% (was 65%). Used in Master Archer preset.
 #---- Lindwurm: armor% changed to 150% (was 140%). Used in Lindwurm preset.
 #-- Fixed an oversight where BonePlates attachment was blocking a hit against Puncture tests when it shouldn't be able to.
+#Version 1.6.7 (10/1/2024)
+#-- Added logic and switches for Ijirok armor tests in the other calculators. This variant of the calculator remained unchanged.
+#-- Added a condition for the code to terminate if a defender is surviving over 500 attacks.

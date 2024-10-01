@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- 2Hander Battery Version 1.6.6:
+#Battle Brothers Damage Calculator -- 2Hander Battery Version 1.6.7:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run all top line 2Hander options in the provided scenario.
@@ -46,6 +46,12 @@ SerpentSkin = 0         #Only select in Handgonne tests. +30 armor, -2 Fatigue, 
 #Traits:
 Ironjaw = 0             #Reduces injury susceptibility.
 GloriousEndurance = 0   #The Bear's unique trait. Reduces damage by 5% each time you are hit, up to a 25% max reduction.
+#Ijirok Armor:          #Choose one between Heal10/Heal20 and one between 1 or 2 Turn Heal interval. 
+#Note: Ijirok tests are imperfect in a sandbox calculator. 1v1 tests are biased in its favor, while lack of hit chance is biased against it.
+IjirokHeal10 = 0        #Ijirok armor passive for one piece. Heals 10 HP at start of player turn.
+IjirokHeal20 = 0        #Ijirok armor passive for both pieces. Heals 20 HP at start of player turn.
+Ijirok1TurnHeal = 0     #Applies Ijirok healing after every attack.
+Ijirok2TurnHeal = 0     #Applies Ijirok healing after every other attack, better simulating 4AP enemies/weapons, or being attacked by multiple enemies per turn.
 
 #ATTACKER FLAGS: Set these values to 1 if they apply and 0 otherwise.             
 #Perks:
@@ -377,6 +383,12 @@ elif SkeletonVsArrow == 1:
 else:
     SkeletonMod = 1
 
+#Ijirok:
+if IjirokHeal10 == 1:
+    IjirokHealing = 10
+if IjirokHeal20 == 1:
+    IjirokHealing = 20
+
 #Bleeding damage:
 BleedDamage = 0
 if CleaverBleed == 1:
@@ -522,6 +534,7 @@ def calc():
     hits_until_1st_morale = [] #This list will hold how many hits until first morale check for each iteration.
     NumberFearsomeProcs = [] #This list will hold number of Fearsome procs for each iteration (only displays if Fearsome is checked).
     Forge_bonus_armor = [] #This list will hold the amount of extra armor provided by Forge for each iteration (only displays if Forge is checked).
+    Total_Ijirok_Healing = [] #This list will hold the amount of total Ijirok healing from the Ijirok armor for each iteration (only displays if Ijirok switches are checked).
     hits_until_1st_poison = [] #This list will hold how many hits until first poisoning against Ambushers (only displays if Ambusher is checked).
     hits_until_1st_bleed = [] #This list will hold how many hits until first bleed against cleavers (only displays if CleaverBleed or CleaverMastery is checked).
 
@@ -559,7 +572,8 @@ def calc():
         ForgeSaved = 0                      #Tracker to add the amount of armor gained from Forge for each iteration.
         Poison = 0                          #Tracker for when first poisoning occurs against Ambushers.
         Bleed = 0                           #Tracker for when first bleeding occurs against cleavers.
-        
+        IjirokTotalHeal = 0                 #Tracker for amount of Ijirok healing received.
+
         count = 0 #Number of hits until death. Starts at 0 and goes up after each attack.
 
         while hp > 0: #Continue looping until death.
@@ -746,6 +760,9 @@ def calc():
                             hp = math.ceil(hp - SMhp_roll)
 
             count += 1 #Add +1 to the number of hits taken. 
+            if count > 500: #This if statement is here to prevent accidental infinite loops with Ijirok armor, or simply any abnormal testing scenario that would take a very long time to compute.
+                print("Defender is surviving over 500 attacks, please adjust testing parameters.")
+                exit()
 
             #Injury check:
             if UseHeadShotInjuryFormula == 1:
@@ -1098,6 +1115,22 @@ def calc():
                         if math.floor(hp_roll) > 0 and math.floor(hp_roll) < 15:
                             FearsomeProcs += 1
 
+            #Ijirok armor check:
+            if (hp > 0 or NineLivesMod == 1) and (IjirokHeal10 == 1 or IjirokHeal20 == 1):
+                if Ijirok1TurnHeal == 1:                        #Block to apply healing after every attack.
+                    hp = hp + IjirokHealing                     #Applying Healing
+                    IjirokTotalHeal += IjirokHealing            #Tracking HP Healed for later analysis.
+                    if hp > Def_HP:                             #Block to ensure HP doesn't exceed max.
+                        IjirokTotalHeal -= (hp - Def_HP)
+                        hp = Def_HP
+                elif Ijirok2TurnHeal == 1:                      #Block to apply healing every other attack.
+                    if count % 2 == 0:
+                        hp = hp + IjirokHealing
+                        IjirokTotalHeal += IjirokHealing
+                        if hp > Def_HP:
+                            IjirokTotalHeal -= (hp - Def_HP)
+                            hp = Def_HP
+
             #Bleeding check:
             if (CleaverBleed == 1 or CleaverMastery == 1) and Undead != 1:
                 #If damage taken >= 6 and Decapitate isn't in play, then apply a 2 turn bleed stack.
@@ -1133,17 +1166,13 @@ def calc():
                     NineLivesMod = 0
                     Bleedstack1T = 0
                     Bleedstack2T = 0
-                elif Fearsome == 1:
-                    if Forge == 1:
-                        Forge_bonus_armor.append(ForgeSaved)
-                    if Flail3Head == 1:
-                        hits_until_death.append(count/3)
-                    else:
-                        hits_until_death.append(count)
-                    NumberFearsomeProcs.append(FearsomeProcs)
                 else:
                     if Forge == 1:
                         Forge_bonus_armor.append(ForgeSaved)
+                    if (IjirokHeal10 == 1 or IjirokHeal20 == 1) and (Ijirok1TurnHeal == 1 or Ijirok2TurnHeal == 1):
+                        Total_Ijirok_Healing.append(IjirokTotalHeal)
+                    if Fearsome == 1:
+                        NumberFearsomeProcs.append(FearsomeProcs)
                     if Flail3Head == 1:
                         hits_until_death.append(count/3)
                     else:
@@ -1176,6 +1205,9 @@ def calc():
     if Forge == 1:
         if len(Forge_bonus_armor) != 0:
             AvgForgeArmor = statistics.mean(Forge_bonus_armor)
+    if (IjirokHeal10 == 1 or IjirokHeal20 == 1) and (Ijirok1TurnHeal == 1 or Ijirok2TurnHeal == 1):
+        if len(Total_Ijirok_Healing) != 0:
+            AvgIjirokHealing = statistics.mean(Total_Ijirok_Healing)
     if Ambusher == 1:
         if len(hits_until_1st_poison) != 0:
             hits_to_posion = statistics.mean(hits_until_1st_poison)
@@ -1216,6 +1248,8 @@ def calc():
             print (str(AvgFearsomeProcs) + " Fearsome procs on average.")
     if Forge == 1:
         print(str(AvgForgeArmor) + " bonus armor from Forge on average.")
+    if (IjirokHeal10 == 1 or IjirokHeal20 == 1) and (Ijirok1TurnHeal == 1 or Ijirok2TurnHeal == 1):
+        print(str(AvgIjirokHealing) + " HP healed by Ijirok armor on average.")
     if (Ambusher == 1 and len(hits_until_1st_poison) != 0):
         print("First poison in " + str(hits_to_posion) + " hits on average.")
     if (CleaverBleed == 1 or CleaverMastery == 1 and len(hits_until_1st_bleed) != 0):
@@ -1511,3 +1545,6 @@ calc()
 #---- Warbow: Armor% changed to 60% (was 65%). Used in Master Archer preset.
 #---- Lindwurm: armor% changed to 150% (was 140%). Used in Lindwurm preset.
 #-- Fixed an oversight where BonePlates attachment was blocking a hit against Puncture tests when it shouldn't be able to.
+#Version 1.6.7 (10/1/2024)
+#-- Added logic and switches for Ijirok armor tests.
+#-- Added a condition for the code to terminate if a defender is surviving over 500 attacks.
