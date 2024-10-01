@@ -1,7 +1,7 @@
 # Battle-Brothers-Damage-Calculator
 Updated for Of Flesh and Faith
 
-Latest Update: 8/22/2024 - Fixed some attacker/defender presets that were incorrect. Fixed Boneplates working against Puncture.
+Latest Update: 10/1/2024 - Added logic for Ijirok armor testing. Added a condition for the code to terminate if the defender survives abnormally long.
 
 Note: Osgboy has made a web-app version of the calculator if you don't want to have to download and use the raw code. Check it out here: https://osgboy.pythonanywhere.com/
 Big thanks to Osgboy for adapting the code and buliding the site to make it more user friendly.
@@ -52,6 +52,8 @@ helping me with many questions along the way.
 -- Overhype: For making an amazing game for us to play.
 
 Upcoming update (note written 8/4/2024): There is currently a bug in the game with Split Man where it does not interact with generic damage modifiers on the second hit (ie things like Frenzy, Huge, Dazed, etc.). This is reportedly fixed in the next update of the game, but that has not been released yet. I will update the calculator once that update goes live. The calculator currently accounts for the bug existing.
+
+Prior Update: 8/22/2024 - Fixed some attacker/defender presets that were incorrect. Fixed Boneplates working against Puncture.
 
 Prior Update: 6/27/2023 - Added the ability to track the first instance of a bleed proc for cleaver tests and return this data in the output. Now you can test various armor lines, perks, or attachments, and see how that helps prolong the first instance of suffering bleed.
 
