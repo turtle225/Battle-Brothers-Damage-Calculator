@@ -106,7 +106,7 @@ HeadHunter = 0          #Will carry over HH stacks between kills as happens in g
 Duelist = 0             #All Duelists should also be given DoubleGrip except for Throwing weapons.
 KillingFrenzy = 0
 Fearsome = 0            #Will also return # of extra Fearsome checks, which are all attacks that deal 1-14 damage. Assign Attacker Resolve below.
-Atk_Resolve = 50        #Only used if Fearsome is selected. 20% of (Resolve -10) is applied as a penalty to defender Resolve during morale checks.
+Atk_Resolve = 50        #Only used if Fearsome is selected. 15% of Resolve is applied as a penalty to defender Resolve during morale checks.
 #Traits:
 Brute = 0               #Headshot damage +15%.
 Drunkard = 0            #Damage +10%.
@@ -256,17 +256,17 @@ import sys
 
 #Attacker presets:
 if APreAncientSword == 1:
-    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 38, 43, 25, 20, 80, 1, 80
+    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 38, 43, 25, 20, 80, 1, 100
 if APreBladedPike == 1:
-    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 55, 80, 30, 30, 125, 1, 80
+    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 55, 80, 30, 30, 125, 1, 100
 if APreWarscytheAoE == 1:
-    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 55, 80, 25, 25, 105, 1, 100
+    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve = 55, 80, 25, 25, 105, 1, 130
 if APreCryptCleaver == 1: 
-    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve, CleaverMastery = 60, 80, 25, 25, 120, 1, 100, 1
+    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve, CleaverMastery = 60, 80, 25, 25, 120, 1, 130, 1
 if APreKhopesh == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, HeadHunter, CripplingStrikes, DoubleGrip, CleaverBleed = 35, 55, 25, 25, 120, 1, 1, 1, 1
 if APreFHGreatAxe == 1:
-    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve, SplitMan = 80, 100, 25, 40, 150, 1, 100, 1
+    Mind, Maxd, Headchance, Ignore, ArmorMod, Fearsome, Atk_Resolve, SplitMan = 80, 100, 25, 40, 150, 1, 130, 1
 if APreBerserkChain == 1:
     Mind, Maxd, Headchance, Ignore, ArmorMod, TwoHander20, Flail2HPound, FlailMastery, Berserker = 50, 100, 40, 30, 125, 1, 1, 1, 1
 if APreHeadSplitter == 1:
@@ -534,7 +534,7 @@ HHStack = 0
 
 #Fearsome
 if Fearsome == 1:
-    FearsomeMod = min((Atk_Resolve - 10) / 5,18)
+    FearsomeMod = math.floor(min(Atk_Resolve * .15,20))
 
 #Damage modifiers:
 DamageMod = 1
@@ -1474,7 +1474,7 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #Version 1.6.7 (10/1/2024)
 #-- Added logic and switches for Ijirok armor tests.
 #-- Added a condition for the code to terminate if a defender is surviving over 500 attacks.
-#Version 1.7.0
+#Version 1.7.0 (3/20/2025)
 #-- Readjusted Split Man calculations to match recent bug fix in game where it previously did not account for offensive damage modifiers.
 #---- This means that the second hit can now use offensive modifiers like Executioner, Huge, Orc bonuses, etc.
 #-- Added logic to update Forge, Glorious Endurance trait (Bear), and Executioner before rolling the damage of the second hit of Split Man.
@@ -1482,3 +1482,5 @@ print("-----") #Added for readability. If this annoys you then remove this line.
 #-- Recoded the Injury Check section to be much more concise (Thank you Osgboy for suggestion/advice).
 #-- Changed injury multiplier for Crippling Strikes and Shamshir (without Mastery) to .66 to match how it is in game (previously was using 2/3).
 #-- Fixed an oversight with all sub-variants of the calculator where they could return injury rates that were faster than reality in circumstances where the enemy could get their first injury on the same hit where they die. The main BBCalc.py did not have this problem.
+#-- Adjusted Fearsome formula to use 15% of Resolve instead of 20% of (Resolve - 10) to account for recent change in game.
+#-- Adjusted Ancient Dead and Fallen Hero preset Atk_Resolve values as they were increased in game to counter-act the Fearsome formula nerf.

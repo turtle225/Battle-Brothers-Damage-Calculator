@@ -1343,7 +1343,7 @@ if AverageMeanPerTest == 1:
 #Version 1.6.7 (10/1/2024)
 #-- Added logic and switches for Ijirok armor tests in the other calculators. This variant of the calculator remained unchanged.
 #-- Added a condition for the code to terminate if a defender is surviving over 500 attacks.
-#Version 1.7.0
+#Version 1.7.0 (3/20/2025)
 #-- Readjusted Split Man calculations to match recent bug fix in game where it previously did not account for offensive damage modifiers.
 #---- This means that the second hit can now use offensive modifiers like Executioner, Huge, Orc bonuses, etc.
 #-- Added logic to update Forge, Glorious Endurance trait (Bear), and Executioner before rolling the damage of the second hit of Split Man.
