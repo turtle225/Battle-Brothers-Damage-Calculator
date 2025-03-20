@@ -603,7 +603,7 @@ def calc():
                 DecapMod = 2 - hp / Def_HP
             else:
                 DecapMod = 1
-            #Destory Armor:
+            #Destroy Armor:
             if DestroyArmor == 1 and count == 0:
                 DArmorMod = 1.5
             elif DestroyArmor == 1 and count == 1 and DestroyArmorTwice == 1:
@@ -666,7 +666,7 @@ def calc():
                     ForgeSaved += armor_roll - armor_roll * ForgeMod
                     armor_roll = min(helmet,(armor_roll * ForgeMod))
                     helmet = math.ceil(helmet - armor_roll) #Rounding armor damage.
-                #If not DestoryArmor, and no armor is present, apply damage directly to hp.
+                #If not DestroyArmor, and no armor is present, apply damage directly to hp.
                 elif helmet == 0:
                     hp_roll = hp_roll * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) * HeadMod
                     if Hammer10 == 1: #If 1H Hammer, deal 10 damage minimum.
@@ -685,7 +685,7 @@ def calc():
                             hp_roll = max(hp_roll,10) 
                         helmet = math.ceil(helmet)
                         hp = math.ceil(hp - hp_roll)
-                    #If the helmet did get destoryed by the attack, do the following.
+                    #If the helmet did get destroyed by the attack, do the following.
                     else:
                         OverflowDamage = max(0,(hp_roll * (1 - Ignore) * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) - armor_roll))
                         hp_roll = (hp_roll * Ignore * NimbleMod * SkeletonMod * GladMod * IndomMod * ((DamageMod *  ExecMod * AimedShotMod) * DecapMod) + OverflowDamage) * HeadMod
