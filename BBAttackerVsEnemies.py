@@ -1,4 +1,4 @@
-#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.7.1:
+#Battle Brothers Damage Calculator -- Attacker Vs. Enemies Version 1.7.2:
 #Welcome. Modify the below values as necessary until you reach the line ----- break.
 
 #This version of the calculator will run a given attacker against 30 different enemies.
@@ -211,7 +211,7 @@ Skirmisher = 0          #Ignore * 1.25
 Overseer = 0            #Ignore * 1.1
 Wolfrider = 0           #Ignore * 1.25
 MasterArcher = 0        #Ignore * 1.25
-FrenziedDirewolf = 0    #Damage +20%.
+FrenziedDirewolf = 0    #Damage +25%.
 UnholdDay90 = 0         #Damage +10%.
 LindwurmDay170 = 0      #Damage +10%.
 
@@ -484,7 +484,7 @@ if BarbKing == 1:
 if HedgeKnight == 1:
     DamageMod *= 1.2
 if FrenziedDirewolf == 1:
-    DamageMod *= 1.2
+    DamageMod *= 1.25
 if UnholdDay90 == 1:
     DamageMod *= 1.1
 if LindwurmDay170 == 1:
@@ -1366,3 +1366,5 @@ if AverageMeanPerTest == 1:
 #-- Reworked how 3Head Flail data is tracked to return the number of swings rather than tracking by each individual sub-hit. So instead of showing .33|.66|1 hits to kill, these would all be rounded up to 1.
 #---- Tracking by sub-hit skewed the averages down and made the weapon look stronger (Thank you smr_rst). Realistically it does not matter if you kill in a sub-hit but rather how many total swings it takes. 
 #-- Added a AoE 2HHammer switch to the weapon options.
+#Version 1.7.2 (3/26/2026)
+#-- Fixed Frenzied Direwolf damage modifier to +25%. It was +20% in error (Thank you HeyPashi). 
